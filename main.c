@@ -4,6 +4,7 @@
 void telaInicial(void);
 
 // CRUD de Emprestimo
+void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
 // void listarEmprestimos(void);
 void telaVerEmprestimo(void);
@@ -26,7 +27,7 @@ void telaInicial(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Página inicial\n");
     printf("--------------------------------------------------\n");
-    printf("\n[1] Gerenciar emprestimos\n");
+    printf("\n[1] Gerenciar empréstimos\n");
     printf("[2] Alterar tabela de preços\n");
     printf("[3] Extrato\n\n");
     printf("[s] Sobre\n");
@@ -37,7 +38,7 @@ void telaInicial(void) {
 
     switch (escolha) {
         case '1':
-            // telaGereciarEmprestimos();
+            telaGerenciarEmprestimos();
             break;
         case '2':
             telaAlterarPrecos();
@@ -57,6 +58,43 @@ void telaInicial(void) {
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
             telaInicial();
+    }
+}
+
+// Telas referentes ao módulo empréstimo
+void telaGerenciarEmprestimos(void) {
+    char escolha;
+
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Gerenciar empréstimos\n");
+    printf("--------------------------------------------------\n");
+    printf("\n[1] Novo empréstimo\n");
+    printf("[2] Listar empréstimos\n");
+    printf("\n[s] Sobre\n");
+    printf("[e] Encerrar\n");
+    printf(">> ");
+    scanf("%c", &escolha);
+    printf("\n");
+
+    switch (escolha) {
+        case '1':
+            telaNovoEmprestimo();
+            break;
+        case '2':
+            // telaListarEmprestimos();
+            break;
+        case 'e':
+        case 'E':
+            break;
+        case 'v':
+        case 'V':
+            telaInicial();
+            break;
+        default:
+            printf("\n///////////////////////\n");
+            printf("// Escolha inválida! //\n");
+            printf("///////////////////////\n\n");
+            telaSobre();
     }
 }
 
@@ -84,7 +122,7 @@ void telaNovoEmprestimo(void) {
             break;
         case 'v':
         case 'V':
-            telaInicial();
+            telaGerenciarEmprestimos();
             break;
         default:
             printf("\n///////////////////////\n");
