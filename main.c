@@ -2,8 +2,14 @@
 
 
 void telaInicial(void);
-void telaNovaLocacao(void);
-void telaVerLocacoes(void);
+
+// CRUD de Emprestimo
+void telaNovoEmprestimo(void);
+// void listarEmprestimos(void);
+void telaVerEmprestimo(void);
+// void telaAtualizarEmprestimo(void);
+// void telaExcluirEmprestimo(void);
+
 void telaAlterarPrecos(void);
 void telaExtrato(void);
 void telaSobre(void);
@@ -20,10 +26,9 @@ void telaInicial(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Página inicial\n");
     printf("--------------------------------------------------\n");
-    printf("\n[1] Cadastrar locação\n");
-    printf("[2] Ver locações\n");
-    printf("[3] Alterar tabela de preços\n");
-    printf("[4] Extrato\n\n");
+    printf("\n[1] Gerenciar emprestimos\n");
+    printf("[2] Alterar tabela de preços\n");
+    printf("[3] Extrato\n\n");
     printf("[s] Sobre\n");
     printf("[e] Encerrar\n");
     printf(">> ");
@@ -32,15 +37,12 @@ void telaInicial(void) {
 
     switch (escolha) {
         case '1':
-            telaNovaLocacao();
+            // telaGereciarEmprestimos();
             break;
         case '2':
-            telaVerLocacoes();
-            break;
-        case '3':
             telaAlterarPrecos();
             break;
-        case '4':
+        case '3':
             telaExtrato();
             break;
         case 'e':
@@ -58,7 +60,7 @@ void telaInicial(void) {
     }
 }
 
-void telaNovaLocacao(void) {
+void telaNovoEmprestimo(void) {
     char escolha;
 
     printf("//////////////////////////////////////////////////\n");
@@ -92,7 +94,7 @@ void telaNovaLocacao(void) {
     }
 }
 
-void telaVerLocacoes(void) {
+void telaVerEmprestimo(void) {
     char escolha;
 
     printf("//////////////////////////////////////////////////\n");
