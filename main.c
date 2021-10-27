@@ -10,7 +10,7 @@ void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
 void telaListarEmprestimos(void);
 void telaVerEmprestimo(char[]);
-// void telaAtualizarEmprestimo(void);
+void telaAtualizarEmprestimo(char[]);
 // void telaExcluirEmprestimo(void);
 
 void telaAlterarPrecos(void);
@@ -204,6 +204,8 @@ void telaVerEmprestimo(char codigo[]) {
 
         switch (escolha) {
             case '1':
+                telaAtualizarEmprestimo(codigo);
+                break;
             case '2':
             case 'v':
             case 'V':
@@ -213,6 +215,44 @@ void telaVerEmprestimo(char codigo[]) {
         }
     } while (escolha != 'v' && escolha != 'V');
 }
+
+void telaAtualizarEmprestimo(char codigo[]) {
+    char escolha = '2';
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Editar empréstimo #%s", codigo);
+        if (escolha == '2') {
+            printf("\n--------------------------------------------------\n");
+            printf("\nCódigo da bicicleta [123456]: ");
+            printf("\nHoras em uso [1]: ");
+            printf("\nMinutos em uso [30]: ");
+            printf("\nEmail do cliente [fulano@email.com]: ");
+        }
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Código da bicicleta: 134567\n");
+        printf("Horas em uso: 1\n");
+        printf("Minutos em uso: 15");
+        printf("Email do cliente: fulano2@email.com\n");
+        printf("\n--------------------------------------------------\n\n");
+        printf("Atualizar?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf(" %c", &escolha);
+        printf("\n");
+    } while (escolha != '1' && escolha != '3');
+
+    switch (escolha) {
+    case '1':
+        // Salva mudanças
+        break;
+    case '3':
+        break;
+    default:
+        msgInvalido();
+        break;
+    }
+}
+
 
 void telaAlterarPrecos(void) {
     char escolha;
