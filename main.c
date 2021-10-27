@@ -73,7 +73,7 @@ void telaGerenciarEmprestimos(void) {
     printf("\n[s] Sobre\n");
     printf("[e] Encerrar\n");
     printf(">> ");
-    scanf("%c", &escolha);
+    scanf(" %c", &escolha);
     printf("\n");
 
     switch (escolha) {
@@ -94,7 +94,6 @@ void telaGerenciarEmprestimos(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
 
@@ -128,7 +127,6 @@ void telaNovoEmprestimo(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
 
@@ -162,7 +160,6 @@ void telaVerEmprestimo(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
 
@@ -196,7 +193,6 @@ void telaAlterarPrecos(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
 
@@ -232,7 +228,6 @@ void telaExtrato(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
 
@@ -265,6 +260,5 @@ void telaSobre(void) {
             printf("\n///////////////////////\n");
             printf("// Escolha inválida! //\n");
             printf("///////////////////////\n\n");
-            telaSobre();
     }
 }
