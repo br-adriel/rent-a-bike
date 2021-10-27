@@ -103,35 +103,38 @@ void telaGerenciarEmprestimos(void) {
 }
 
 void telaNovoEmprestimo(void) {
-    char escolha;
+    char escolha = ' ';
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Nova locação\n");
-    printf("--------------------------------------------------\n\n");
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Novo empréstimo\n");
+        printf("--------------------------------------------------\n");
+        printf("\nCódigo da bicicleta: ");
+        printf("\nHoras em uso: ");
+        printf("\nMinutos em uso: ");
+        printf("\nEmail do cliente: ");
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Cliente: fulano@email.com\n");
+        printf("Tempo em uso: 1h 15min\n");
+        printf("Preço: R$ 32.21\n");
+        printf("Data de emissão: 31/12/9999");
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Salvar registro?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf(" %c", &escolha);
+        printf("\n");
 
-    /* Formulario de nova locação */
-    printf("\n\n\n");
-
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[v] Voltar\n");
-    printf("[e] Encerrar\n");
-    printf(">> ");
-    scanf(" %c", &escolha);
-    printf("\n");
+    } while (escolha != '1' && escolha != '3');
 
     switch (escolha) {
-        case 'e':
-        case 'E':
+        case '1':
+            printf("\n= = = = = = = =");
+            printf("\nRegistro salvo!");
+            printf("\n= = = = = = = =\n\n");
             break;
-        case 'v':
-        case 'V':
-            telaGerenciarEmprestimos();
-            break;
-        default:
-            msgInvalido();
-            telaNovoEmprestimo();
     }
+    telaGerenciarEmprestimos();
 }
 
 void telaVerEmprestimo(void) {
