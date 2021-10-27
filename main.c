@@ -3,6 +3,8 @@
 
 void telaInicial(void);
 
+void msgInvalido(void);
+
 // CRUD de Emprestimo
 void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
@@ -54,11 +56,15 @@ void telaInicial(void) {
             telaSobre();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
             telaInicial();
     }
+}
+
+void msgInvalido(void) {
+    printf("\n///////////////////////\n");
+    printf("// Escolha inválida! //\n");
+    printf("///////////////////////\n\n");
 }
 
 // Telas referentes ao módulo empréstimo
@@ -70,7 +76,7 @@ void telaGerenciarEmprestimos(void) {
     printf("--------------------------------------------------\n");
     printf("\n[1] Novo empréstimo\n");
     printf("[2] Listar empréstimos\n");
-    printf("\n[s] Sobre\n");
+    printf("\n[v] Voltar\n");
     printf("[e] Encerrar\n");
     printf(">> ");
     scanf(" %c", &escolha);
@@ -91,9 +97,8 @@ void telaGerenciarEmprestimos(void) {
             telaInicial();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaGerenciarEmprestimos();
     }
 }
 
@@ -124,9 +129,8 @@ void telaNovoEmprestimo(void) {
             telaGerenciarEmprestimos();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaNovoEmprestimo();
     }
 }
 
@@ -157,9 +161,8 @@ void telaVerEmprestimo(void) {
             telaInicial();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaVerEmprestimo();
     }
 }
 
@@ -190,9 +193,8 @@ void telaAlterarPrecos(void) {
             telaInicial();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaAlterarPrecos();
     }
 }
 
@@ -225,9 +227,8 @@ void telaExtrato(void) {
             telaInicial();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaExtrato();
     }
 }
 
@@ -257,8 +258,7 @@ void telaSobre(void) {
             telaInicial();
             break;
         default:
-            printf("\n///////////////////////\n");
-            printf("// Escolha inválida! //\n");
-            printf("///////////////////////\n\n");
+            msgInvalido();
+            telaSobre();
     }
 }
