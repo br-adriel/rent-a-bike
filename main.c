@@ -9,7 +9,7 @@ void msgInvalido(void);
 void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
 void telaListarEmprestimos(void);
-void telaVerEmprestimo(void);
+void telaVerEmprestimo(char[]);
 // void telaAtualizarEmprestimo(void);
 // void telaExcluirEmprestimo(void);
 
@@ -163,6 +163,8 @@ void telaListarEmprestimos(void) {
             case '1':
                 printf("Digite o código do empréstimo: ");
                 scanf("%s", codigo);
+                printf("\n");
+                telaVerEmprestimo(codigo);
                 break;
             case 'v':
             case 'V':
@@ -174,36 +176,42 @@ void telaListarEmprestimos(void) {
     telaGerenciarEmprestimos();
 }
 
-void telaVerEmprestimo(void) {
-    char escolha;
+void telaVerEmprestimo(char codigo[]) {
+    char escolha = ' ';
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Empréstimo #%s\n", codigo);
+        printf("--------------------------------------------------\n");
+        printf("-- Cliente ---------------------------------------\n");
+        printf("Nome: Fulano Sicrano\n");
+        printf("Email: fulano@email.com\n");
+        printf("-- Bicicleta -------------------------------------\n");
+        printf("Código: 123456\n");
+        printf("Cor: Azul\n");
+        printf("Situação: Em manutenção\n");
+        printf("-- Empréstimo ------------------------------------\n");
+        printf("Tempo em uso: 1h 15min\n");
+        printf("Preço: R$ 32.21\n");
+        printf("Data de emissão: 31/12/9999");
+        printf("\n--------------------------------------------------\n");
+        printf("\n");
+        printf("[1] Editar\n");
+        printf("[2] Apagar\n");
+        printf("[v] Voltar\n");
+        printf(">> ");
+        scanf(" %c", &escolha);
+        printf("\n");
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Ver locações\n");
-    printf("--------------------------------------------------\n\n");
-
-    /* Perguntar ao usuário o intervalo de datas das locações */
-    printf("\n\n\n");
-
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[v] Voltar\n");
-    printf("[e] Encerrar\n");
-    printf(">> ");
-    scanf(" %c", &escolha);
-    printf("\n");
-
-    switch (escolha) {
-        case 'e':
-        case 'E':
-            break;
-        case 'v':
-        case 'V':
-            telaInicial();
-            break;
-        default:
-            msgInvalido();
-            telaVerEmprestimo();
-    }
+        switch (escolha) {
+            case '1':
+            case '2':
+            case 'v':
+            case 'V':
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (escolha != 'v' && escolha != 'V');
 }
 
 void telaAlterarPrecos(void) {
