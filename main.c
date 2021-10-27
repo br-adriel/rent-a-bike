@@ -8,7 +8,7 @@ void msgInvalido(void);
 // CRUD de Emprestimo
 void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
-// void listarEmprestimos(void);
+void telaListarEmprestimos(void);
 void telaVerEmprestimo(void);
 // void telaAtualizarEmprestimo(void);
 // void telaExcluirEmprestimo(void);
@@ -87,7 +87,7 @@ void telaGerenciarEmprestimos(void) {
             telaNovoEmprestimo();
             break;
         case '2':
-            // telaListarEmprestimos();
+            telaListarEmprestimos();
             break;
         case 'e':
         case 'E':
@@ -134,6 +134,43 @@ void telaNovoEmprestimo(void) {
             printf("\n= = = = = = = =\n\n");
             break;
     }
+    telaGerenciarEmprestimos();
+}
+
+void telaListarEmprestimos(void) {
+    char escolha = ' ';
+    do {
+        char codigo[6] = "------";
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Listar empréstimos\n");
+        printf("--------------------------------------------------\n\n");
+        printf("Código | Cliente          | Preco    | Data\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("\n--------------------------------------------------\n");
+        printf("[1] Visualizar empréstimo\n");
+        printf("[v] voltar\n");
+        printf(">> ");
+        scanf(" %c", &escolha);
+        printf("\n");
+
+        switch (escolha) {
+            case '1':
+                printf("Digite o código do empréstimo: ");
+                scanf("%s", codigo);
+                break;
+            case 'v':
+            case 'V':
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (escolha != 'v' && escolha != 'v');
     telaGerenciarEmprestimos();
 }
 
