@@ -14,6 +14,7 @@ void telaEditarEmprestimo(char[]);
 void telaExcluirEmprestimo(char[]);
 
 void telaBuscarEmprestimo(void);
+void telaRelatorioLucros(void);
 
 void telaAlterarPrecos(void);
 void telaExtrato(void);
@@ -33,7 +34,7 @@ void telaInicial(void) {
     printf("--------------------------------------------------\n");
     printf("\n[1] Gerenciar empréstimos\n");
     printf("[2] Alterar tabela de preços\n");
-    printf("[3] Extrato\n\n");
+    printf("[3] Relatório de lucros\n\n");
     printf("[s] Sobre\n");
     printf("[e] Encerrar\n");
     printf(">> ");
@@ -48,7 +49,7 @@ void telaInicial(void) {
             telaAlterarPrecos();
             break;
         case '3':
-            telaExtrato();
+            telaRelatorioLucros();
             break;
         case 'e':
         case 'E':
@@ -304,6 +305,47 @@ void telaBuscarEmprestimo() {
     }
 }
 
+void telaRelatorioLucros(void) {
+    char escolha;
+
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Relatório de lucros\n");
+    printf("--------------------------------------------------\n");
+    printf("\n[1] Diário\n");
+    printf("[2] Semanal\n");
+    printf("[3] Mensal\n");
+    printf("\n[4] Voltar\n");
+    printf(">> ");
+    scanf(" %c", &escolha);
+    printf("\n");
+    printf("\nGerando relatório...\n");
+
+    if (escolha == '4') {
+        telaInicial();
+    } else {
+        printf("\n-- Relatório 12/02/2020 ---------------------------\n");
+        printf("Empréstimos: 230\n");
+        printf("Lucro total: R$ 250.32\n");
+        printf("\n-- Detalhamento -----------------------------------\n");
+        printf("Código | Cliente          | Preco    | Data\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("\n");
+        printf("Exportar?\n");
+        printf("[1] Sim\n[2] Não\n");
+        printf(">> ");
+        // scanf
+        // if para saber se deve exportar
+            // mostra a msg "exportando..."
+
+    }
+}
+
 
 void telaAlterarPrecos(void) {
     char escolha;
@@ -334,40 +376,6 @@ void telaAlterarPrecos(void) {
         default:
             msgInvalido();
             telaAlterarPrecos();
-    }
-}
-
-void telaExtrato(void) {
-    char escolha;
-
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Extrato\n");
-    printf("--------------------------------------------------\n\n");
-
-    /* Perguntar período a ser considerado */
-    /* Exibir o extrato do período determinado */
-    /* Perguntar se quer exportar para arquivo */
-    printf("\n\n\n");
-
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[v] Voltar\n");
-    printf("[e] Encerrar\n");
-    printf(">> ");
-    scanf(" %c", &escolha);
-    printf("\n");
-
-    switch (escolha) {
-        case 'e':
-        case 'E':
-            break;
-        case 'v':
-        case 'V':
-            telaInicial();
-            break;
-        default:
-            msgInvalido();
-            telaExtrato();
     }
 }
 
