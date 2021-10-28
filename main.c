@@ -35,8 +35,8 @@ void telaInicial(void) {
     printf("\n[1] Gerenciar empréstimos\n");
     printf("[2] Alterar tabela de preços\n");
     printf("[3] Relatório de lucros\n\n");
-    printf("[s] Sobre\n");
-    printf("[e] Encerrar\n");
+    printf("[4] Sobre\n");
+    printf("[5] Encerrar\n");
     printf(">> ");
     scanf(" %c", &escolha);
     printf("\n");
@@ -51,12 +51,10 @@ void telaInicial(void) {
         case '3':
             telaRelatorioLucros();
             break;
-        case 'e':
-        case 'E':
-            break;
-        case 's':
-        case 'S':
+        case '4':
             telaSobre();
+            break;
+        case '5':
             break;
         default:
             msgInvalido();
@@ -80,8 +78,7 @@ void telaGerenciarEmprestimos(void) {
     printf("\n[1] Novo empréstimo\n");
     printf("[2] Listar empréstimos\n");
     printf("[3] Buscar empréstimo\n");
-    printf("\n[v] Voltar\n");
-    printf("[e] Encerrar\n");
+    printf("\n[4] Voltar\n");
     printf(">> ");
     scanf(" %c", &escolha);
     printf("\n");
@@ -96,11 +93,7 @@ void telaGerenciarEmprestimos(void) {
         case '3':
             telaBuscarEmprestimo();
             break;
-        case 'e':
-        case 'E':
-            break;
-        case 'v':
-        case 'V':
+        case '4':
             telaInicial();
             break;
         default:
@@ -161,7 +154,7 @@ void telaListarEmprestimos(void) {
         printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
         printf("\n--------------------------------------------------\n");
         printf("[1] Visualizar empréstimo\n");
-        printf("[v] voltar\n");
+        printf("\n[2] voltar\n");
         printf(">> ");
         scanf(" %c", &escolha);
         printf("\n");
@@ -173,13 +166,12 @@ void telaListarEmprestimos(void) {
                 printf("\n");
                 telaVerEmprestimo(codigo);
                 break;
-            case 'v':
-            case 'V':
+            case '2':
                 break;
             default:
                 msgInvalido();
         }
-    } while (escolha != 'v' && escolha != 'v');
+    } while (escolha != '2');
     telaGerenciarEmprestimos();
 }
 
@@ -204,7 +196,7 @@ void telaVerEmprestimo(char codigo[]) {
         printf("\n");
         printf("[1] Editar\n");
         printf("[2] Apagar\n");
-        printf("[v] Voltar\n");
+        printf("\n[3] Voltar\n");
         printf(">> ");
         scanf(" %c", &escolha);
         printf("\n");
@@ -216,13 +208,12 @@ void telaVerEmprestimo(char codigo[]) {
             case '2':
                 telaExcluirEmprestimo(codigo);
                 break;
-            case 'v':
-            case 'V':
+            case '3':
                 break;
             default:
                 msgInvalido();
         }
-    } while (escolha != 'v' && escolha != 'V');
+    } while (escolha != '3');
 }
 
 void telaEditarEmprestimo(char codigo[]) {
@@ -359,18 +350,13 @@ void telaAlterarPrecos(void) {
 
     printf("\n--------------------------------------------------\n");
     printf("\n");
-    printf("[v] Voltar\n");
-    printf("[e] Encerrar\n");
+    printf("[1] Voltar\n");
     printf(">> ");
     scanf(" %c", &escolha);
     printf("\n");
 
     switch (escolha) {
-        case 'e':
-        case 'E':
-            break;
-        case 'v':
-        case 'V':
+        case '1':
             telaInicial();
             break;
         default:
@@ -390,18 +376,13 @@ void telaSobre(void) {
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
     printf("\n");
-    printf("[v] Voltar\n");
-    printf("[e] Encerrar\n");
+    printf("[1] Voltar\n");
     printf(">> ");
     scanf(" %c", &escolha);
     printf("\n");
 
     switch (escolha) {
-        case 'e':
-        case 'E':
-            break;
-        case 'v':
-        case 'V':
+        case '1':
             telaInicial();
             break;
         default:
