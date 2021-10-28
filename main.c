@@ -33,7 +33,7 @@ void telaInicial(void) {
     printf("RENT A BIKE - Página inicial\n");
     printf("--------------------------------------------------\n");
     printf("\n[1] Gerenciar empréstimos\n");
-    printf("[2] Alterar tabela de preços\n");
+    printf("[2] Alterar preço da hora\n");
     printf("[3] Relatório de lucros\n\n");
     printf("[4] Sobre\n");
     printf("[5] Encerrar\n");
@@ -339,30 +339,22 @@ void telaRelatorioLucros(void) {
 
 
 void telaAlterarPrecos(void) {
-    char escolha;
-
     printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Alterar tabela de preços\n");
+    printf("RENT A BIKE - Alterar preço da hora\n");
     printf("--------------------------------------------------\n\n");
 
-    /* Mostrar tabela e atual e perguntar novos valores */
-    printf("\n\n\n");
-
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[1] Voltar\n");
+    printf("/!/ Lembre-se de usar . ao invés de ,\n");
+    printf("Preço atual: R$ 3.25\n");
+    printf("Novo preço: ");
+    // scanf para captar novo preco
+    printf("\n\nO novo preço será R$ 0.00, deseja salvar?\n");
+    printf("[1] Sim\n[2] Não\n");
     printf(">> ");
-    scanf(" %c", &escolha);
-    printf("\n");
+    // scan para captar resposta
+    // if para salvar se a escolha foi sim
+        // printf exibindo preco salvo
 
-    switch (escolha) {
-        case '1':
-            telaInicial();
-            break;
-        default:
-            msgInvalido();
-            telaAlterarPrecos();
-    }
+    telaInicial();
 }
 
 void telaSobre(void) {
