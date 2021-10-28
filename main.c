@@ -11,7 +11,7 @@ void telaNovoEmprestimo(void);
 void telaListarEmprestimos(void);
 void telaVerEmprestimo(char[]);
 void telaAtualizarEmprestimo(char[]);
-// void telaExcluirEmprestimo(void);
+void telaExcluirEmprestimo(char[]);
 
 void telaAlterarPrecos(void);
 void telaExtrato(void);
@@ -207,6 +207,8 @@ void telaVerEmprestimo(char codigo[]) {
                 telaAtualizarEmprestimo(codigo);
                 break;
             case '2':
+                telaExcluirEmprestimo(codigo);
+                break;
             case 'v':
             case 'V':
                 break;
@@ -253,6 +255,16 @@ void telaAtualizarEmprestimo(char codigo[]) {
     }
 }
 
+void telaExcluirEmprestimo(char codigo[]) {
+    char escolha = ' ';
+
+    printf("\n");
+    printf("Excluir empréstimo #%s?", codigo);
+    printf("\n[1] Sim\n[2] Não");
+    printf("\n>> ");
+    // scanf(" %c", &escolha);
+    printf("\n");
+}
 
 void telaAlterarPrecos(void) {
     char escolha;
