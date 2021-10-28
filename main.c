@@ -17,12 +17,22 @@ void telaBuscarEmprestimo(void);
 void telaRelatorioLucros(void);
 
 void telaAlterarPrecos(void);
-void telaExtrato(void);
 void telaSobre(void);
 
 
 int main(void) {
     telaInicial();
+    msgInvalido();
+    telaGerenciarEmprestimos();
+    telaNovoEmprestimo();
+    telaListarEmprestimos();
+    telaVerEmprestimo("123456");
+    telaEditarEmprestimo("123456");
+    telaExcluirEmprestimo("123456");
+    telaBuscarEmprestimo();
+    telaRelatorioLucros();
+    telaAlterarPrecos();
+    telaSobre();
     return 0;
 }
 
