@@ -10,7 +10,7 @@ void telaGerenciarEmprestimos(void);
 void telaNovoEmprestimo(void);
 void telaListarEmprestimos(void);
 void telaVerEmprestimo(char[]);
-void telaAtualizarEmprestimo(char[]);
+void telaEditarEmprestimo(char[]);
 void telaExcluirEmprestimo(char[]);
 
 void telaAlterarPrecos(void);
@@ -204,7 +204,7 @@ void telaVerEmprestimo(char codigo[]) {
 
         switch (escolha) {
             case '1':
-                telaAtualizarEmprestimo(codigo);
+                telaEditarEmprestimo(codigo);
                 break;
             case '2':
                 telaExcluirEmprestimo(codigo);
@@ -218,7 +218,7 @@ void telaVerEmprestimo(char codigo[]) {
     } while (escolha != 'v' && escolha != 'V');
 }
 
-void telaAtualizarEmprestimo(char codigo[]) {
+void telaEditarEmprestimo(char codigo[]) {
     char escolha = '2';
     do {
         printf("//////////////////////////////////////////////////\n");
