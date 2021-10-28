@@ -13,6 +13,8 @@ void telaVerEmprestimo(char[]);
 void telaEditarEmprestimo(char[]);
 void telaExcluirEmprestimo(char[]);
 
+void telaBuscarEmprestimo(void);
+
 void telaAlterarPrecos(void);
 void telaExtrato(void);
 void telaSobre(void);
@@ -76,6 +78,7 @@ void telaGerenciarEmprestimos(void) {
     printf("--------------------------------------------------\n");
     printf("\n[1] Novo empréstimo\n");
     printf("[2] Listar empréstimos\n");
+    printf("[3] Buscar empréstimo\n");
     printf("\n[v] Voltar\n");
     printf("[e] Encerrar\n");
     printf(">> ");
@@ -88,6 +91,9 @@ void telaGerenciarEmprestimos(void) {
             break;
         case '2':
             telaListarEmprestimos();
+            break;
+        case '3':
+            telaBuscarEmprestimo();
             break;
         case 'e':
         case 'E':
@@ -265,6 +271,39 @@ void telaExcluirEmprestimo(char codigo[]) {
     // scanf(" %c", &escolha);
     printf("\n");
 }
+
+void telaBuscarEmprestimo() {
+    char escolha = ' ';
+
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Buscar empréstimo\n");
+    printf("--------------------------------------------------\n");
+    printf("\nData do empréstimo ");
+    printf("\nDia: ");
+    printf("\nMês: ");
+    printf("\nAno: ");
+    printf("\n");
+    printf("\n--------------------------------------------------\n");
+    printf("\nResultados:\n");
+    printf("Código | Email do cliente | Preço    | Data\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("\n");
+    printf("[1] Ver emprestimo\n");
+    printf(">> ");
+    scanf(" %c", &escolha);
+    if (escolha == '1') {
+        printf("\n Digite o código do empréstimo: ");
+        // char codigo[6];
+        // scanf para pegar o codigo
+        // telaVerEmprestimo(codigo);
+    }
+}
+
 
 void telaAlterarPrecos(void) {
     char escolha;
