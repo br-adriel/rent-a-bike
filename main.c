@@ -16,7 +16,7 @@ void telaExcluirAluguel(char[]);
 void telaBuscarAluguel(void);
 void telaRelatorioLucros(void);
 
-void telaAlterarPrecos(void);
+void telaAlterarPreco(void);
 void telaSobre(void);
 
 
@@ -31,7 +31,7 @@ int main(void) {
     telaExcluirAluguel("123456");
     telaBuscarAluguel();
     telaRelatorioLucros();
-    telaAlterarPrecos();
+    telaAlterarPreco();
     telaSobre();
     return 0;
 }
@@ -56,7 +56,7 @@ void telaInicial(void) {
                 telaGerenciarAlugueis();
                 break;
             case 2:
-                telaAlterarPrecos();
+                telaAlterarPreco();
                 break;
             case 3:
                 telaRelatorioLucros();
@@ -414,23 +414,40 @@ void telaRelatorioLucros(void) {
     } while (opcao != 1 && opcao != 2);
 }
 
-void telaAlterarPrecos(void) {
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Alterar preço da hora\n");
-    printf("--------------------------------------------------\n\n");
+void telaAlterarPreco(void) {
+    int opcao = 2;
+    float novoPreco = 0.00;
 
-    printf("/!/ Lembre-se de usar . ao invés de ,\n");
-    printf("Preço atual: R$ 3.25\n");
-    printf("Novo preço: ");
-    // scanf para captar novo preco
-    printf("\n\nO novo preço será R$ 0.00, deseja salvar?\n");
-    printf("[1] Sim\n[2] Não\n");
-    printf(">> ");
-    // scan para captar resposta
-    // if para salvar se a escolha foi sim
-        // printf exibindo preco salvo
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Alterar preço da hora\n");
+        printf("--------------------------------------------------\n\n");
 
-    // telaInicial();
+        if (opcao == 2) {
+            printf("/!/ Lembre-se de usar . ao invés de ,\n");
+            printf("Preço atual: R$ 3.25\n");
+            printf("Novo preço: ");
+            scanf("%.2f", &novoPreco);
+        }
+
+        printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n");
+        printf("[1] Sim\n[2] Não, alterar novamente\n[3] Cancelar\n");
+        printf(">> ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1:
+                printf("= = = = = = = = =");
+                printf("Novo preço salvo!");
+                printf("= = = = = = = = =");
+                break;
+            case 2:
+            case 3:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 3);
 }
 
 void telaSobre(void) {
@@ -439,7 +456,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.10\n");
+    printf("Versão: 0.2.11\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
