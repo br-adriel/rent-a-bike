@@ -37,41 +37,39 @@ int main(void) {
 }
 
 void telaInicial(void) {
-    // char escolha;
+    int opcao = 0;
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Página inicial\n");
+        printf("--------------------------------------------------\n");
+        printf("\n[1] Gerenciar aluguéis\n");
+        printf("[2] Alterar preço da hora\n");
+        printf("[3] Relatório de lucros\n\n");
+        printf("[4] Sobre\n");
+        printf("[5] Encerrar\n");
+        printf(">> ");
+        scanf("%d", &opcao);
+        printf("\n");
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Página inicial\n");
-    printf("--------------------------------------------------\n");
-    printf("\n[1] Gerenciar aluguéis\n");
-    printf("[2] Alterar preço da hora\n");
-    printf("[3] Relatório de lucros\n\n");
-    printf("[4] Sobre\n");
-    printf("[5] Encerrar\n");
-    printf(">> ");
-    // scanf(" %c", &escolha);
-    printf("\n");
-
-    /*
-    switch (escolha) {
-        case '1':
-            telaGerenciarAlugueis();
-            break;
-        case '2':
-            telaAlterarPrecos();
-            break;
-        case '3':
-            telaRelatorioLucros();
-            break;
-        case '4':
-            telaSobre();
-            break;
-        case '5':
-            break;
-        default:
-            msgInvalido();
-            telaInicial();
-    }
-    */
+        switch (opcao) {
+            case 1:
+                telaGerenciarAlugueis();
+                break;
+            case 2:
+                telaAlterarPrecos();
+                break;
+            case 3:
+                telaRelatorioLucros();
+                break;
+            case 4:
+                telaSobre();
+                break;
+            case 5:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 5);
 }
 
 void msgInvalido(void) {
@@ -383,7 +381,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.1\n");
+    printf("Versão: 0.2.2\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
