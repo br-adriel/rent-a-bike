@@ -197,10 +197,10 @@ void telaListarAlugueis(void) {
 }
 
 void telaVerAluguel(char codigo[]) {
-    // char escolha = ' ';
-    // do {
+    int opcao = 3;
+    do {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - aluguél #%s\n", codigo);
+        printf("RENT A BIKE - Aluguél #%s\n", codigo);
         printf("--------------------------------------------------\n");
         printf("-- Cliente ---------------------------------------\n");
         printf("Nome: Fulano Sicrano\n");
@@ -209,7 +209,7 @@ void telaVerAluguel(char codigo[]) {
         printf("Código: 123456\n");
         printf("Cor: Azul\n");
         printf("Situação: Em manutenção\n");
-        printf("-- aluguél ------------------------------------\n");
+        printf("-- Aluguél ------------------------------------\n");
         printf("Tempo em uso: 1h 15min\n");
         printf("Preço: R$ 32.21\n");
         printf("Data de emissão: 31/12/9999");
@@ -219,24 +219,23 @@ void telaVerAluguel(char codigo[]) {
         printf("[2] Apagar\n");
         printf("\n[3] Voltar\n");
         printf(">> ");
-        // scanf(" %c", &escolha);
+        scanf("%d", &opcao);
         printf("\n");
 
-        /*
-        switch (escolha) {
-            case '1':
+        
+        switch (opcao) {
+            case 1:
                 telaEditarAluguel(codigo);
                 break;
-            case '2':
+            case 2:
                 telaExcluirAluguel(codigo);
                 break;
-            case '3':
+            case 3:
                 break;
             default:
                 msgInvalido();
         }
-    } while (escolha != '3');
-    */
+    } while (opcao != 3);
 }
 
 void telaEditarAluguel(char codigo[]) {
@@ -386,7 +385,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.5\n");
+    printf("Versão: 0.2.6\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
