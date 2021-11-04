@@ -451,28 +451,27 @@ void telaAlterarPreco(void) {
 }
 
 void telaSobre(void) {
-    // char escolha;
+    int opcao = 0;
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Sobre\n");
-    printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.11\n");
-    printf("Última atualização: 04/11/2021\n");
-    printf("Desenvolvido por Adriel Faria dos Santos\n");
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[1] Voltar\n");
-    printf(">> ");
-    // scanf(" %c", &escolha);
-    printf("\n");
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Sobre\n");
+        printf("--------------------------------------------------\n\n");
+        printf("Versão: 0.2.12\n");
+        printf("Última atualização: 04/11/2021\n");
+        printf("Desenvolvido por Adriel Faria dos Santos\n");
+        printf("\n--------------------------------------------------\n");
+        printf("\n");
+        printf("[1] Voltar\n");
+        printf(">> ");
+        scanf("%d", &opcao);
+        printf("\n");
 
-    /*
-    switch (escolha) {
-        case '1':
-            telaInicial();
-            break;
-        default:
-            msgInvalido();
-            telaSobre();
-    } */
+        switch (opcao) {
+            case 1:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1);
 }
