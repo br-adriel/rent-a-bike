@@ -22,17 +22,6 @@ void telaSobre(void);
 
 int main(void) {
     telaInicial();
-    msgInvalido();
-    telaGerenciarAlugueis();
-    telaNovoAluguel();
-    telaListarAlugueis();
-    telaVerAluguel("123456");
-    telaEditarAluguel("123456");
-    telaExcluirAluguel("123456");
-    telaBuscarAluguel();
-    telaRelatorioLucros();
-    telaAlterarPreco();
-    telaSobre();
     return 0;
 }
 
@@ -457,7 +446,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.2.12\n");
+        printf("Versão: 0.2.13\n");
         printf("Última atualização: 04/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
