@@ -239,40 +239,54 @@ void telaVerAluguel(char codigo[]) {
 }
 
 void telaEditarAluguel(char codigo[]) {
-    // char escolha = '2';
-    // do {
+    int opcao = 2;
+
+    char codBicicleta[6] = "";
+    int horasUso = 0;
+    int minutosUso = 0;
+    char emailCliente[70] = "";
+
+    do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Editar aluguél #%s", codigo);
-        // if (escolha == '2') {
+        if (opcao == 2) {
             printf("\n--------------------------------------------------\n");
             printf("\nCódigo da bicicleta [123456]: ");
+            scanf("%s", codBicicleta);
             printf("\nHoras em uso [1]: ");
+            scanf("%d", &horasUso);
             printf("\nMinutos em uso [30]: ");
+            scanf("%d", &minutosUso);
             printf("\nEmail do cliente [fulano@email.com]: ");
-        // }
+            scanf("%s", emailCliente);
+        }
         printf("\n\n--------------------------------------------------\n\n");
-        printf("Código da bicicleta: 134567\n");
-        printf("Horas em uso: 1\n");
-        printf("Minutos em uso: 15");
-        printf("Email do cliente: fulano2@email.com\n");
+        printf("Código da bicicleta: %s\n", codBicicleta);
+        printf("Horas em uso: %d\n", horasUso);
+        printf("Minutos em uso: %d", minutosUso);
+        printf("Email do cliente: %s\n", emailCliente);
         printf("\n--------------------------------------------------\n\n");
         printf("Atualizar?");
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
         printf("\n>> ");
-        // scanf(" %c", &escolha);
+        scanf("%d", &opcao);
         printf("\n");
-    /* } while (escolha != '1' && escolha != '3');
 
-    switch (escolha) {
-    case '1':
-        // Salva mudanças
-        break;
-    case '3':
-        break;
-    default:
-        msgInvalido();
-        break;
-    } */
+        switch (opcao) {
+            case 1:
+                // Salva mudanças
+                printf("\n= = = = = = = = = =");
+                printf("\nAlterações salvas!");
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+            case 3:
+                break;
+            default:
+                msgInvalido();
+                break;
+        }
+    } while (opcao != 1 && opcao != 3);
 }
 
 void telaExcluirAluguel(char codigo[]) {
@@ -385,7 +399,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.6\n");
+    printf("Versão: 0.2.7\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
