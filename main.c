@@ -316,35 +316,52 @@ void telaExcluirAluguel(char codigo[]) {
 
 
 void telaBuscarAluguel() {
-    // char escolha = ' ';
+    int opcao = 0;
+    int dia = 0;
+    int mes = 0;
+    int ano = 0;
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Buscar aluguél\n");
-    printf("--------------------------------------------------\n");
-    printf("\nData do aluguél ");
-    printf("\nDia: ");
-    printf("\nMês: ");
-    printf("\nAno: ");
-    printf("\n");
-    printf("\n--------------------------------------------------\n");
-    printf("\nResultados:\n");
-    printf("Código | Email do cliente | Preço    | Data\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("\n");
-    printf("[1] Ver Aluguel\n");
-    printf(">> ");
-    /* scanf(" %c", &escolha);
-    if (escolha == '1') {
-        printf("\n Digite o código do aluguél: ");
-        // char codigo[6];
-        // scanf para pegar o codigo
-        // telaVerAluguel(codigo);
-    } */
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Buscar aluguél\n");
+        printf("--------------------------------------------------\n");
+        printf("\nData do aluguél ");
+        printf("\nDia: ");
+        scanf("%d", &dia);
+        printf("\nMês: ");
+        scanf("%d", &mes);
+        printf("\nAno: ");
+        scanf("%d", &ano);
+        printf("\n");
+        // faz a busca
+        printf("\n--------------------------------------------------\n");
+        printf("\nResultados:\n");
+        printf("Código | Email do cliente | Preço    | Data\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+        printf("\n");
+        printf("[1] Ver Aluguel\n");
+        printf("[2] Cancelar\n");
+        printf(">> ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("\nDigite o código do aluguél: ");
+                char codigo[6];
+                scanf("%s", codigo);
+                telaVerAluguel(codigo);
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1);
 }
 
 void telaRelatorioLucros(void) {
@@ -414,7 +431,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.8\n");
+    printf("Versão: 0.2.9\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
