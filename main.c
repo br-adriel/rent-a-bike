@@ -365,25 +365,25 @@ void telaBuscarAluguel() {
 }
 
 void telaRelatorioLucros(void) {
-    // char escolha;
+    int opcao = 0;
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Relatório de lucros\n");
-    printf("--------------------------------------------------\n");
-    printf("\n[1] Diário\n");
-    printf("[2] Semanal\n");
-    printf("[3] Mensal\n");
-    printf("\n[4] Voltar\n");
-    printf(">> ");
-    // scanf(" %c", &escolha);
-    printf("\n");
-    printf("\nGerando relatório...\n");
+    do {
+        if (opcao == 0) {
+            printf("//////////////////////////////////////////////////\n");
+            printf("RENT A BIKE - Relatório de lucros\n");
+            printf("--------------------------------------------------\n");
+            printf("\n[1] Diário\n");
+            printf("[2] Semanal\n");
+            printf("[3] Mensal\n");
+            printf("\n[4] Voltar\n");
+            printf(">> ");
+            scanf("%d", &opcao);
+            printf("\n");
+            printf("\nGerando relatório...\n");
+        }
 
-    /* if (escolha == '4') {
-        telaInicial();
-    } else { */
         printf("\n-- Relatório 12/02/2020 ---------------------------\n");
-        printf("aluguéis: 230\n");
+        printf("Aluguéis: 230\n");
         printf("Lucro total: R$ 250.32\n");
         printf("\n-- Detalhamento -----------------------------------\n");
         printf("Código | Cliente          | Preco    | Data\n");
@@ -398,13 +398,21 @@ void telaRelatorioLucros(void) {
         printf("Exportar?\n");
         printf("[1] Sim\n[2] Não\n");
         printf(">> ");
-        // scanf
-        // if para saber se deve exportar
-            // mostra a msg "exportando..."
+        scanf("%d", &opcao);
 
-    // }
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =");
+                printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt");
+                printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =\n");
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 2);
 }
-
 
 void telaAlterarPrecos(void) {
     printf("//////////////////////////////////////////////////\n");
@@ -431,7 +439,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.9\n");
+    printf("Versão: 0.2.10\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
