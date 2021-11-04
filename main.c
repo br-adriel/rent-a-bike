@@ -5,15 +5,15 @@ void telaInicial(void);
 
 void msgInvalido(void);
 
-// CRUD de Emprestimo
-void telaGerenciarEmprestimos(void);
-void telaNovoEmprestimo(void);
-void telaListarEmprestimos(void);
-void telaVerEmprestimo(char[]);
-void telaEditarEmprestimo(char[]);
-void telaExcluirEmprestimo(char[]);
+// CRUD de Aluguel
+void telaGerenciarAlugueis(void);
+void telaNovoAluguel(void);
+void telaListarAlugueis(void);
+void telaVerAluguel(char[]);
+void telaEditarAluguel(char[]);
+void telaExcluirAluguel(char[]);
 
-void telaBuscarEmprestimo(void);
+void telaBuscarAluguel(void);
 void telaRelatorioLucros(void);
 
 void telaAlterarPrecos(void);
@@ -23,13 +23,13 @@ void telaSobre(void);
 int main(void) {
     telaInicial();
     msgInvalido();
-    telaGerenciarEmprestimos();
-    telaNovoEmprestimo();
-    telaListarEmprestimos();
-    telaVerEmprestimo("123456");
-    telaEditarEmprestimo("123456");
-    telaExcluirEmprestimo("123456");
-    telaBuscarEmprestimo();
+    telaGerenciarAlugueis();
+    telaNovoAluguel();
+    telaListarAlugueis();
+    telaVerAluguel("123456");
+    telaEditarAluguel("123456");
+    telaExcluirAluguel("123456");
+    telaBuscarAluguel();
     telaRelatorioLucros();
     telaAlterarPrecos();
     telaSobre();
@@ -42,7 +42,7 @@ void telaInicial(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Página inicial\n");
     printf("--------------------------------------------------\n");
-    printf("\n[1] Gerenciar empréstimos\n");
+    printf("\n[1] Gerenciar aluguéis\n");
     printf("[2] Alterar preço da hora\n");
     printf("[3] Relatório de lucros\n\n");
     printf("[4] Sobre\n");
@@ -54,7 +54,7 @@ void telaInicial(void) {
     /*
     switch (escolha) {
         case '1':
-            telaGerenciarEmprestimos();
+            telaGerenciarAlugueis();
             break;
         case '2':
             telaAlterarPrecos();
@@ -80,16 +80,16 @@ void msgInvalido(void) {
     printf("///////////////////////\n\n");
 }
 
-// Telas referentes ao módulo empréstimo
-void telaGerenciarEmprestimos(void) {
+// Telas referentes ao módulo aluguél
+void telaGerenciarAlugueis(void) {
     // char escolha;
 
     printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Gerenciar empréstimos\n");
+    printf("RENT A BIKE - Gerenciar aluguéis\n");
     printf("--------------------------------------------------\n");
-    printf("\n[1] Novo empréstimo\n");
-    printf("[2] Listar empréstimos\n");
-    printf("[3] Buscar empréstimo\n");
+    printf("\n[1] Novo aluguél\n");
+    printf("[2] Listar aluguéis\n");
+    printf("[3] Buscar aluguél\n");
     printf("\n[4] Voltar\n");
     printf(">> ");
     // scanf(" %c", &escolha);
@@ -98,30 +98,30 @@ void telaGerenciarEmprestimos(void) {
     /* 
     switch (escolha) {
         case '1':
-            telaNovoEmprestimo();
+            telaNovoAluguel();
             break;
         case '2':
-            telaListarEmprestimos();
+            telaListarAlugueis();
             break;
         case '3':
-            telaBuscarEmprestimo();
+            telaBuscarAluguel();
             break;
         case '4':
             telaInicial();
             break;
         default:
             msgInvalido();
-            telaGerenciarEmprestimos();
+            telaGerenciarAlugueis();
     }
     */
 }
 
-void telaNovoEmprestimo(void) {
+void telaNovoAluguel(void) {
     // char escolha = ' ';
 
     // do {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Novo empréstimo\n");
+        printf("RENT A BIKE - Novo aluguél\n");
         printf("--------------------------------------------------\n");
         printf("\nCódigo da bicicleta: ");
         printf("\nHoras em uso: ");
@@ -149,16 +149,16 @@ void telaNovoEmprestimo(void) {
             printf("\n= = = = = = = =\n\n");
             break;
     }
-    telaGerenciarEmprestimos();
+    telaGerenciarAlugueis();
     */
 }
 
-void telaListarEmprestimos(void) {
+void telaListarAlugueis(void) {
     // char escolha = ' ';
     // do {
         // char codigo[6] = "------";
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Listar empréstimos\n");
+        printf("RENT A BIKE - Listar aluguéis\n");
         printf("--------------------------------------------------\n\n");
         printf("Código | Cliente          | Preco    | Data\n");
         printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
@@ -169,7 +169,7 @@ void telaListarEmprestimos(void) {
         printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
         printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
         printf("\n--------------------------------------------------\n");
-        printf("[1] Visualizar empréstimo\n");
+        printf("[1] Visualizar aluguél\n");
         printf("\n[2] voltar\n");
         printf(">> ");
         // scanf(" %c", &escolha);
@@ -178,10 +178,10 @@ void telaListarEmprestimos(void) {
         /*
         switch (escolha) {
             case '1':
-                printf("Digite o código do empréstimo: ");
+                printf("Digite o código do aluguél: ");
                 scanf("%s", codigo);
                 printf("\n");
-                telaVerEmprestimo(codigo);
+                telaVerAluguel(codigo);
                 break;
             case '2':
                 break;
@@ -189,15 +189,15 @@ void telaListarEmprestimos(void) {
                 msgInvalido();
         }
     } while (escolha != '2');
-    telaGerenciarEmprestimos();
+    telaGerenciarAlugueis();
     */
 }
 
-void telaVerEmprestimo(char codigo[]) {
+void telaVerAluguel(char codigo[]) {
     // char escolha = ' ';
     // do {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Empréstimo #%s\n", codigo);
+        printf("RENT A BIKE - aluguél #%s\n", codigo);
         printf("--------------------------------------------------\n");
         printf("-- Cliente ---------------------------------------\n");
         printf("Nome: Fulano Sicrano\n");
@@ -206,7 +206,7 @@ void telaVerEmprestimo(char codigo[]) {
         printf("Código: 123456\n");
         printf("Cor: Azul\n");
         printf("Situação: Em manutenção\n");
-        printf("-- Empréstimo ------------------------------------\n");
+        printf("-- aluguél ------------------------------------\n");
         printf("Tempo em uso: 1h 15min\n");
         printf("Preço: R$ 32.21\n");
         printf("Data de emissão: 31/12/9999");
@@ -222,10 +222,10 @@ void telaVerEmprestimo(char codigo[]) {
         /*
         switch (escolha) {
             case '1':
-                telaEditarEmprestimo(codigo);
+                telaEditarAluguel(codigo);
                 break;
             case '2':
-                telaExcluirEmprestimo(codigo);
+                telaExcluirAluguel(codigo);
                 break;
             case '3':
                 break;
@@ -236,11 +236,11 @@ void telaVerEmprestimo(char codigo[]) {
     */
 }
 
-void telaEditarEmprestimo(char codigo[]) {
+void telaEditarAluguel(char codigo[]) {
     // char escolha = '2';
     // do {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Editar empréstimo #%s", codigo);
+        printf("RENT A BIKE - Editar aluguél #%s", codigo);
         // if (escolha == '2') {
             printf("\n--------------------------------------------------\n");
             printf("\nCódigo da bicicleta [123456]: ");
@@ -273,24 +273,24 @@ void telaEditarEmprestimo(char codigo[]) {
     } */
 }
 
-void telaExcluirEmprestimo(char codigo[]) {
+void telaExcluirAluguel(char codigo[]) {
     // char escolha = ' ';
 
     printf("\n");
-    printf("Excluir empréstimo #%s?", codigo);
+    printf("Excluir aluguél #%s?", codigo);
     printf("\n[1] Sim\n[2] Não");
     printf("\n>> ");
     // scanf(" %c", &escolha);
     printf("\n");
 }
 
-void telaBuscarEmprestimo() {
+void telaBuscarAluguel() {
     // char escolha = ' ';
 
     printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Buscar empréstimo\n");
+    printf("RENT A BIKE - Buscar aluguél\n");
     printf("--------------------------------------------------\n");
-    printf("\nData do empréstimo ");
+    printf("\nData do aluguél ");
     printf("\nDia: ");
     printf("\nMês: ");
     printf("\nAno: ");
@@ -305,14 +305,14 @@ void telaBuscarEmprestimo() {
     printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
     printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
     printf("\n");
-    printf("[1] Ver emprestimo\n");
+    printf("[1] Ver Aluguel\n");
     printf(">> ");
     /* scanf(" %c", &escolha);
     if (escolha == '1') {
-        printf("\n Digite o código do empréstimo: ");
+        printf("\n Digite o código do aluguél: ");
         // char codigo[6];
         // scanf para pegar o codigo
-        // telaVerEmprestimo(codigo);
+        // telaVerAluguel(codigo);
     } */
 }
 
@@ -335,7 +335,7 @@ void telaRelatorioLucros(void) {
         telaInicial();
     } else { */
         printf("\n-- Relatório 12/02/2020 ---------------------------\n");
-        printf("Empréstimos: 230\n");
+        printf("aluguéis: 230\n");
         printf("Lucro total: R$ 250.32\n");
         printf("\n-- Detalhamento -----------------------------------\n");
         printf("Código | Cliente          | Preco    | Data\n");
@@ -383,8 +383,8 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2\n");
-    printf("Última atualização: 21/10/2021\n");
+    printf("Versão: 0.2.1\n");
+    printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
     printf("\n");
