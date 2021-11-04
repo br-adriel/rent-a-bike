@@ -78,40 +78,40 @@ void msgInvalido(void) {
     printf("///////////////////////\n\n");
 }
 
+
 // Telas referentes ao módulo aluguél
 void telaGerenciarAlugueis(void) {
-    // char escolha;
+    int opcao = 0;
 
-    printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Gerenciar aluguéis\n");
-    printf("--------------------------------------------------\n");
-    printf("\n[1] Novo aluguél\n");
-    printf("[2] Listar aluguéis\n");
-    printf("[3] Buscar aluguél\n");
-    printf("\n[4] Voltar\n");
-    printf(">> ");
-    // scanf(" %c", &escolha);
-    printf("\n");
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Gerenciar aluguéis\n");
+        printf("--------------------------------------------------\n");
+        printf("\n[1] Novo aluguél\n");
+        printf("[2] Listar aluguéis\n");
+        printf("[3] Buscar aluguél\n");
+        printf("\n[4] Voltar\n");
+        printf(">> ");
+        scanf("%d", &opcao);
+        printf("\n");
 
-    /* 
-    switch (escolha) {
-        case '1':
-            telaNovoAluguel();
-            break;
-        case '2':
-            telaListarAlugueis();
-            break;
-        case '3':
-            telaBuscarAluguel();
-            break;
-        case '4':
-            telaInicial();
-            break;
-        default:
-            msgInvalido();
-            telaGerenciarAlugueis();
-    }
-    */
+        switch (opcao) {
+            case 1:
+                telaNovoAluguel();
+                break;
+            case 2:
+                telaListarAlugueis();
+                break;
+            case 3:
+                telaBuscarAluguel();
+                break;
+            case 4:
+                break;
+            default:
+                msgInvalido();
+                telaGerenciarAlugueis();
+        }
+    } while (opcao != 4);
 }
 
 void telaNovoAluguel(void) {
@@ -381,7 +381,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.2\n");
+    printf("Versão: 0.2.3\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
