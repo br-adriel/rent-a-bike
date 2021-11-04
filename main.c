@@ -290,15 +290,30 @@ void telaEditarAluguel(char codigo[]) {
 }
 
 void telaExcluirAluguel(char codigo[]) {
-    // char escolha = ' ';
+    int opcao = 0;
 
-    printf("\n");
-    printf("Excluir aluguél #%s?", codigo);
-    printf("\n[1] Sim\n[2] Não");
-    printf("\n>> ");
-    // scanf(" %c", &escolha);
-    printf("\n");
+    do {
+        printf("\n");
+        printf("Excluir aluguél #%s?", codigo);
+        printf("\n[1] Sim\n[2] Não");
+        printf("\n>> ");
+        scanf("%d", &opcao);
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = = = =");
+                printf("\nAluguél #%s excluído!", codigo);
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 2);
 }
+
 
 void telaBuscarAluguel() {
     // char escolha = ' ';
@@ -399,7 +414,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.7\n");
+    printf("Versão: 0.2.8\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
