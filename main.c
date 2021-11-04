@@ -115,40 +115,47 @@ void telaGerenciarAlugueis(void) {
 }
 
 void telaNovoAluguel(void) {
-    // char escolha = ' ';
+    int opcao = 2;
+    char codBicicleta[6] = "";
+    int horasUso = 0;
+    int minutosUso = 0;
+    char emailCliente[70] = "";
 
-    // do {
+    do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Novo aluguél\n");
         printf("--------------------------------------------------\n");
-        printf("\nCódigo da bicicleta: ");
-        printf("\nHoras em uso: ");
-        printf("\nMinutos em uso: ");
-        printf("\nEmail do cliente: ");
-        printf("\n\n--------------------------------------------------\n\n");
-        printf("Cliente: fulano@email.com\n");
-        printf("Tempo em uso: 1h 15min\n");
+        if (opcao == 2) {
+            printf("\nCódigo da bicicleta: ");
+            scanf("%s", codBicicleta);
+            printf("\nHoras em uso: ");
+            scanf("%d", &horasUso);
+            printf("\nMinutos em uso: ");
+            scanf("%d", &minutosUso);
+            printf("\nEmail do cliente: ");
+            scanf("%s", emailCliente);
+            printf("\n\n--------------------------------------------------\n");
+        }
+        printf("\nCliente: %s\n", emailCliente);
+        printf("Tempo em uso: %dh %dmin\n", horasUso, minutosUso);
         printf("Preço: R$ 32.21\n");
         printf("Data de emissão: 31/12/9999");
         printf("\n\n--------------------------------------------------\n\n");
         printf("Salvar registro?");
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
         printf("\n>> ");
-        // scanf(" %c", &escolha);
+        scanf("%d", &opcao);
         printf("\n");
 
-    // } while (escolha != '1' && escolha != '3');
-
-    /*
-    switch (escolha) {
-        case '1':
-            printf("\n= = = = = = = =");
-            printf("\nRegistro salvo!");
-            printf("\n= = = = = = = =\n\n");
-            break;
-    }
-    telaGerenciarAlugueis();
-    */
+        
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = =");
+                printf("\nRegistro salvo!");
+                printf("\n= = = = = = = =\n\n");
+                break;
+        }
+    } while (opcao == 2);
 }
 
 void telaListarAlugueis(void) {
@@ -381,7 +388,7 @@ void telaSobre(void) {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Sobre\n");
     printf("--------------------------------------------------\n\n");
-    printf("Versão: 0.2.3\n");
+    printf("Versão: 0.2.4\n");
     printf("Última atualização: 04/11/2021\n");
     printf("Desenvolvido por Adriel Faria dos Santos\n");
     printf("\n--------------------------------------------------\n");
