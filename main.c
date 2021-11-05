@@ -107,7 +107,6 @@ void telaGerenciarAlugueis(void) {
                 break;
             default:
                 msgInvalido();
-                telaGerenciarAlugueis();
         }
     } while (opcao != 4);
 }
@@ -488,7 +487,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.2.16\n");
+        printf("Versão: 0.2.17\n");
         printf("Última atualização: 05/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
