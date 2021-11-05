@@ -25,6 +25,13 @@ int main(void) {
     return 0;
 }
 
+void limparBuffer() {
+    // código extraído de 
+    // cprogressivo.net/2012/12/Buffer--o-que-e-como-limpar-e-as-funcoes-fflush-e-fpurge.html
+    __fpurge(stdin); // linux
+    // fflush(stdin); // windows
+}
+
 void telaInicial(void) {
     int opcao = 0;
     do {
@@ -446,8 +453,8 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.2.13\n");
-        printf("Última atualização: 04/11/2021\n");
+        printf("Versão: 0.2.14\n");
+        printf("Última atualização: 05/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
