@@ -45,6 +45,7 @@ void telaInicial(void) {
         printf("[5] Encerrar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         switch (opcao) {
@@ -89,6 +90,7 @@ void telaGerenciarAlugueis(void) {
         printf("\n[4] Voltar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         switch (opcao) {
@@ -124,12 +126,20 @@ void telaNovoAluguel(void) {
         if (opcao == 2) {
             printf("\nCódigo da bicicleta: ");
             scanf("%s", codBicicleta);
+            limparBuffer();
+
             printf("\nHoras em uso: ");
             scanf("%d", &horasUso);
+            limparBuffer();
+
             printf("\nMinutos em uso: ");
             scanf("%d", &minutosUso);
+            limparBuffer();
+
             printf("\nEmail do cliente: ");
             scanf("%s", emailCliente);
+            limparBuffer();
+
             printf("\n\n--------------------------------------------------\n");
         }
         printf("\nCliente: %s\n", emailCliente);
@@ -141,6 +151,7 @@ void telaNovoAluguel(void) {
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
         printf("\n>> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         
@@ -174,6 +185,7 @@ void telaListarAlugueis(void) {
         printf("\n[2] voltar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         
@@ -181,6 +193,7 @@ void telaListarAlugueis(void) {
             case 1:
                 printf("Digite o código do aluguél: ");
                 scanf("%s", codigo);
+                limparBuffer();
                 printf("\n");
                 telaVerAluguel(codigo);
                 break;
@@ -216,6 +229,7 @@ void telaVerAluguel(char codigo[]) {
         printf("\n[3] Voltar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         
@@ -249,12 +263,19 @@ void telaEditarAluguel(char codigo[]) {
             printf("\n--------------------------------------------------\n");
             printf("\nCódigo da bicicleta [123456]: ");
             scanf("%s", codBicicleta);
+            limparBuffer();
+
             printf("\nHoras em uso [1]: ");
             scanf("%d", &horasUso);
+            limparBuffer();
+
             printf("\nMinutos em uso [30]: ");
             scanf("%d", &minutosUso);
+            limparBuffer();
+
             printf("\nEmail do cliente [fulano@email.com]: ");
             scanf("%s", emailCliente);
+            limparBuffer();
         }
         printf("\n\n--------------------------------------------------\n\n");
         printf("Código da bicicleta: %s\n", codBicicleta);
@@ -266,6 +287,7 @@ void telaEditarAluguel(char codigo[]) {
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
         printf("\n>> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         switch (opcao) {
@@ -294,6 +316,7 @@ void telaExcluirAluguel(char codigo[]) {
         printf("\n[1] Sim\n[2] Não");
         printf("\n>> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         switch (opcao) {
@@ -324,10 +347,16 @@ void telaBuscarAluguel() {
         printf("\nData do aluguél ");
         printf("\nDia: ");
         scanf("%d", &dia);
+        limparBuffer();
+
         printf("\nMês: ");
         scanf("%d", &mes);
+        limparBuffer();
+
         printf("\nAno: ");
         scanf("%d", &ano);
+        limparBuffer();
+
         printf("\n");
         // faz a busca
         printf("\n--------------------------------------------------\n");
@@ -344,12 +373,14 @@ void telaBuscarAluguel() {
         printf("[2] Cancelar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
 
         switch (opcao) {
             case 1:
                 printf("\nDigite o código do aluguél: ");
                 char codigo[6];
                 scanf("%s", codigo);
+                limparBuffer();
                 telaVerAluguel(codigo);
                 break;
             case 2:
@@ -374,6 +405,7 @@ void telaRelatorioLucros(void) {
             printf("\n[4] Voltar\n");
             printf(">> ");
             scanf("%d", &opcao);
+            limparBuffer();
             printf("\n");
             printf("\nGerando relatório...\n");
         }
@@ -395,6 +427,7 @@ void telaRelatorioLucros(void) {
         printf("[1] Sim\n[2] Não\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
 
         switch (opcao) {
             case 1:
@@ -424,12 +457,14 @@ void telaAlterarPreco(void) {
             printf("Preço atual: R$ 3.25\n");
             printf("Novo preço: ");
             scanf("%.2f", &novoPreco);
+            limparBuffer();
         }
 
         printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n");
         printf("[1] Sim\n[2] Não, alterar novamente\n[3] Cancelar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
 
         switch(opcao) {
             case 1:
@@ -461,6 +496,7 @@ void telaSobre(void) {
         printf("[1] Voltar\n");
         printf(">> ");
         scanf("%d", &opcao);
+        limparBuffer();
         printf("\n");
 
         switch (opcao) {
