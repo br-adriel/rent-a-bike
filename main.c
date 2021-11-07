@@ -113,10 +113,10 @@ void telaGerenciarAlugueis(void) {
 
 void telaNovoAluguel(void) {
     int opcao = 2;
-    char codBicicleta[6] = "";
+    char codBicicleta[7] = "";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[70] = "";
+    char emailCliente[71] = "";
 
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -166,7 +166,7 @@ void telaNovoAluguel(void) {
 
 void telaListarAlugueis(void) {
     int opcao = 2;
-    char codigo[6] = "";
+    char codigo[7] = "";
     do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Listar aluguéis\n");
@@ -487,7 +487,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.2.18\n");
+        printf("Versão: 0.2.19\n");
         printf("Última atualização: 07/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
