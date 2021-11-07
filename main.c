@@ -250,10 +250,10 @@ void telaVerAluguel(char codigo[]) {
 void telaEditarAluguel(char codigo[]) {
     int opcao = 2;
 
-    char codBicicleta[6] = "";
+    char codBicicleta[7] = " ";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[70] = "";
+    char emailCliente[71] = " ";
 
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -279,7 +279,7 @@ void telaEditarAluguel(char codigo[]) {
         printf("\n\n--------------------------------------------------\n\n");
         printf("Código da bicicleta: %s\n", codBicicleta);
         printf("Horas em uso: %d\n", horasUso);
-        printf("Minutos em uso: %d", minutosUso);
+        printf("Minutos em uso: %d\n", minutosUso);
         printf("Email do cliente: %s\n", emailCliente);
         printf("\n--------------------------------------------------\n\n");
         printf("Atualizar?");
@@ -431,7 +431,7 @@ void telaRelatorioLucros(void) {
         switch (opcao) {
             case 1:
                 printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =");
-                printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt");
+                printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt\"");
                 printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =\n");
                 break;
             case 2:
@@ -487,8 +487,8 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.2.17\n");
-        printf("Última atualização: 05/11/2021\n");
+        printf("Versão: 0.2.18\n");
+        printf("Última atualização: 07/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
