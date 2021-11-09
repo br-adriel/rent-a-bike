@@ -18,6 +18,8 @@ void telaRelatorioLucros(void);
 
 // CRUD de Cliente
 void telaGerenciarClientes(void);
+void telaNovorCliente(void);
+void telaBuscarCliente(void);
 
 void telaAlterarPreco(void);
 void telaSobre(void);
@@ -130,7 +132,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.5\n");
+        printf("Versão: 0.3.6\n");
         printf("Última atualização: 09/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -596,5 +598,48 @@ void telaNovoCliente(void) {
                 break;
         }
     } while (opcao == 2);
+}
+
+void telaBuscarClente(void) {
+    int opcao = 0;
+    char nome[21] = "";
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Buscar cliente\n");
+        printf("--------------------------------------------------\n");
+        printf("\nNome do cliente ");
+        scanf("%20s", &nome);
+        limparBuffer();
+
+        printf("\n");
+        // faz a busca
+        printf("\n--------------------------------------------------\n");
+        printf("\nResultados:\n");
+        printf("Email do cliente   | Nome     | Sobrenome\n");
+        printf("fulano@email.com   | Fulano   | Silva\n");
+        printf("f.santos@email.com | Fulano   | Santos\n");
+        printf("\n");
+        printf("[1] Ver cliente\n");
+        printf("[2] Cancelar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+
+        switch (opcao) {
+            case 1:
+                printf("\nDigite o email do cliente: ");
+                char email[71] = "";
+                scanf("%70s", email);
+                limparBuffer();
+
+                // telaVerCliente(email);
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 2);
 }
 
