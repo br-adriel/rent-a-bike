@@ -130,7 +130,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.4\n");
+        printf("Versão: 0.3.5\n");
         printf("Última atualização: 09/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -539,6 +539,7 @@ void telaGerenciarClientes(void) {
 
         switch (opcao) {
             case 1:
+                telaNovoCliente();
                 break;
             case 2:
                 break;
@@ -549,3 +550,51 @@ void telaGerenciarClientes(void) {
         }
     } while (opcao != 3);
 }
+
+void telaNovoCliente(void) {
+    int opcao = 2;
+    char email[71] = "";
+    char nome[21] = "";
+    char sobrenome[21] = "";
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Novo cliente\n");
+        printf("--------------------------------------------------\n");
+        if (opcao == 2) {
+            printf("\nEmail: ");
+            scanf("%70s", email);
+            limparBuffer();
+
+            printf("\nNome: ");
+            scanf("%20s", nome);
+            limparBuffer();
+
+            printf("\nSobrenome: ");
+            scanf("%20s", sobrenome);
+            limparBuffer();
+
+            printf("\n\n--------------------------------------------------\n");
+        }
+        printf("\nEmail: %s\n", email);
+        printf("Nome: %s\n", nome);
+        printf("Sobrenome: %s", sobrenome);
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Salvar registro?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = =");
+                printf("\nRegistro salvo!");
+                printf("\n= = = = = = = =\n\n");
+                break;
+        }
+    } while (opcao == 2);
+}
+
