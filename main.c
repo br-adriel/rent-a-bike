@@ -2,8 +2,8 @@
 
 
 void telaInicial(void);
-
 void msgInvalido(void);
+void telaSobre(void);
 
 // CRUD de Aluguel
 void telaGerenciarAlugueis(void);
@@ -15,6 +15,7 @@ void telaExcluirAluguel(char[]);
 
 void telaBuscarAluguel(void);
 void telaRelatorioLucros(void);
+void telaAlterarPreco(void);
 
 // CRUD de Cliente
 void telaGerenciarClientes(void);
@@ -22,8 +23,6 @@ void telaNovoCliente(void);
 void telaBuscarCliente(void);
 void telaVerCliente(char[]);
 
-void telaAlterarPreco(void);
-void telaSobre(void);
 
 
 int main(void) {
