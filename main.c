@@ -132,7 +132,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.6\n");
+        printf("Versão: 0.3.7\n");
         printf("Última atualização: 09/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -463,7 +463,7 @@ void telaBuscarAluguel(void) {
             default:
                 msgInvalido();
         }
-    } while (opcao != 1);
+    } while (opcao != 2);
 }
 
 void telaRelatorioLucros(void) {
