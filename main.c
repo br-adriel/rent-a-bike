@@ -16,6 +16,9 @@ void telaExcluirAluguel(char[]);
 void telaBuscarAluguel(void);
 void telaRelatorioLucros(void);
 
+// CRUD de Cliente
+void telaGerenciarClientes(void);
+
 void telaAlterarPreco(void);
 void telaSobre(void);
 
@@ -55,6 +58,7 @@ void telaInicial(void) {
                 telaGerenciarAlugueis();
                 break;
             case 2:
+                telaGerenciarClientes();
                 break;
             case 3:
                 break;
@@ -126,7 +130,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.3\n");
+        printf("Versão: 0.3.4\n");
         printf("Última atualização: 09/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -517,3 +521,31 @@ void telaRelatorioLucros(void) {
     } while (opcao != 1 && opcao != 2);
 }
 
+// Telas referentes ao módulo clientes
+void telaGerenciarClientes(void) {
+    int opcao = 0;
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Gerenciar clientes\n");
+        printf("--------------------------------------------------\n");
+        printf("\n[1] Novo cliente\n");
+        printf("[2] Buscar cliente\n");
+        printf("\n[3] Voltar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 3);
+}
