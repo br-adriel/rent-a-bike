@@ -39,10 +39,12 @@ void telaInicial(void) {
         printf("RENT A BIKE - Página inicial\n");
         printf("--------------------------------------------------\n");
         printf("\n[1] Gerenciar aluguéis\n");
-        printf("[2] Alterar preço da hora\n");
-        printf("[3] Relatório de lucros\n\n");
-        printf("[4] Sobre\n");
-        printf("[5] Encerrar\n");
+        printf("[2] Gerenciar clientes\n");
+        printf("[3] Gerenciar bicicletas\n");
+        printf("[4] Alterar preço da hora\n");
+        printf("[5] Relatório de lucros\n\n");
+        printf("[6] Sobre\n");
+        printf("[7] Encerrar\n");
         printf(">> ");
         scanf("%1d", &opcao);
         limparBuffer();
@@ -53,20 +55,24 @@ void telaInicial(void) {
                 telaGerenciarAlugueis();
                 break;
             case 2:
-                telaAlterarPreco();
                 break;
             case 3:
-                telaRelatorioLucros();
                 break;
             case 4:
-                telaSobre();
+                telaAlterarPreco();
                 break;
             case 5:
+                telaRelatorioLucros();
+                break;
+            case 6:
+                telaSobre();
+                break;
+            case 7:
                 break;
             default:
                 msgInvalido();
         }
-    } while (opcao != 5);
+    } while (opcao != 7);
 }
 
 void msgInvalido(void) {
