@@ -19,7 +19,7 @@ O sistema será dividido em três módulos
 
 #### Clientes
 * Dados: Nome, sobrenome, email
-* Funcionalidades: CRUD, pesquisa por email
+* Funcionalidades: CRUD, pesquisa por nome
 
 
 #### Bicicletas
