@@ -18,8 +18,9 @@ void telaRelatorioLucros(void);
 
 // CRUD de Cliente
 void telaGerenciarClientes(void);
-void telaNovorCliente(void);
+void telaNovoCliente(void);
 void telaBuscarCliente(void);
+void telaVerCliente(char[]);
 
 void telaAlterarPreco(void);
 void telaSobre(void);
@@ -92,7 +93,7 @@ void telaAlterarPreco(void) {
     float novoPreco = 0.00;
 
     do {
-        printf("//////////////////////////////////////////////////\n");
+        printf("\n//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Alterar preço da hora\n");
         printf("--------------------------------------------------\n\n");
 
@@ -132,7 +133,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.7\n");
+        printf("Versão: 0.3.8\n");
         printf("Última atualização: 09/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -523,9 +524,11 @@ void telaRelatorioLucros(void) {
     } while (opcao != 1 && opcao != 2);
 }
 
+
 // Telas referentes ao módulo clientes
 void telaGerenciarClientes(void) {
     int opcao = 0;
+    char email[71] = "";
 
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -533,7 +536,8 @@ void telaGerenciarClientes(void) {
         printf("--------------------------------------------------\n");
         printf("\n[1] Novo cliente\n");
         printf("[2] Buscar cliente\n");
-        printf("\n[3] Voltar\n");
+        printf("[3] Ver cliente\n");
+        printf("\n[4] Voltar\n");
         printf(">> ");
         scanf("%1d", &opcao);
         limparBuffer();
@@ -544,13 +548,21 @@ void telaGerenciarClientes(void) {
                 telaNovoCliente();
                 break;
             case 2:
+                telaBuscarCliente();
                 break;
             case 3:
+                printf("\nDigite o email do cliente: ");
+                scanf("%70s", email);
+                limparBuffer();
+
+                telaVerCliente(email);
+                break;
+            case 4:
                 break;
             default:
                 msgInvalido();
         }
-    } while (opcao != 3);
+    } while (opcao != 4);
 }
 
 void telaNovoCliente(void) {
@@ -600,16 +612,17 @@ void telaNovoCliente(void) {
     } while (opcao == 2);
 }
 
-void telaBuscarClente(void) {
+void telaBuscarCliente(void) {
     int opcao = 0;
     char nome[21] = "";
+    char email[71] = "";
 
     do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar cliente\n");
         printf("--------------------------------------------------\n");
         printf("\nNome do cliente ");
-        scanf("%20s", &nome);
+        scanf("%20s", nome);
         limparBuffer();
 
         printf("\n");
@@ -629,11 +642,10 @@ void telaBuscarClente(void) {
         switch (opcao) {
             case 1:
                 printf("\nDigite o email do cliente: ");
-                char email[71] = "";
                 scanf("%70s", email);
                 limparBuffer();
 
-                // telaVerCliente(email);
+                telaVerCliente(email);
                 break;
             case 2:
                 break;
@@ -643,3 +655,36 @@ void telaBuscarClente(void) {
     } while (opcao != 2);
 }
 
+void telaVerCliente(char email[]) {
+    int opcao = 3;
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Ver cliente");
+        printf("\n--------------------------------------------------\n");
+        printf("Nome: Fulano\n");
+        printf("Sobrenome: Silva\n");
+        printf("Email: %s", email);
+        printf("\n--------------------------------------------------\n");
+        printf("\n");
+        printf("[1] Editar\n");
+        printf("[2] Apagar\n");
+        printf("\n[3] Voltar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+ 
+        switch (opcao) {
+            case 1:
+                // telaEditarCliente(email);
+                break;
+            case 2:
+                // telaExcluirCliente(email);
+                break;
+            case 3:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 3);
+}
