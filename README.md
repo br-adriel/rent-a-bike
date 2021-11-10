@@ -24,4 +24,4 @@ O sistema será dividido em três módulos
 
 #### Bicicletas
 * Dados: Código, ativa, cor
-* Funcionalidades: CRUD, pesquisa por código
+* Funcionalidades: CRUD, pesquisa por cor
