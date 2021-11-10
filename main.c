@@ -25,7 +25,15 @@ void telaVerCliente(char[]);
 void telaEditarCliente(char[]);
 void telaExcluirCliente(char[]);
 
+// CRUD de Bicicleta
+void telaGerenciarBicicletas(void);
+// void telaNovaBicicleta(void);
+// void telaBuscarBicicleta(void);
+// void telaVerBicicleta(char[]);
+// void telaEditarBicicleta(char[]);
+// void telaExcluirBicicleta(char[]);
 
+// ----------------------------------------------------------- //
 
 int main(void) {
     telaInicial();
@@ -65,6 +73,7 @@ void telaInicial(void) {
                 telaGerenciarClientes();
                 break;
             case 3:
+                telaGerenciarBicicletas();
                 break;
             case 4:
                 telaAlterarPreco();
@@ -134,7 +143,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.10\n");
+        printf("Versão: 0.3.11\n");
         printf("Última atualização: 10/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -767,4 +776,45 @@ void telaExcluirCliente(char email[]) {
                 msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
+}
+
+
+// Telas referentes ao módulo bicicletas
+void telaGerenciarBicicletas(void) {
+    int opcao = 0;
+    char codigo[7] = "";
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Gerenciar bicicletas\n");
+        printf("--------------------------------------------------\n");
+        printf("\n[1] Nova bicicleta\n");
+        printf("[2] Buscar bicicleta\n");
+        printf("[3] Ver bicicleta\n");
+        printf("\n[4] Voltar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                // telaNovaBicicleta()
+                break;
+            case 2:
+                // telaBuscarBicicleta();
+                break;
+            case 3:
+                printf("\nDigite o codigo da bicicleta: ");
+                scanf("%6s", codigo);
+                limparBuffer();
+
+                // telaVerBicicleta(codigo);
+                break;
+            case 4:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 4);
 }
