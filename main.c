@@ -143,7 +143,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.14\n");
+        printf("Versão: 0.3.15\n");
         printf("Última atualização: 10/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -809,7 +809,7 @@ void telaGerenciarBicicletas(void) {
                 scanf("%6s", codigo);
                 limparBuffer();
 
-                // telaVerBicicleta(codigo);
+                telaVerBicicleta(codigo);
                 break;
             case 4:
                 break;
@@ -895,7 +895,7 @@ void telaBuscarBicicleta(void) {
                 scanf("%6s", codigo);
                 limparBuffer();
 
-                // telaVerBicicleta(codigo);
+                telaVerBicicleta(codigo);
                 break;
             case 2:
                 break;
@@ -903,4 +903,38 @@ void telaBuscarBicicleta(void) {
                 msgInvalido();
         }
     } while (opcao != 2);
+}
+
+void telaVerBicicleta(char codigo[]) {
+    int opcao = 3;
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Ver bicicleta");
+        printf("\n--------------------------------------------------\n");
+        printf("\nCódigo: %s\n", codigo);
+        printf("Cor: Azul\n");
+        1 ? printf("Ativa: SIM\n") : printf("Ativa: NÃO");
+        printf("\n--------------------------------------------------\n");
+        printf("\n");
+        printf("[1] Editar\n");
+        printf("[2] Apagar\n");
+        printf("\n[3] Voltar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+ 
+        switch (opcao) {
+            case 1:
+                // telaEditarBicicleta(codigo);
+                break;
+            case 2:
+                // telaExcluirBicicleta(codigo);
+                break;
+            case 3:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 3);
 }
