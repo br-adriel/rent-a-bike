@@ -22,6 +22,7 @@ void telaGerenciarClientes(void);
 void telaNovoCliente(void);
 void telaBuscarCliente(void);
 void telaVerCliente(char[]);
+void telaEditarCliente(char[]);
 
 
 
@@ -132,8 +133,8 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.8\n");
-        printf("Última atualização: 09/11/2021\n");
+        printf("Versão: 0.3.9\n");
+        printf("Última atualização: 10/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
@@ -675,7 +676,7 @@ void telaVerCliente(char email[]) {
  
         switch (opcao) {
             case 1:
-                // telaEditarCliente(email);
+                telaEditarCliente(email);
                 break;
             case 2:
                 // telaExcluirCliente(email);
@@ -686,4 +687,57 @@ void telaVerCliente(char email[]) {
                 msgInvalido();
         }
     } while (opcao != 3);
+}
+
+void telaEditarCliente(char email[]) {
+    int opcao = 2;
+
+    char novoEmail[71] = "";
+    char nome[21] = "";
+    char sobrenome[21] = "";
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Editar cliente");
+        if (opcao == 2) {
+            printf("\n--------------------------------------------------\n");
+            printf("\nEmail [fulano@email.com]: ");
+            scanf("%70s", novoEmail);
+            limparBuffer();
+
+            printf("\nNome do cliente [Fulano]: ");
+            scanf("%20s", nome);
+            limparBuffer();
+
+            printf("\nSobrenome do cliente [Silva]: ");
+            scanf("%20s", sobrenome);
+            limparBuffer();
+        }
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Email: %s\n", email);
+        printf("Nome: %s\n", nome);
+        printf("Sobrenome: %s\n", sobrenome);
+        printf("\n--------------------------------------------------\n\n");
+        printf("Atualizar?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                // Salva mudanças
+                printf("\n= = = = = = = = = =");
+                printf("\nAlterações salvas!");
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+            case 3:
+                break;
+            default:
+                msgInvalido();
+                break;
+        }
+    } while (opcao != 1 && opcao != 3);
 }
