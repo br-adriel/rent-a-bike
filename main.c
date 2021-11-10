@@ -23,6 +23,7 @@ void telaNovoCliente(void);
 void telaBuscarCliente(void);
 void telaVerCliente(char[]);
 void telaEditarCliente(char[]);
+void telaExcluirCliente(char[]);
 
 
 
@@ -133,7 +134,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.9\n");
+        printf("Versão: 0.3.10\n");
         printf("Última atualização: 10/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -679,7 +680,7 @@ void telaVerCliente(char email[]) {
                 telaEditarCliente(email);
                 break;
             case 2:
-                // telaExcluirCliente(email);
+                telaExcluirCliente(email);
                 break;
             case 3:
                 break;
@@ -740,4 +741,30 @@ void telaEditarCliente(char email[]) {
                 break;
         }
     } while (opcao != 1 && opcao != 3);
+}
+
+void telaExcluirCliente(char email[]) {
+    int opcao = 0;
+
+    do {
+        printf("\n");
+        printf("Excluir cliente %s?", email);
+        printf("\n[1] Sim\n[2] Não");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = = = =");
+                printf("\nCliente excluído!");
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 2);
 }
