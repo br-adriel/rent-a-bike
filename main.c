@@ -27,7 +27,7 @@ void telaExcluirCliente(char[]);
 
 // CRUD de Bicicleta
 void telaGerenciarBicicletas(void);
-// void telaNovaBicicleta(void);
+void telaNovaBicicleta(void);
 // void telaBuscarBicicleta(void);
 // void telaVerBicicleta(char[]);
 // void telaEditarBicicleta(char[]);
@@ -143,7 +143,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.12\n");
+        printf("Versão: 0.3.13\n");
         printf("Última atualização: 10/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -799,7 +799,7 @@ void telaGerenciarBicicletas(void) {
 
         switch (opcao) {
             case 1:
-                // telaNovaBicicleta()
+                telaNovaBicicleta();
                 break;
             case 2:
                 // telaBuscarBicicleta();
@@ -817,4 +817,47 @@ void telaGerenciarBicicletas(void) {
                 msgInvalido();
         }
     } while (opcao != 4);
+}
+
+void telaNovaBicicleta(void) {
+    int opcao = 2;
+    char codigo[7] = "";
+    char cor[16] = "";
+    int ativa = 1;
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Nova bicicleta\n");
+        printf("--------------------------------------------------\n");
+        if (opcao == 2) {
+            printf("\nCor: ");
+            scanf("%15s", cor);
+            limparBuffer();
+
+            printf("\nAtiva?\n[0] NÃO [1] SIM\n>>");
+            scanf("%1d", &ativa);
+            limparBuffer();
+
+            printf("\n\n--------------------------------------------------\n");
+        }
+        printf("\nCódigo: %s\n", "123456");
+        printf("Cor: %s\n", cor);
+        ativa ? printf("Ativa: SIM") : printf("Ativa: NÂO");
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Salvar registro?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = =");
+                printf("\nRegistro salvo!");
+                printf("\n= = = = = = = =\n\n");
+                break;
+        }
+    } while (opcao == 2);
 }
