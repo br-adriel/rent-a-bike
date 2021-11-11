@@ -29,9 +29,9 @@ void telaExcluirCliente(char[]);
 void telaGerenciarBicicletas(void);
 void telaNovaBicicleta(void);
 void telaBuscarBicicleta(void);
-// void telaVerBicicleta(char[]);
-// void telaEditarBicicleta(char[]);
-// void telaExcluirBicicleta(char[]);
+void telaVerBicicleta(char[]);
+void telaEditarBicicleta(char[]);
+void telaExcluirBicicleta(char[]);
 
 // ----------------------------------------------------------- //
 
@@ -143,8 +143,8 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.15\n");
-        printf("Última atualização: 10/11/2021\n");
+        printf("Versão: 0.3.16\n");
+        printf("Última atualização: 11/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
@@ -926,10 +926,11 @@ void telaVerBicicleta(char codigo[]) {
  
         switch (opcao) {
             case 1:
-                // telaEditarBicicleta(codigo);
+                telaEditarBicicleta(codigo);
                 break;
             case 2:
-                // telaExcluirBicicleta(codigo);
+                telaExcluirBicicleta(codigo);
+                opcao = 3;
                 break;
             case 3:
                 break;
@@ -937,4 +938,79 @@ void telaVerBicicleta(char codigo[]) {
                 msgInvalido();
         }
     } while (opcao != 3);
+}
+
+void telaEditarBicicleta(char codigo[]) {
+    int opcao = 2;
+
+    char cor[16] = "";
+    int ativa = 1;
+
+    do {
+        printf("//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Editar bicicleta #%s", codigo);
+        if (opcao == 2) {
+            printf("\n--------------------------------------------------\n");
+            printf("\nCor [Azul]: ");
+            scanf("%15s", cor);
+            limparBuffer();
+
+            printf("\nAtiva [1]:\n[0] NÃO [1] SIM\n>>");
+            scanf("%1d", &ativa);
+            limparBuffer();
+        }
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Código: %s\n", codigo);
+        printf("Cor: %s\n", cor);
+        printf("Ativa: ");
+        ativa ? printf("SIM\n") : printf("NÂO\n");
+        printf("\n--------------------------------------------------\n\n");
+        printf("Atualizar?");
+        printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                // Salva mudanças
+                printf("\n= = = = = = = = = =");
+                printf("\nAlterações salvas!");
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+            case 3:
+                break;
+            default:
+                msgInvalido();
+                break;
+        }
+    } while (opcao != 1 && opcao != 3);
+}
+
+void telaExcluirBicicleta(char codigo[]) {
+    int opcao = 0;
+
+    do {
+        printf("\n");
+        printf("Excluir bicicleta %s?", codigo);
+        printf("\n[1] Sim\n[2] Não");
+        printf("\n>> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                printf("\n= = = = = = = = = =");
+                printf("\nBicicleta excluída!");
+                printf("\n= = = = = = = = = =\n\n");
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 2);
 }
