@@ -143,7 +143,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.3.16\n");
+        printf("Versão: 0.3.17\n");
         printf("Última atualização: 11/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
@@ -326,6 +326,7 @@ void telaVerAluguel(char codigo[]) {
                 break;
             case 2:
                 telaExcluirAluguel(codigo);
+                opcao = 3;
                 break;
             case 3:
                 break;
@@ -690,6 +691,7 @@ void telaVerCliente(char email[]) {
                 break;
             case 2:
                 telaExcluirCliente(email);
+                opcao = 3;
                 break;
             case 3:
                 break;
