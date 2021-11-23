@@ -69,6 +69,7 @@ void telaNovoAluguel(void) {
         }
         printf("\nCliente: %s\n", emailCliente);
         printf("Tempo em uso: %dh %dmin\n", horasUso, minutosUso);
+        printf("Código da bicicleta: %s\n", codBicicleta);
         printf("Preço: R$ 32.21\n");
         printf("Data de emissão: 31/12/9999");
         printf("\n\n--------------------------------------------------\n\n");

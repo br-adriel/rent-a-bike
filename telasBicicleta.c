@@ -63,7 +63,7 @@ void telaNovaBicicleta(void) {
 
             printf("\n\n--------------------------------------------------\n");
         }
-        printf("\nCódigo: %s\n", "123456");
+        printf("\nCódigo: %s\n", codigo);
         printf("Cor: %s\n", cor);
         ativa ? printf("Ativa: SIM") : printf("Ativa: NÂO");
         printf("\n\n--------------------------------------------------\n\n");
