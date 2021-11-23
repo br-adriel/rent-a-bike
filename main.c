@@ -1,21 +1,9 @@
 #include <stdio.h>
-
+#include "alugueis.h"
 
 void telaInicial(void);
 void msgInvalido(void);
 void telaSobre(void);
-
-// CRUD de Aluguel
-void telaGerenciarAlugueis(void);
-void telaNovoAluguel(void);
-void telaListarAlugueis(void);
-void telaVerAluguel(char[]);
-void telaEditarAluguel(char[]);
-void telaExcluirAluguel(char[]);
-
-void telaBuscarAluguel(void);
-void telaRelatorioLucros(void);
-void telaAlterarPreco(void);
 
 // CRUD de Cliente
 void telaGerenciarClientes(void);
@@ -143,8 +131,8 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.5\n");
-        printf("Última atualização: 18/11/2021\n");
+        printf("Versão: 0.5.1\n");
+        printf("Última atualização: 22/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
