@@ -35,7 +35,7 @@ O sistema será dividido em três módulos
 ### Linux
 
 ```
-gcc -c utils.c alugueis.c bicicletas.c clientes.c
-gcc -o main utils.o alugueis.o bicicletas.o clientes.o main.c
-./main
+gcc -c -Wall *.c
+gcc -o rentabike *.o
+./rentabike
 ```
