@@ -1,15 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
-
-void telaGerenciarAlugueis(void);
-void telaNovoAluguel(void);
-void telaListarAlugueis(void);
-void telaVerAluguel(char[]);
-void telaEditarAluguel(char[]);
-void telaExcluirAluguel(char[]);
-void telaBuscarAluguel(void);
-void telaRelatorioLucros(void);
-void telaAlterarPreco(void);
+#include "alugueis.h"
 
 
 void telaGerenciarAlugueis(void) {

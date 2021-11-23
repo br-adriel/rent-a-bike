@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
+#include "clientes.h"
 
-void telaGerenciarClientes(void);
-void telaNovoCliente(void);
-void telaBuscarCliente(void);
-void telaVerCliente(char[]);
-void telaEditarCliente(char[]);
-void telaExcluirCliente(char[]);
 
 void telaGerenciarClientes(void) {
     int opcao = 0;

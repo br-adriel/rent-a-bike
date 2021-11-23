@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "utils.h"
+
 
 void limparBuffer() {
     // código extraído de 
