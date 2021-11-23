@@ -2,6 +2,7 @@
 #include "alugueis.h"
 #include "clientes.h"
 #include "bicicletas.h"
+#include "utils.h"
 
 void telaInicial(void);
 void telaSobre(void);
@@ -74,7 +75,7 @@ void telaAlterarPreco(void) {
             limparBuffer();
         }
 
-        printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n");
+        printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n", novoPreco);
         printf("[1] Sim\n[2] Não, alterar novamente\n[3] Cancelar\n");
         printf(">> ");
         scanf("%1d", &opcao);
@@ -102,7 +103,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.5.6\n");
+        printf("Versão: 0.5.7\n");
         printf("Última atualização: 22/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
