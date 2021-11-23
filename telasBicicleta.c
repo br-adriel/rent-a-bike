@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
-#include "bicicletas.h"
+#include "telasBicicleta.h"
 
 
 void telaGerenciarBicicletas(void) {

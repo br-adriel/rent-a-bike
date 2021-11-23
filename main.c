@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "alugueis.h"
-#include "clientes.h"
-#include "bicicletas.h"
+#include "telasAluguel.h"
+#include "telasCliente.h"
+#include "telasBicicleta.h"
 #include "utils.h"
 
 void telaInicial(void);
@@ -103,7 +103,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.5.7\n");
+        printf("Versão: 0.5.8\n");
         printf("Última atualização: 23/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
