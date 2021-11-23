@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include "utils.h"
+
+
 void telaGerenciarAlugueis(void) {
     int opcao = 0;
 
