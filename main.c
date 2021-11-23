@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "alugueis.h"
+#include "clientes.h"
 
 void telaInicial(void);
 void telaSobre(void);
@@ -100,7 +101,7 @@ void telaSobre(void) {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.5.4\n");
+        printf("Versão: 0.5.5\n");
         printf("Última atualização: 22/11/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
