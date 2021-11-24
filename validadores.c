@@ -58,3 +58,19 @@ int validaNome(char nome[]) {
   }
   return 0;
 }
+
+/* Funcao de validacao de hora */
+/* retorna 0 se invalido, 1 se valido */
+int validaHora(int hora) {
+  if (hora > 0) {
+    return 1;
+  }
+  return 0;
+}
+
+int validaMinutos(int minutos) {
+  if (minutos >= 0 && minutos < 60) {
+    return 1;
+  }
+  return 0;
+}
