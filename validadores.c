@@ -14,6 +14,14 @@ Retorno:
 */
 int validaEmail(char email[])
 {
+  // verifica se email esta no limite de caracteres
+  int tamEmail = strlen(email);
+  if (tamEmail > 70)
+  {
+    printf("/!/ Email inválido: o email contém mais de 70 caracteres\n");
+    return 0;
+  }
+
   // verifica se tem espaço em branco
   char *temEspaco = strchr(email, ' ');
   if (temEspaco)
@@ -39,7 +47,7 @@ int validaEmail(char email[])
   }
 
   // verifica se nao tem conteudo antes do @
-  int tamUsuario = strlen(email) - tamDominio;
+  int tamUsuario = tamEmail - tamDominio;
   if (tamUsuario == 0)
   {
     printf("/!/ Email inválido: o email deve conter conteúdeo antes do @\n");
@@ -104,6 +112,13 @@ Retorno:
 */
 int validaNome(char nome[])
 {
+  // verifica se tem mais de 20 caracteres
+  if (strlen(nome) > 20)
+  {
+    printf("/!/ Inválido: nomes e sobrenomes não podem exceder 20 caracteres\n");
+    return 0;
+  }
+
   // verifica se tem espaços
   if (strchr(nome, ' '))
   {
@@ -175,10 +190,17 @@ Retorno:
 */
 int validaCor(char cor[])
 {
+  // verifica se tem mais de 20 caracteres
+  if (strlen(cor) > 20)
+  {
+    printf("/!/ Cor inválida: a cor não pode exceder 20 caracteres\n");
+    return 0;
+  }
+
   // verifica se tem espaços
   if (strchr(cor, ' '))
   {
-    printf("/!/Cor inválida: a cor não pode conter espaços\n");
+    printf("/!/ Cor inválida: a cor não pode conter espaços\n");
     return 0;
   }
 
@@ -187,7 +209,7 @@ int validaCor(char cor[])
   {
     if (!isalpha(cor[i]))
     {
-      printf("/!/Cor inválida: a cor deve conter apenas letras\n");
+      printf("/!/ Cor inválida: a cor deve conter apenas letras\n");
       return 0;
     }
   }
