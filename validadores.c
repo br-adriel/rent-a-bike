@@ -30,9 +30,9 @@ int validaEmail(char email[])
     return 0;
   }
 
-  // verrifica se nao tem conteudo apos o @
+  // verifica se nao tem conteudo apos o @
   int tamDominio = strlen(temArroba);
-  if (tamDominio < 1)
+  if (tamDominio <= 1)
   {
     printf("/!/ Email inválido: o email deve conter conteúdo após o @\n");
     return 0;
@@ -40,7 +40,7 @@ int validaEmail(char email[])
 
   // verifica se nao tem conteudo antes do @
   int tamUsuario = strlen(email) - tamDominio;
-  if (tamUsuario < 0)
+  if (tamUsuario == 0)
   {
     printf("/!/ Email inválido: o email deve conter conteúdeo antes do @\n");
     return 0;
@@ -112,7 +112,7 @@ int validaNome(char nome[])
   char *temespaco = strchr(nome, ' ');
   if (temespaco)
   {
-    printf("Inválido: nomes e sobrenomes não podem conter espaços\n");
+    printf("/!/Inválido: nomes e sobrenomes não podem conter espaços\n");
     return 0;
   }
 
@@ -121,7 +121,7 @@ int validaNome(char nome[])
   {
     if (!isalpha(nome[i]))
     {
-      printf("Inválido: nomes e sobrenomes devem conter apenas letras\n");
+      printf("/!/Inválido: nomes e sobrenomes devem conter apenas letras\n");
       return 0;
     }
   }
@@ -144,7 +144,7 @@ int validaHora(int hora)
   {
     return 1;
   }
-  printf("Hora inválida: não há quantidade de horas negativa\n");
+  printf("/!/Hora inválida: não há quantidade de horas negativa\n");
   return 0;
 }
 
@@ -164,6 +164,6 @@ int validaMinutos(int minutos)
   {
     return 1;
   }
-  printf("Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
+  printf("/!/Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
   return 0;
 }
