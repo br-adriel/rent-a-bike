@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
 #include "telasAluguel.h"
+#include "validadores.h"
 
 
 void telaGerenciarAlugueis(void) {
@@ -39,31 +40,49 @@ void telaGerenciarAlugueis(void) {
 
 void telaNovoAluguel(void) {
     int opcao = 2;
-    char codBicicleta[7] = "";
+    char codBicicleta[6] = "";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[71] = "";
+    char emailCliente[70] = "";
+    int inputValido = 0;
 
     do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Novo aluguél\n");
         printf("--------------------------------------------------\n");
         if (opcao == 2) {
-            printf("\nCódigo da bicicleta: ");
-            scanf("%6s", codBicicleta);
-            limparBuffer();
+            do {
+                printf("\nCódigo da bicicleta: ");
+                scanf("%6s", codBicicleta);
+                limparBuffer();
 
-            printf("\nHoras em uso: ");
-            scanf("%d", &horasUso);
-            limparBuffer();
+                inputValido = validaCodigo(codBicicleta, 6);
+            } while(!inputValido);
 
-            printf("\nMinutos em uso: ");
-            scanf("%2d", &minutosUso);
-            limparBuffer();
+            do {
+                printf("\nHoras em uso: ");
+                scanf("%d", &horasUso);
+                limparBuffer();
 
-            printf("\nEmail do cliente: ");
-            scanf("%70s", emailCliente);
-            limparBuffer();
+                inputValido = validaHora(horasUso);
+            } while(!inputValido);
+
+            do {
+                printf("\nMinutos em uso: ");
+                scanf("%2d", &minutosUso);
+                limparBuffer();
+
+                inputValido = validaMinutos(minutosUso);
+            } while(!inputValido);
+
+            do {
+                printf("\nEmail do cliente: ");
+                scanf("%s", emailCliente);
+                limparBuffer();
+
+                inputValido = validaEmail(emailCliente);
+            } while(!inputValido);
+            
 
             printf("\n\n--------------------------------------------------\n");
         }
@@ -80,7 +99,6 @@ void telaNovoAluguel(void) {
         limparBuffer();
         printf("\n");
 
-        
         switch (opcao) {
             case 1:
                 printf("\n= = = = = = = =");
@@ -93,7 +111,8 @@ void telaNovoAluguel(void) {
 
 void telaListarAlugueis(void) {
     int opcao = 2;
-    char codigo[7] = "";
+    char codigo[6] = "";
+    int inputValido = 0;
     do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Listar aluguéis\n");
@@ -117,10 +136,14 @@ void telaListarAlugueis(void) {
         
         switch (opcao) {
             case 1:
-                printf("Digite o código do aluguél: ");
-                scanf("%6s", codigo);
-                limparBuffer();
-                printf("\n");
+                do {
+                    printf("Digite o código do aluguél: ");
+                    scanf("%6s", codigo);
+                    limparBuffer();
+                    printf("\n");
+
+                    inputValido = validaCodigo(codigo, 6);
+                } while (!inputValido);
                 telaVerAluguel(codigo);
                 break;
             case 2:
@@ -178,31 +201,48 @@ void telaVerAluguel(char codigo[]) {
 void telaEditarAluguel(char codigo[]) {
     int opcao = 2;
 
-    char codBicicleta[7] = " ";
+    char codBicicleta[6] = "";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[71] = " ";
+    char emailCliente[70] = "";
+    int inputValido = 0;
 
     do {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Editar aluguél #%s", codigo);
         if (opcao == 2) {
-            printf("\n--------------------------------------------------\n");
-            printf("\nCódigo da bicicleta [123456]: ");
-            scanf("%6s", codBicicleta);
-            limparBuffer();
+            do {
+                printf("\n--------------------------------------------------\n");
+                printf("\nCódigo da bicicleta [123456]: ");
+                scanf("%6s", codBicicleta);
+                limparBuffer();
 
-            printf("\nHoras em uso [1]: ");
-            scanf("%d", &horasUso);
-            limparBuffer();
+                inputValido = validaCodigo(codBicicleta, 6);
+            } while (!inputValido);
 
-            printf("\nMinutos em uso [30]: ");
-            scanf("%2d", &minutosUso);
-            limparBuffer();
+            do {
+                printf("\nHoras em uso [1]: ");
+                scanf("%d", &horasUso);
+                limparBuffer();
 
-            printf("\nEmail do cliente [fulano@email.com]: ");
-            scanf("%70s", emailCliente);
-            limparBuffer();
+                inputValido = validaHora(horasUso);
+            } while (!inputValido);
+
+            do {
+                printf("\nMinutos em uso [30]: ");
+                scanf("%2d", &minutosUso);
+                limparBuffer();
+
+                inputValido = validaMinutos(minutosUso);
+            } while (!inputValido);
+
+            do {
+                printf("\nEmail do cliente [fulano@email.com]: ");
+                scanf("%70s", emailCliente);
+                limparBuffer();
+
+                inputValido = validaEmail(emailCliente);
+            } while (!inputValido);
         }
         printf("\n\n--------------------------------------------------\n\n");
         printf("Código da bicicleta: %s\n", codBicicleta);
@@ -265,6 +305,8 @@ void telaBuscarAluguel(void) {
     int dia = 0;
     int mes = 0;
     int ano = 0;
+    int inputValido = 0;
+    char codigo[6];
 
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -303,10 +345,14 @@ void telaBuscarAluguel(void) {
 
         switch (opcao) {
             case 1:
-                printf("\nDigite o código do aluguél: ");
-                char codigo[6];
-                scanf("%6s", codigo);
-                limparBuffer();
+                do {
+                    printf("\nDigite o código do aluguél: ");
+                    scanf("%6s", codigo);
+                    limparBuffer();
+
+                    inputValido = validaCodigo(codigo, 6);
+                } while (!inputValido);
+
                 telaVerAluguel(codigo);
                 break;
             case 2:
