@@ -16,18 +16,23 @@ int validaEmail(char email[])
   char *temEspaco = strchr(email, ' ');
   if (temEspaco)
   {
+    msgEmailInválido(1);
     return 0;
   }
 
   char *temArroba = strchr(email, '@');
-  if (temArroba)
-  { // verifica @
+  if (temArroba) // verifica @
+  {
+    msgEmailInválido(2);
+
     int tamDominio = strlen(temArroba);
-    if (tamDominio > 1)
-    { // verifica provedor de email
+    if (tamDominio > 1) // verifica provedor de email
+    {
+      msgEmailInválido(3);
       int tamUsuario = strlen(email) - tamDominio;
-      if (tamUsuario > 0)
-      { // verifica antes do @
+      if (tamUsuario > 0) // verifica antes do @
+      {
+        msgEmailInválido(4);
         return 1;
       }
     }
@@ -133,4 +138,33 @@ int validaMinutos(int minutos)
     return 1;
   }
   return 0;
+}
+
+// Telas de erro
+/*
+Mensagem de email inválido
+
+Atributos:
+  motivo: inidica qual erro exibir
+
+*/
+void msgEmailInválido(int motivo)
+{
+  switch (motivo)
+  {
+  case 1:
+    printf("/!/ Email inválido: contém espaços\n");
+    break;
+  case 2:
+    printf("/!/ Email inválido: o email deve conter @\n");
+    break;
+  case 3:
+    printf("/!/ Email inválido: o email deve conter conteúdo após o @\n");
+    break;
+  case 4:
+    printf("/!/ Email inválido: o email deve conter conteúdeo antes do @\n");
+    break;
+  default:
+    printf("/!/ Email inválido\n");
+  }
 }
