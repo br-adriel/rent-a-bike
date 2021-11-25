@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "telasAluguel.h"
 #include "validadores.h"
+#include <limits.h>
 
 
 void telaGerenciarAlugueis(void) {
@@ -40,10 +41,10 @@ void telaGerenciarAlugueis(void) {
 
 void telaNovoAluguel(void) {
     int opcao = 2;
-    char codBicicleta[6] = "";
+    char codBicicleta[PATH_MAX] = "";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[70] = "";
+    char emailCliente[PATH_MAX] = "";
     int inputValido = 0;
 
     do {
@@ -53,7 +54,7 @@ void telaNovoAluguel(void) {
         if (opcao == 2) {
             do {
                 printf("\nCódigo da bicicleta: ");
-                scanf("%6s", codBicicleta);
+                scanf("%s", codBicicleta);
                 limparBuffer();
 
                 inputValido = validaCodigo(codBicicleta, 6);
@@ -111,7 +112,7 @@ void telaNovoAluguel(void) {
 
 void telaListarAlugueis(void) {
     int opcao = 2;
-    char codigo[6] = "";
+    char codigo[PATH_MAX] = "";
     int inputValido = 0;
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -138,7 +139,7 @@ void telaListarAlugueis(void) {
             case 1:
                 do {
                     printf("Digite o código do aluguél: ");
-                    scanf("%6s", codigo);
+                    scanf("%s", codigo);
                     limparBuffer();
                     printf("\n");
 
@@ -201,10 +202,10 @@ void telaVerAluguel(char codigo[]) {
 void telaEditarAluguel(char codigo[]) {
     int opcao = 2;
 
-    char codBicicleta[6] = "";
+    char codBicicleta[PATH_MAX] = "";
     int horasUso = 0;
     int minutosUso = 0;
-    char emailCliente[70] = "";
+    char emailCliente[PATH_MAX] = "";
     int inputValido = 0;
 
     do {
@@ -214,7 +215,7 @@ void telaEditarAluguel(char codigo[]) {
             do {
                 printf("\n--------------------------------------------------\n");
                 printf("\nCódigo da bicicleta [123456]: ");
-                scanf("%6s", codBicicleta);
+                scanf("%s", codBicicleta);
                 limparBuffer();
 
                 inputValido = validaCodigo(codBicicleta, 6);
@@ -238,7 +239,7 @@ void telaEditarAluguel(char codigo[]) {
 
             do {
                 printf("\nEmail do cliente [fulano@email.com]: ");
-                scanf("%70s", emailCliente);
+                scanf("%s", emailCliente);
                 limparBuffer();
 
                 inputValido = validaEmail(emailCliente);
@@ -306,7 +307,7 @@ void telaBuscarAluguel(void) {
     int mes = 0;
     int ano = 0;
     int inputValido = 0;
-    char codigo[6];
+    char codigo[PATH_MAX];
 
     do {
         printf("//////////////////////////////////////////////////\n");
@@ -347,7 +348,7 @@ void telaBuscarAluguel(void) {
             case 1:
                 do {
                     printf("\nDigite o código do aluguél: ");
-                    scanf("%6s", codigo);
+                    scanf("%s", codigo);
                     limparBuffer();
 
                     inputValido = validaCodigo(codigo, 6);
