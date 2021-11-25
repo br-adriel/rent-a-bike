@@ -153,9 +153,9 @@ void telaListarAlugueis(void)
                 printf("Digite o código do aluguél: ");
                 scanf("%s", codigo);
                 limparBuffer();
-                printf("\n");
 
                 inputValido = validaCodigo(codigo, 6);
+                printf("\n");
             } while (!inputValido);
             telaVerAluguel(codigo);
             break;
