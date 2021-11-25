@@ -13,6 +13,7 @@ Retorno:
 */
 int validaEmail(char email[])
 {
+  // verifica se tem espaço em branco
   char *temEspaco = strchr(email, ' ');
   if (temEspaco)
   {
@@ -20,24 +21,31 @@ int validaEmail(char email[])
     return 0;
   }
 
+  // verifica se nao tem @
   char *temArroba = strchr(email, '@');
-  if (temArroba) // verifica @
+  if (!temArroba)
   {
     msgEmailInválido(2);
-
-    int tamDominio = strlen(temArroba);
-    if (tamDominio > 1) // verifica provedor de email
-    {
-      msgEmailInválido(3);
-      int tamUsuario = strlen(email) - tamDominio;
-      if (tamUsuario > 0) // verifica antes do @
-      {
-        msgEmailInválido(4);
-        return 1;
-      }
-    }
+    return 0;
   }
-  return 0;
+
+  // verrifica se nao tem conteudo apos o @
+  int tamDominio = strlen(temArroba);
+  if (tamDominio < 1)
+  {
+    msgEmailInválido(3);
+    return 0;
+  }
+
+  // verifica se nao tem conteudo antes do @
+  int tamUsuario = strlen(email) - tamDominio;
+  if (tamUsuario < 0)
+  {
+    msgEmailInválido(4);
+    return 0;
+  }
+
+  return 1;
 }
 
 /*
@@ -140,7 +148,7 @@ int validaMinutos(int minutos)
   return 0;
 }
 
-// Telas de erro
+// Mensagens de erro
 /*
 Mensagem de email inválido
 
