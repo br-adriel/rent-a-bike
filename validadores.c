@@ -1,8 +1,16 @@
 #include <string.h>
 #include <ctype.h>
 
-/* Função de validação de email */
-/* retorna 0 se inválido, 1 se válido*/
+/*
+Validação de email
+
+Atributos:
+  email: email para verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
 int validaEmail(char email[]) {
   char *temEspaco = strchr(email, ' ');
   if (temEspaco) {
@@ -22,8 +30,17 @@ int validaEmail(char email[]) {
   return 0;
 }
 
-/* Funcao de validacao de codigo */
-/* retorna 0 se invalido, 1 se valido */
+/*
+Validação de código
+
+Atributos:
+  codigo: codigo para verificar validade
+  comprimento: tamanho maximo do codigo
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
 int validaCodigo(char codigo[], int comprimentoMax) {
   int tamanho = strlen(codigo);
   if (tamanho > 0 && tamanho <= comprimentoMax) {
@@ -43,8 +60,16 @@ int validaCodigo(char codigo[], int comprimentoMax) {
 }
 
 
-/* Funcao de validacao de nome/sobrenome */
-/* retorna 0 se invalido, 1 se valido */
+/*
+Validação de nome/sobrenome
+
+Atributos:
+  nome: nome para verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
 int validaNome(char nome[]) {
   char *temespaco = strchr(nome, ' ');
 
@@ -59,8 +84,16 @@ int validaNome(char nome[]) {
   return 0;
 }
 
-/* Funcao de validacao de hora */
-/* retorna 0 se invalido, 1 se valido */
+/*
+Validação de hora
+
+Atributos:
+  hora: hora apara verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
 int validaHora(int hora) {
   if (hora >= 0) {
     return 1;
@@ -68,6 +101,16 @@ int validaHora(int hora) {
   return 0;
 }
 
+/*
+Validação de minutos
+
+Atributos:
+  minutos: minutos para verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
 int validaMinutos(int minutos) {
   if (minutos >= 0 && minutos < 60) {
     return 1;
