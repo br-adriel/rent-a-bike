@@ -164,5 +164,6 @@ int validaMinutos(int minutos)
   {
     return 1;
   }
+  printf("Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
   return 0;
 }
