@@ -162,3 +162,34 @@ int validaMinutos(int minutos)
   printf("/!/Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
   return 0;
 }
+
+/*
+Validação de cor
+
+Atributos:
+  cor: cor para verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
+int validaCor(char cor[])
+{
+  // verifica se tem espaços
+  if (strchr(cor, ' '))
+  {
+    printf("/!/Cor inválida: a cor não pode conter espaços\n");
+    return 0;
+  }
+
+  // verifica se há numeros
+  for (int i = 0; i < strlen(cor); i++)
+  {
+    if (!isalpha(cor[i]))
+    {
+      printf("/!/Cor inválida: a cor deve conter apenas letras\n");
+      return 0;
+    }
+  }
+  return 1;
+}
