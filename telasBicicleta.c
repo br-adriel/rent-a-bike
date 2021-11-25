@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "utils.h"
 #include "telasBicicleta.h"
+#include <limits.h>
+#include "validadores.h"
 
 void telaGerenciarBicicletas(void)
 {
     int opcao = 0;
-    char codigo[7] = "";
+    char codigo[6] = "";
 
     do
     {
@@ -31,7 +33,7 @@ void telaGerenciarBicicletas(void)
             break;
         case 3:
             printf("\nDigite o codigo da bicicleta: ");
-            scanf("%6s", codigo);
+            scanf("%s", codigo);
             limparBuffer();
 
             telaVerBicicleta(codigo);
@@ -47,9 +49,10 @@ void telaGerenciarBicicletas(void)
 void telaNovaBicicleta(void)
 {
     int opcao = 2;
-    char codigo[7] = "";
-    char cor[16] = "";
+    char codigo[6] = "";
+    char cor[PATH_MAX] = "";
     int ativa = 1;
+    int inputValido = 0;
 
     do
     {
@@ -58,13 +61,23 @@ void telaNovaBicicleta(void)
         printf("--------------------------------------------------\n");
         if (opcao == 2)
         {
-            printf("\nCor: ");
-            scanf("%15s", cor);
-            limparBuffer();
+            do
+            {
+                printf("\nCor: ");
+                scanf("%s", cor);
+                limparBuffer();
 
-            printf("\nAtiva?\n[0] NÃO [1] SIM\n>>");
-            scanf("%1d", &ativa);
-            limparBuffer();
+                inputValido = validaCor(cor);
+            } while (!inputValido);
+
+            do
+            {
+                printf("\nAtiva?\n[0] NÃO [1] SIM\n>>");
+                scanf("%d", &ativa);
+                limparBuffer();
+
+                inputValido = validaBicicletaAtiva(ativa);
+            } while (!inputValido);
 
             printf("\n\n--------------------------------------------------\n");
         }
@@ -93,19 +106,25 @@ void telaNovaBicicleta(void)
 void telaBuscarBicicleta(void)
 {
     int opcao = 0;
-    char codigo[7] = "";
-    char cor[16] = "";
+    char codigo[PATH_MAX] = "";
+    char cor[PATH_MAX] = "";
+    int inputValido = 0;
 
     do
     {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar bicicleta\n");
         printf("--------------------------------------------------\n");
-        printf("\nCor: ");
-        scanf("%15s", cor);
-        limparBuffer();
+        do
+        {
+            printf("\nCor: ");
+            scanf("%15s", cor);
+            limparBuffer();
 
-        printf("\n");
+            inputValido = validaCor(cor);
+            printf("\n");
+        } while (!inputValido);
+
         // faz a busca
         printf("\n--------------------------------------------------\n");
         printf("\nResultados:\n");
@@ -122,9 +141,14 @@ void telaBuscarBicicleta(void)
         switch (opcao)
         {
         case 1:
-            printf("\nDigite o codigo da bicicleta: ");
-            scanf("%6s", codigo);
-            limparBuffer();
+            do
+            {
+                printf("\nDigite o codigo da bicicleta: ");
+                scanf("%s", codigo);
+                limparBuffer();
+
+                inputValido = validaCodigo(codigo, 6);
+            } while (!inputValido);
 
             telaVerBicicleta(codigo);
             break;
@@ -178,8 +202,9 @@ void telaEditarBicicleta(char codigo[])
 {
     int opcao = 2;
 
-    char cor[16] = "";
+    char cor[PATH_MAX] = "";
     int ativa = 1;
+    int inputvalido = 0;
 
     do
     {
@@ -188,13 +213,23 @@ void telaEditarBicicleta(char codigo[])
         if (opcao == 2)
         {
             printf("\n--------------------------------------------------\n");
-            printf("\nCor [Azul]: ");
-            scanf("%15s", cor);
-            limparBuffer();
+            do
+            {
+                printf("\nCor [Azul]: ");
+                scanf("%s", cor);
+                limparBuffer();
 
-            printf("\nAtiva [1]:\n[0] NÃO [1] SIM\n>>");
-            scanf("%1d", &ativa);
-            limparBuffer();
+                inputvalido = validaCor(cor);
+            } while (!inputvalido);
+
+            do
+            {
+                printf("\nAtiva [1]:\n[0] NÃO [1] SIM\n>>");
+                scanf("%d", &ativa);
+                limparBuffer();
+
+                inputvalido = validaBicicletaAtiva(ativa);
+            } while (!inputvalido);
         }
         printf("\n\n--------------------------------------------------\n\n");
         printf("Código: %s\n", codigo);
