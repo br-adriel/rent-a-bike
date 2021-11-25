@@ -2,12 +2,13 @@
 #include "utils.h"
 #include "telasBicicleta.h"
 
-
-void telaGerenciarBicicletas(void) {
+void telaGerenciarBicicletas(void)
+{
     int opcao = 0;
     char codigo[7] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Gerenciar bicicletas\n");
         printf("--------------------------------------------------\n");
@@ -20,39 +21,43 @@ void telaGerenciarBicicletas(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                telaNovaBicicleta();
-                break;
-            case 2:
-                telaBuscarBicicleta();
-                break;
-            case 3:
-                printf("\nDigite o codigo da bicicleta: ");
-                scanf("%6s", codigo);
-                limparBuffer();
+        switch (opcao)
+        {
+        case 1:
+            telaNovaBicicleta();
+            break;
+        case 2:
+            telaBuscarBicicleta();
+            break;
+        case 3:
+            printf("\nDigite o codigo da bicicleta: ");
+            scanf("%6s", codigo);
+            limparBuffer();
 
-                telaVerBicicleta(codigo);
-                break;
-            case 4:
-                break;
-            default:
-                msgInvalido();
+            telaVerBicicleta(codigo);
+            break;
+        case 4:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 4);
 }
 
-void telaNovaBicicleta(void) {
+void telaNovaBicicleta(void)
+{
     int opcao = 2;
     char codigo[7] = "";
     char cor[16] = "";
     int ativa = 1;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Nova bicicleta\n");
         printf("--------------------------------------------------\n");
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
             printf("\nCor: ");
             scanf("%15s", cor);
             limparBuffer();
@@ -74,23 +79,25 @@ void telaNovaBicicleta(void) {
         limparBuffer();
         printf("\n");
 
-        
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = =");
-                printf("\nRegistro salvo!");
-                printf("\n= = = = = = = =\n\n");
-                break;
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = =");
+            printf("\nRegistro salvo!");
+            printf("\n= = = = = = = =\n\n");
+            break;
         }
     } while (opcao == 2);
 }
 
-void telaBuscarBicicleta(void) {
+void telaBuscarBicicleta(void)
+{
     int opcao = 0;
     char codigo[7] = "";
     char cor[16] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar bicicleta\n");
         printf("--------------------------------------------------\n");
@@ -112,25 +119,28 @@ void telaBuscarBicicleta(void) {
         scanf("%1d", &opcao);
         limparBuffer();
 
-        switch (opcao) {
-            case 1:
-                printf("\nDigite o codigo da bicicleta: ");
-                scanf("%6s", codigo);
-                limparBuffer();
+        switch (opcao)
+        {
+        case 1:
+            printf("\nDigite o codigo da bicicleta: ");
+            scanf("%6s", codigo);
+            limparBuffer();
 
-                telaVerBicicleta(codigo);
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+            telaVerBicicleta(codigo);
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 2);
 }
 
-void telaVerBicicleta(char codigo[]) {
+void telaVerBicicleta(char codigo[])
+{
     int opcao = 3;
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Ver bicicleta");
         printf("\n--------------------------------------------------\n");
@@ -146,33 +156,37 @@ void telaVerBicicleta(char codigo[]) {
         scanf("%1d", &opcao);
         limparBuffer();
         printf("\n");
- 
-        switch (opcao) {
-            case 1:
-                telaEditarBicicleta(codigo);
-                break;
-            case 2:
-                telaExcluirBicicleta(codigo);
-                opcao = 3;
-                break;
-            case 3:
-                break;
-            default:
-                msgInvalido();
+
+        switch (opcao)
+        {
+        case 1:
+            telaEditarBicicleta(codigo);
+            break;
+        case 2:
+            telaExcluirBicicleta(codigo);
+            opcao = 3;
+            break;
+        case 3:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 3);
 }
 
-void telaEditarBicicleta(char codigo[]) {
+void telaEditarBicicleta(char codigo[])
+{
     int opcao = 2;
 
     char cor[16] = "";
     int ativa = 1;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Editar bicicleta #%s", codigo);
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
             printf("\n--------------------------------------------------\n");
             printf("\nCor [Azul]: ");
             scanf("%15s", cor);
@@ -195,27 +209,30 @@ void telaEditarBicicleta(char codigo[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                // Salva mudanças
-                printf("\n= = = = = = = = = =");
-                printf("\nAlterações salvas!");
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-            case 3:
-                break;
-            default:
-                msgInvalido();
-                break;
+        switch (opcao)
+        {
+        case 1:
+            // Salva mudanças
+            printf("\n= = = = = = = = = =");
+            printf("\nAlterações salvas!");
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+        case 3:
+            break;
+        default:
+            msgInvalido();
+            break;
         }
     } while (opcao != 1 && opcao != 3);
 }
 
-void telaExcluirBicicleta(char codigo[]) {
+void telaExcluirBicicleta(char codigo[])
+{
     int opcao = 0;
 
-    do {
+    do
+    {
         printf("\n");
         printf("Excluir bicicleta %s?", codigo);
         printf("\n[1] Sim\n[2] Não");
@@ -224,16 +241,17 @@ void telaExcluirBicicleta(char codigo[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = = = =");
-                printf("\nBicicleta excluída!");
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = = = =");
+            printf("\nBicicleta excluída!");
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
 }

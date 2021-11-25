@@ -4,11 +4,12 @@
 #include "validadores.h"
 #include <limits.h>
 
-
-void telaGerenciarAlugueis(void) {
+void telaGerenciarAlugueis(void)
+{
     int opcao = 0;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Gerenciar aluguéis\n");
         printf("--------------------------------------------------\n");
@@ -21,25 +22,27 @@ void telaGerenciarAlugueis(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                telaNovoAluguel();
-                break;
-            case 2:
-                telaListarAlugueis();
-                break;
-            case 3:
-                telaBuscarAluguel();
-                break;
-            case 4:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            telaNovoAluguel();
+            break;
+        case 2:
+            telaListarAlugueis();
+            break;
+        case 3:
+            telaBuscarAluguel();
+            break;
+        case 4:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 4);
 }
 
-void telaNovoAluguel(void) {
+void telaNovoAluguel(void)
+{
     int opcao = 2;
     char codBicicleta[PATH_MAX] = "";
     int horasUso = 0;
@@ -47,43 +50,48 @@ void telaNovoAluguel(void) {
     char emailCliente[PATH_MAX] = "";
     int inputValido = 0;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Novo aluguél\n");
         printf("--------------------------------------------------\n");
-        if (opcao == 2) {
-            do {
+        if (opcao == 2)
+        {
+            do
+            {
                 printf("\nCódigo da bicicleta: ");
                 scanf("%s", codBicicleta);
                 limparBuffer();
 
                 inputValido = validaCodigo(codBicicleta, 6);
-            } while(!inputValido);
+            } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nHoras em uso: ");
                 scanf("%d", &horasUso);
                 limparBuffer();
 
                 inputValido = validaHora(horasUso);
-            } while(!inputValido);
+            } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nMinutos em uso: ");
                 scanf("%2d", &minutosUso);
                 limparBuffer();
 
                 inputValido = validaMinutos(minutosUso);
-            } while(!inputValido);
+            } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nEmail do cliente: ");
                 scanf("%s", emailCliente);
                 limparBuffer();
 
                 inputValido = validaEmail(emailCliente);
-            } while(!inputValido);
-            
+            } while (!inputValido);
 
             printf("\n\n--------------------------------------------------\n");
         }
@@ -100,21 +108,24 @@ void telaNovoAluguel(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = =");
-                printf("\nRegistro salvo!");
-                printf("\n= = = = = = = =\n\n");
-                break;
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = =");
+            printf("\nRegistro salvo!");
+            printf("\n= = = = = = = =\n\n");
+            break;
         }
     } while (opcao == 2);
 }
 
-void telaListarAlugueis(void) {
+void telaListarAlugueis(void)
+{
     int opcao = 2;
     char codigo[PATH_MAX] = "";
     int inputValido = 0;
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Listar aluguéis\n");
         printf("--------------------------------------------------\n\n");
@@ -134,30 +145,33 @@ void telaListarAlugueis(void) {
         limparBuffer();
         printf("\n");
 
-        
-        switch (opcao) {
-            case 1:
-                do {
-                    printf("Digite o código do aluguél: ");
-                    scanf("%s", codigo);
-                    limparBuffer();
-                    printf("\n");
+        switch (opcao)
+        {
+        case 1:
+            do
+            {
+                printf("Digite o código do aluguél: ");
+                scanf("%s", codigo);
+                limparBuffer();
+                printf("\n");
 
-                    inputValido = validaCodigo(codigo, 6);
-                } while (!inputValido);
-                telaVerAluguel(codigo);
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+                inputValido = validaCodigo(codigo, 6);
+            } while (!inputValido);
+            telaVerAluguel(codigo);
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 2);
 }
 
-void telaVerAluguel(char codigo[]) {
+void telaVerAluguel(char codigo[])
+{
     int opcao = 3;
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Aluguél #%s\n", codigo);
         printf("--------------------------------------------------\n");
@@ -182,24 +196,25 @@ void telaVerAluguel(char codigo[]) {
         limparBuffer();
         printf("\n");
 
-        
-        switch (opcao) {
-            case 1:
-                telaEditarAluguel(codigo);
-                break;
-            case 2:
-                telaExcluirAluguel(codigo);
-                opcao = 3;
-                break;
-            case 3:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            telaEditarAluguel(codigo);
+            break;
+        case 2:
+            telaExcluirAluguel(codigo);
+            opcao = 3;
+            break;
+        case 3:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 3);
 }
 
-void telaEditarAluguel(char codigo[]) {
+void telaEditarAluguel(char codigo[])
+{
     int opcao = 2;
 
     char codBicicleta[PATH_MAX] = "";
@@ -208,11 +223,14 @@ void telaEditarAluguel(char codigo[]) {
     char emailCliente[PATH_MAX] = "";
     int inputValido = 0;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Editar aluguél #%s", codigo);
-        if (opcao == 2) {
-            do {
+        if (opcao == 2)
+        {
+            do
+            {
                 printf("\n--------------------------------------------------\n");
                 printf("\nCódigo da bicicleta [123456]: ");
                 scanf("%s", codBicicleta);
@@ -221,7 +239,8 @@ void telaEditarAluguel(char codigo[]) {
                 inputValido = validaCodigo(codBicicleta, 6);
             } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nHoras em uso [1]: ");
                 scanf("%d", &horasUso);
                 limparBuffer();
@@ -229,7 +248,8 @@ void telaEditarAluguel(char codigo[]) {
                 inputValido = validaHora(horasUso);
             } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nMinutos em uso [30]: ");
                 scanf("%2d", &minutosUso);
                 limparBuffer();
@@ -237,7 +257,8 @@ void telaEditarAluguel(char codigo[]) {
                 inputValido = validaMinutos(minutosUso);
             } while (!inputValido);
 
-            do {
+            do
+            {
                 printf("\nEmail do cliente [fulano@email.com]: ");
                 scanf("%s", emailCliente);
                 limparBuffer();
@@ -258,27 +279,30 @@ void telaEditarAluguel(char codigo[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                // Salva mudanças
-                printf("\n= = = = = = = = = =");
-                printf("\nAlterações salvas!");
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-            case 3:
-                break;
-            default:
-                msgInvalido();
-                break;
+        switch (opcao)
+        {
+        case 1:
+            // Salva mudanças
+            printf("\n= = = = = = = = = =");
+            printf("\nAlterações salvas!");
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+        case 3:
+            break;
+        default:
+            msgInvalido();
+            break;
         }
     } while (opcao != 1 && opcao != 3);
 }
 
-void telaExcluirAluguel(char codigo[]) {
+void telaExcluirAluguel(char codigo[])
+{
     int opcao = 0;
 
-    do {
+    do
+    {
         printf("\n");
         printf("Excluir aluguél #%s?", codigo);
         printf("\n[1] Sim\n[2] Não");
@@ -287,21 +311,23 @@ void telaExcluirAluguel(char codigo[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = = = =");
-                printf("\nAluguél #%s excluído!", codigo);
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = = = =");
+            printf("\nAluguél #%s excluído!", codigo);
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
 }
 
-void telaBuscarAluguel(void) {
+void telaBuscarAluguel(void)
+{
     int opcao = 0;
     int dia = 0;
     int mes = 0;
@@ -309,7 +335,8 @@ void telaBuscarAluguel(void) {
     int inputValido = 0;
     char codigo[PATH_MAX];
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar aluguél\n");
         printf("--------------------------------------------------\n");
@@ -344,31 +371,36 @@ void telaBuscarAluguel(void) {
         scanf("%1d", &opcao);
         limparBuffer();
 
-        switch (opcao) {
-            case 1:
-                do {
-                    printf("\nDigite o código do aluguél: ");
-                    scanf("%s", codigo);
-                    limparBuffer();
+        switch (opcao)
+        {
+        case 1:
+            do
+            {
+                printf("\nDigite o código do aluguél: ");
+                scanf("%s", codigo);
+                limparBuffer();
 
-                    inputValido = validaCodigo(codigo, 6);
-                } while (!inputValido);
+                inputValido = validaCodigo(codigo, 6);
+            } while (!inputValido);
 
-                telaVerAluguel(codigo);
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+            telaVerAluguel(codigo);
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 2);
 }
 
-void telaRelatorioLucros(void) {
+void telaRelatorioLucros(void)
+{
     int opcao = 0;
 
-    do {
-        if (opcao == 0) {
+    do
+    {
+        if (opcao == 0)
+        {
             printf("//////////////////////////////////////////////////\n");
             printf("RENT A BIKE - Relatório de lucros\n");
             printf("--------------------------------------------------\n");
@@ -380,7 +412,8 @@ void telaRelatorioLucros(void) {
             scanf("%1d", &opcao);
             limparBuffer();
 
-            if (opcao == 4) {
+            if (opcao == 4)
+            {
                 break;
             }
 
@@ -407,16 +440,17 @@ void telaRelatorioLucros(void) {
         scanf("%1d", &opcao);
         limparBuffer();
 
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =");
-                printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt\"");
-                printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =\n");
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =");
+            printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt\"");
+            printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =\n");
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
 }

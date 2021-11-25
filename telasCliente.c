@@ -2,12 +2,13 @@
 #include "utils.h"
 #include "telasCliente.h"
 
-
-void telaGerenciarClientes(void) {
+void telaGerenciarClientes(void)
+{
     int opcao = 0;
     char email[71] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Gerenciar clientes\n");
         printf("--------------------------------------------------\n");
@@ -20,39 +21,43 @@ void telaGerenciarClientes(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                telaNovoCliente();
-                break;
-            case 2:
-                telaBuscarCliente();
-                break;
-            case 3:
-                printf("\nDigite o email do cliente: ");
-                scanf("%70s", email);
-                limparBuffer();
+        switch (opcao)
+        {
+        case 1:
+            telaNovoCliente();
+            break;
+        case 2:
+            telaBuscarCliente();
+            break;
+        case 3:
+            printf("\nDigite o email do cliente: ");
+            scanf("%70s", email);
+            limparBuffer();
 
-                telaVerCliente(email);
-                break;
-            case 4:
-                break;
-            default:
-                msgInvalido();
+            telaVerCliente(email);
+            break;
+        case 4:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 4);
 }
 
-void telaNovoCliente(void) {
+void telaNovoCliente(void)
+{
     int opcao = 2;
     char email[71] = "";
     char nome[21] = "";
     char sobrenome[21] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Novo cliente\n");
         printf("--------------------------------------------------\n");
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
             printf("\nEmail: ");
             scanf("%70s", email);
             limparBuffer();
@@ -78,23 +83,25 @@ void telaNovoCliente(void) {
         limparBuffer();
         printf("\n");
 
-        
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = =");
-                printf("\nRegistro salvo!");
-                printf("\n= = = = = = = =\n\n");
-                break;
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = =");
+            printf("\nRegistro salvo!");
+            printf("\n= = = = = = = =\n\n");
+            break;
         }
     } while (opcao == 2);
 }
 
-void telaBuscarCliente(void) {
+void telaBuscarCliente(void)
+{
     int opcao = 0;
     char nome[21] = "";
     char email[71] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar cliente\n");
         printf("--------------------------------------------------\n");
@@ -116,25 +123,28 @@ void telaBuscarCliente(void) {
         scanf("%1d", &opcao);
         limparBuffer();
 
-        switch (opcao) {
-            case 1:
-                printf("\nDigite o email do cliente: ");
-                scanf("%70s", email);
-                limparBuffer();
+        switch (opcao)
+        {
+        case 1:
+            printf("\nDigite o email do cliente: ");
+            scanf("%70s", email);
+            limparBuffer();
 
-                telaVerCliente(email);
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+            telaVerCliente(email);
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 2);
 }
 
-void telaVerCliente(char email[]) {
+void telaVerCliente(char email[])
+{
     int opcao = 3;
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Ver cliente");
         printf("\n--------------------------------------------------\n");
@@ -150,34 +160,38 @@ void telaVerCliente(char email[]) {
         scanf("%1d", &opcao);
         limparBuffer();
         printf("\n");
- 
-        switch (opcao) {
-            case 1:
-                telaEditarCliente(email);
-                break;
-            case 2:
-                telaExcluirCliente(email);
-                opcao = 3;
-                break;
-            case 3:
-                break;
-            default:
-                msgInvalido();
+
+        switch (opcao)
+        {
+        case 1:
+            telaEditarCliente(email);
+            break;
+        case 2:
+            telaExcluirCliente(email);
+            opcao = 3;
+            break;
+        case 3:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 3);
 }
 
-void telaEditarCliente(char email[]) {
+void telaEditarCliente(char email[])
+{
     int opcao = 2;
 
     char novoEmail[71] = "";
     char nome[21] = "";
     char sobrenome[21] = "";
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Editar cliente");
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
             printf("\n--------------------------------------------------\n");
             printf("\nEmail [fulano@email.com]: ");
             scanf("%70s", novoEmail);
@@ -203,27 +217,30 @@ void telaEditarCliente(char email[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                // Salva mudanças
-                printf("\n= = = = = = = = = =");
-                printf("\nAlterações salvas!");
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-            case 3:
-                break;
-            default:
-                msgInvalido();
-                break;
+        switch (opcao)
+        {
+        case 1:
+            // Salva mudanças
+            printf("\n= = = = = = = = = =");
+            printf("\nAlterações salvas!");
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+        case 3:
+            break;
+        default:
+            msgInvalido();
+            break;
         }
     } while (opcao != 1 && opcao != 3);
 }
 
-void telaExcluirCliente(char email[]) {
+void telaExcluirCliente(char email[])
+{
     int opcao = 0;
 
-    do {
+    do
+    {
         printf("\n");
         printf("Excluir cliente %s?", email);
         printf("\n[1] Sim\n[2] Não");
@@ -232,16 +249,17 @@ void telaExcluirCliente(char email[]) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                printf("\n= = = = = = = = = =");
-                printf("\nCliente excluído!");
-                printf("\n= = = = = = = = = =\n\n");
-                break;
-            case 2:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            printf("\n= = = = = = = = = =");
+            printf("\nCliente excluído!");
+            printf("\n= = = = = = = = = =\n\n");
+            break;
+        case 2:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
 }

@@ -7,15 +7,17 @@
 void telaInicial(void);
 void telaSobre(void);
 
-
-int main(void) {
+int main(void)
+{
     telaInicial();
     return 0;
 }
 
-void telaInicial(void) {
+void telaInicial(void)
+{
     int opcao = 0;
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Página inicial\n");
         printf("--------------------------------------------------\n");
@@ -31,43 +33,47 @@ void telaInicial(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                telaGerenciarAlugueis();
-                break;
-            case 2:
-                telaGerenciarClientes();
-                break;
-            case 3:
-                telaGerenciarBicicletas();
-                break;
-            case 4:
-                telaAlterarPreco();
-                break;
-            case 5:
-                telaRelatorioLucros();
-                break;
-            case 6:
-                telaSobre();
-                break;
-            case 7:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            telaGerenciarAlugueis();
+            break;
+        case 2:
+            telaGerenciarClientes();
+            break;
+        case 3:
+            telaGerenciarBicicletas();
+            break;
+        case 4:
+            telaAlterarPreco();
+            break;
+        case 5:
+            telaRelatorioLucros();
+            break;
+        case 6:
+            telaSobre();
+            break;
+        case 7:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 7);
 }
 
-void telaAlterarPreco(void) {
+void telaAlterarPreco(void)
+{
     int opcao = 2;
     float novoPreco = 0.00;
 
-    do {
+    do
+    {
         printf("\n//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Alterar preço da hora\n");
         printf("--------------------------------------------------\n\n");
 
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
             printf("/!/ Lembre-se de usar . ao invés de ,\n");
             printf("Preço atual: R$ 3.25\n");
             printf("Novo preço: ");
@@ -81,25 +87,28 @@ void telaAlterarPreco(void) {
         scanf("%1d", &opcao);
         limparBuffer();
 
-        switch(opcao) {
-            case 1:
-                printf("= = = = = = = = =");
-                printf("Novo preço salvo!");
-                printf("= = = = = = = = =");
-                break;
-            case 2:
-            case 3:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            printf("= = = = = = = = =");
+            printf("Novo preço salvo!");
+            printf("= = = = = = = = =");
+            break;
+        case 2:
+        case 3:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1 && opcao != 3);
 }
 
-void telaSobre(void) {
+void telaSobre(void)
+{
     int opcao = 0;
 
-    do {
+    do
+    {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
@@ -114,11 +123,12 @@ void telaSobre(void) {
         limparBuffer();
         printf("\n");
 
-        switch (opcao) {
-            case 1:
-                break;
-            default:
-                msgInvalido();
+        switch (opcao)
+        {
+        case 1:
+            break;
+        default:
+            msgInvalido();
         }
     } while (opcao != 1);
 }
