@@ -144,6 +144,7 @@ int validaHora(int hora)
   {
     return 1;
   }
+  printf("Hora inválida: não há quantidade de horas negativa\n");
   return 0;
 }
 
