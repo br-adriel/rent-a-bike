@@ -1,5 +1,6 @@
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 
 /*
 Validação de email
@@ -17,7 +18,7 @@ int validaEmail(char email[])
   char *temEspaco = strchr(email, ' ');
   if (temEspaco)
   {
-    msgEmailInválido(1);
+    msgEmailInvalido(1);
     return 0;
   }
 
@@ -25,7 +26,7 @@ int validaEmail(char email[])
   char *temArroba = strchr(email, '@');
   if (!temArroba)
   {
-    msgEmailInválido(2);
+    msgEmailInvalido(2);
     return 0;
   }
 
@@ -33,7 +34,7 @@ int validaEmail(char email[])
   int tamDominio = strlen(temArroba);
   if (tamDominio < 1)
   {
-    msgEmailInválido(3);
+    msgEmailInvalido(3);
     return 0;
   }
 
@@ -41,7 +42,7 @@ int validaEmail(char email[])
   int tamUsuario = strlen(email) - tamDominio;
   if (tamUsuario < 0)
   {
-    msgEmailInválido(4);
+    msgEmailInvalido(4);
     return 0;
   }
 
@@ -61,25 +62,38 @@ Retorno:
 */
 int validaCodigo(char codigo[], int comprimentoMax)
 {
+  // verifica se codigo esta dentro do comprimento maximo
   int tamanho = strlen(codigo);
-  if (tamanho > 0 && tamanho <= comprimentoMax)
+  if (!(tamanho > 0 && tamanho <= comprimentoMax))
   {
-    char *temEspaco = strchr(codigo, ' ');
-    if (!temEspaco)
-    {
-      char *temUnderline = strchr(codigo, '_');
-      if (!temUnderline)
-      {
-        char *temTraco = strchr(codigo, '_');
-        if (!temTraco)
-        {
-          return 1;
-        }
-      }
-    }
+    msgCodigoInvalido(1);
+    return 0;
   }
 
-  return 0;
+  // verifica se há espaços em branco
+  char *temEspaco = strchr(codigo, ' ');
+  if (temEspaco)
+  {
+    msgCodigoInvalido(2);
+    return 0;
+  }
+
+  // verifica se há underlines
+  char *temUnderline = strchr(codigo, '_');
+  if (temUnderline)
+  {
+    msgCodigoInvalido(3);
+    return 0;
+  }
+
+  // verifica se tem traços no código
+  char *temTraco = strchr(codigo, '-');
+  if (temTraco)
+  {
+    msgCodigoInvalido(4);
+    return 0;
+  }
+  return 1;
 }
 
 /*
@@ -156,7 +170,7 @@ Atributos:
   motivo: inidica qual erro exibir
 
 */
-void msgEmailInválido(int motivo)
+void msgEmailInvalido(int motivo)
 {
   switch (motivo)
   {
@@ -174,5 +188,33 @@ void msgEmailInválido(int motivo)
     break;
   default:
     printf("/!/ Email inválido\n");
+  }
+}
+
+/*
+Mensagem de código inválido
+
+Atributos:
+  motivo: inidica qual erro exibir
+
+*/
+void msgCodigoInvalido(int motivo)
+{
+  switch (motivo)
+  {
+  case 1:
+    printf("/!/ Código inválido: código muito curto ou comprido demais\n");
+    break;
+  case 2:
+    printf("/!/ Código inválido: contém espaços\n");
+    break;
+  case 3:
+    printf("/!/ Código inválido: o código não deve conter underline\n");
+    break;
+  case 4:
+    printf("/!/ Código inválido: o código não deve conter traço\n");
+    break;
+  default:
+    printf("/!/ Código inválido\n");
   }
 }
