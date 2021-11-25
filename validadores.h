@@ -4,3 +4,4 @@ int validaNome(char[]);
 int validaHora(int);
 int validaMinutos(int);
 int validaCor(char[]);
+int validaBicicletaAtiva(int);

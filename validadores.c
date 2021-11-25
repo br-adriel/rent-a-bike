@@ -107,7 +107,7 @@ int validaNome(char nome[])
   // verifica se tem espaços
   if (strchr(nome, ' '))
   {
-    printf("/!/Inválido: nomes e sobrenomes não podem conter espaços\n");
+    printf("/!/ Inválido: nomes e sobrenomes não podem conter espaços\n");
     return 0;
   }
 
@@ -116,7 +116,7 @@ int validaNome(char nome[])
   {
     if (!isalpha(nome[i]))
     {
-      printf("/!/Inválido: nomes e sobrenomes devem conter apenas letras\n");
+      printf("/!/ Inválido: nomes e sobrenomes devem conter apenas letras\n");
       return 0;
     }
   }
@@ -139,7 +139,7 @@ int validaHora(int hora)
   {
     return 1;
   }
-  printf("/!/Hora inválida: não há quantidade de horas negativa\n");
+  printf("/!/ Hora inválida: não há quantidade de horas negativa\n");
   return 0;
 }
 
@@ -159,7 +159,7 @@ int validaMinutos(int minutos)
   {
     return 1;
   }
-  printf("/!/Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
+  printf("/!/ Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
   return 0;
 }
 
@@ -192,4 +192,24 @@ int validaCor(char cor[])
     }
   }
   return 1;
+}
+
+/*
+Validação de bicicleta ativa
+
+Atributos:
+  opcao: opcao passada para verificar validade
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
+int validaBicicletaAtiva(int opcao)
+{
+  if (opcao == 0 || opcao == 1)
+  {
+    return 1;
+  }
+  printf("/!/ Opção inválida: precisa ser 0 ou 1\n");
+  return 0;
 }
