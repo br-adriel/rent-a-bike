@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include "utils.h"
 #include "telasCliente.h"
+#include "validadores.h"
+#include <limits.h>
 
 void telaGerenciarClientes(void)
 {
     int opcao = 0;
-    char email[71] = "";
+    char email[PATH_MAX] = "";
+    int inputValido = 0;
 
     do
     {
@@ -30,9 +33,15 @@ void telaGerenciarClientes(void)
             telaBuscarCliente();
             break;
         case 3:
-            printf("\nDigite o email do cliente: ");
-            scanf("%70s", email);
-            limparBuffer();
+            do
+            {
+                printf("\nDigite o email do cliente: ");
+                scanf("%s", email);
+                limparBuffer();
+
+                inputValido = validaEmail(email);
+                printf("\n");
+            } while (!inputValido);
 
             telaVerCliente(email);
             break;
@@ -47,9 +56,10 @@ void telaGerenciarClientes(void)
 void telaNovoCliente(void)
 {
     int opcao = 2;
-    char email[71] = "";
-    char nome[21] = "";
-    char sobrenome[21] = "";
+    char email[PATH_MAX] = "";
+    char nome[PATH_MAX] = "";
+    char sobrenome[PATH_MAX] = "";
+    int inputValido = 0;
 
     do
     {
@@ -58,19 +68,37 @@ void telaNovoCliente(void)
         printf("--------------------------------------------------\n");
         if (opcao == 2)
         {
-            printf("\nEmail: ");
-            scanf("%70s", email);
-            limparBuffer();
+            do
+            {
+                printf("\nEmail: ");
+                scanf("%s", email);
+                limparBuffer();
 
-            printf("\nNome: ");
-            scanf("%20s", nome);
-            limparBuffer();
+                inputValido = validaEmail(email);
+                printf("\n");
+            } while (!inputValido);
 
-            printf("\nSobrenome: ");
-            scanf("%20s", sobrenome);
-            limparBuffer();
+            do
+            {
+                printf("\nNome: ");
+                scanf("%s", nome);
+                limparBuffer();
 
-            printf("\n\n--------------------------------------------------\n");
+                inputValido = validaNome(nome);
+                printf("\n");
+            } while (!inputValido);
+
+            do
+            {
+                printf("\nSobrenome: ");
+                scanf("%s", sobrenome);
+                limparBuffer();
+
+                inputValido = validaNome(sobrenome);
+                printf("\n");
+            } while (!inputValido);
+
+            printf("\n--------------------------------------------------\n");
         }
         printf("\nEmail: %s\n", email);
         printf("Nome: %s\n", nome);
@@ -97,19 +125,25 @@ void telaNovoCliente(void)
 void telaBuscarCliente(void)
 {
     int opcao = 0;
-    char nome[21] = "";
-    char email[71] = "";
+    char nome[PATH_MAX] = "";
+    char email[PATH_MAX] = "";
+    int inputValido = 0;
 
     do
     {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar cliente\n");
         printf("--------------------------------------------------\n");
-        printf("\nNome do cliente ");
-        scanf("%20s", nome);
-        limparBuffer();
+        do
+        {
+            printf("\nNome do cliente ");
+            scanf("%s", nome);
+            limparBuffer();
 
-        printf("\n");
+            inputValido = validaNome(nome);
+            printf("\n");
+        } while (!inputValido);
+
         // faz a busca
         printf("\n--------------------------------------------------\n");
         printf("\nResultados:\n");
@@ -126,10 +160,15 @@ void telaBuscarCliente(void)
         switch (opcao)
         {
         case 1:
-            printf("\nDigite o email do cliente: ");
-            scanf("%70s", email);
-            limparBuffer();
+            do
+            {
+                printf("\nDigite o email do cliente: ");
+                scanf("%s", email);
+                limparBuffer();
 
+                inputValido = validaEmail(email);
+                printf("\n");
+            } while (!inputValido);
             telaVerCliente(email);
             break;
         case 2:
@@ -182,9 +221,10 @@ void telaEditarCliente(char email[])
 {
     int opcao = 2;
 
-    char novoEmail[71] = "";
-    char nome[21] = "";
-    char sobrenome[21] = "";
+    char novoEmail[PATH_MAX] = "";
+    char nome[PATH_MAX] = "";
+    char sobrenome[PATH_MAX] = "";
+    int inputValido = 0;
 
     do
     {
@@ -193,17 +233,35 @@ void telaEditarCliente(char email[])
         if (opcao == 2)
         {
             printf("\n--------------------------------------------------\n");
-            printf("\nEmail [fulano@email.com]: ");
-            scanf("%70s", novoEmail);
-            limparBuffer();
+            do
+            {
+                printf("\nEmail [fulano@email.com]: ");
+                scanf("%s", novoEmail);
+                limparBuffer();
 
-            printf("\nNome do cliente [Fulano]: ");
-            scanf("%20s", nome);
-            limparBuffer();
+                inputValido = validaEmail(email);
+                printf("\n");
+            } while (!inputValido);
 
-            printf("\nSobrenome do cliente [Silva]: ");
-            scanf("%20s", sobrenome);
-            limparBuffer();
+            do
+            {
+                printf("\nNome do cliente [Fulano]: ");
+                scanf("%s", nome);
+                limparBuffer();
+
+                inputValido = validaNome(nome);
+                printf("\n");
+            } while (!inputValido);
+
+            do
+            {
+                printf("\nSobrenome do cliente [Silva]: ");
+                scanf("%s", sobrenome);
+                limparBuffer();
+
+                inputValido = validaNome(sobrenome);
+                printf("\n");
+            } while (!inputValido);
         }
         printf("\n\n--------------------------------------------------\n\n");
         printf("Email: %s\n", email);
