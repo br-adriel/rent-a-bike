@@ -108,20 +108,24 @@ Retorno:
 */
 int validaNome(char nome[])
 {
+  // verifica se tem espaços
   char *temespaco = strchr(nome, ' ');
-
-  if (!temespaco)
+  if (temespaco)
   {
-    for (int i = 0; i < strlen(nome); i++)
-    {
-      if (!isalpha(nome[i]))
-      {
-        return 0;
-      }
-    }
-    return 1;
+    printf("Inválido: nomes e sobrenomes não podem conter espaços\n");
+    return 0;
   }
-  return 0;
+
+  // verifica se há numeros
+  for (int i = 0; i < strlen(nome); i++)
+  {
+    if (!isalpha(nome[i]))
+    {
+      printf("Inválido: nomes e sobrenomes devem conter apenas letras\n");
+      return 0;
+    }
+  }
+  return 1;
 }
 
 /*
