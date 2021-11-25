@@ -62,7 +62,7 @@ int validaNome(char nome[]) {
 /* Funcao de validacao de hora */
 /* retorna 0 se invalido, 1 se valido */
 int validaHora(int hora) {
-  if (hora > 0) {
+  if (hora >= 0) {
     return 1;
   }
   return 0;
