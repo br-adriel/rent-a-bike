@@ -54,41 +54,37 @@ Validação de código
 
 Atributos:
   codigo: codigo para verificar validade
-  comprimento: tamanho maximo do codigo
+  comprimento: tamanho que o codigo deve ter
 
 Retorno:
   0 - invalido
   1 - valido
 */
-int validaCodigo(char codigo[], int comprimentoMax)
+int validaCodigo(char codigo[], int comprimento)
 {
   // verifica se codigo esta dentro do comprimento maximo
-  int tamanho = strlen(codigo);
-  if (!(tamanho > 0 && tamanho <= comprimentoMax))
+  if (!(strlen(codigo) == comprimento))
   {
-    printf("/!/ Código inválido: código muito curto ou comprido demais\n");
+    printf("/!/ Código inválido: o código deve conter %d digitos \n", comprimento);
     return 0;
   }
 
   // verifica se há espaços em branco
-  char *temEspaco = strchr(codigo, ' ');
-  if (temEspaco)
+  if (strchr(codigo, ' '))
   {
     printf("/!/ Código inválido: contém espaços\n");
     return 0;
   }
 
   // verifica se há underlines
-  char *temUnderline = strchr(codigo, '_');
-  if (temUnderline)
+  if (strchr(codigo, '_'))
   {
     printf("/!/ Código inválido: o código não deve conter underline\n");
     return 0;
   }
 
   // verifica se tem traços no código
-  char *temTraco = strchr(codigo, '-');
-  if (temTraco)
+  if (strchr(codigo, '-'))
   {
     printf("/!/ Código inválido: o código não deve conter traços\n");
     return 0;
@@ -109,8 +105,7 @@ Retorno:
 int validaNome(char nome[])
 {
   // verifica se tem espaços
-  char *temespaco = strchr(nome, ' ');
-  if (temespaco)
+  if (strchr(nome, ' '))
   {
     printf("/!/Inválido: nomes e sobrenomes não podem conter espaços\n");
     return 0;
