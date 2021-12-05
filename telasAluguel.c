@@ -334,23 +334,20 @@ void telaBuscarAluguel(void)
     int ano = 0;
     int inputValido = 0;
     char codigo[PATH_MAX];
+    int dataValida = 0;
 
     do
     {
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar aluguél\n");
         printf("--------------------------------------------------\n");
-        printf("\nData do aluguél ");
-        printf("\nDia: ");
-        scanf("%2d", &dia);
-        limparBuffer();
+        do
+        {
+            printf("\nData do aluguél (DD/MM/AAAA): ");
+            scanf("%d/%d/%d", &dia, &mes, &ano);
 
-        printf("\nMês: ");
-        scanf("%2d", &mes);
-        limparBuffer();
-
-        printf("\nAno: ");
-        scanf("%4d", &ano);
+            dataValida = validaData(dia, mes, ano);
+        } while (!dataValida);
         limparBuffer();
 
         printf("\n");
