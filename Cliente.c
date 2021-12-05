@@ -43,3 +43,23 @@ int clienteExiste(char email[])
   fclose(arquivo);
   return existe;
 }
+
+int gravarCliente(Cliente cliente)
+{
+  if (clienteExiste(cliente.email))
+  {
+    return 0;
+  }
+
+  FILE *arquivo;
+  arquivo = fopen("./clientes.txt", "a");
+  fprintf(arquivo, cliente.nome);
+  fprintf(arquivo, "|");
+  fprintf(arquivo, cliente.sobrenome);
+  fprintf(arquivo, "|");
+  fprintf(arquivo, cliente.email);
+  fprintf(arquivo, "\n");
+
+  fclose(arquivo);
+  return 1;
+}
