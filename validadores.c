@@ -155,11 +155,11 @@ Retorno:
 */
 int validaHora(int hora)
 {
-  if (hora >= 0)
+  if (hora < 0)
   {
+    printf("/!/ Hora inválida: não há quantidade de horas negativa\n");
     return 1;
   }
-  printf("/!/ Hora inválida: não há quantidade de horas negativa\n");
   return 0;
 }
 
