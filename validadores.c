@@ -38,6 +38,17 @@ int validaEmail(char email[])
     return 0;
   }
 
+  // verfifica se tem símbolos
+  char simbolos[] = ":;,|/!?#$*()=+-*'\"`'[{]}ªº^~°$";
+  for (int i = 0; i < strlen(simbolos); i++)
+  {
+    if (strchr(email, simbolos[i]))
+    {
+      printf("/!/ Email inválido: o email não pode ter símbolos especiais\n");
+      return 0;
+    }
+  }
+
   // verifica se nao tem conteudo apos o @
   int tamDominio = strlen(temArroba);
   if (tamDominio <= 1)
@@ -84,19 +95,13 @@ int validaCodigo(char codigo[], int comprimento)
     return 0;
   }
 
-  // verifica se há underlines
-  if (strchr(codigo, '_'))
+  // verifica se contém apenas letras e numeros
+  if (isalnum(codigo))
   {
-    printf("/!/ Código inválido: o código não deve conter underline\n");
+    printf("/!/ Código inválido: o código não pode ter símbolos\n");
     return 0;
   }
 
-  // verifica se tem traços no código
-  if (strchr(codigo, '-'))
-  {
-    printf("/!/ Código inválido: o código não deve conter traços\n");
-    return 0;
-  }
   return 1;
 }
 
