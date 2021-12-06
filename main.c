@@ -112,8 +112,8 @@ void telaSobre(void)
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.7\n");
-        printf("Última atualização: 05/12/2021\n");
+        printf("Versão: 0.7.1\n");
+        printf("Última atualização: 06/12/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
