@@ -1,3 +1,3 @@
 void msgInvalido(void);
 void limparBuffer(void);
-void registroSalvo(void);
+void msgRegistroSalvo(void);
