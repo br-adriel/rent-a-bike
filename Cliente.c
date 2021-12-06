@@ -1,14 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-
-struct Cliente
-{
-  char nome[20];
-  char sobrenome[20];
-  char email[70];
-};
-
-typedef struct Cliente Cliente;
+#include "Cliente.h"
 
 /*
 Cria um novo Cliente
