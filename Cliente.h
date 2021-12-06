@@ -10,5 +10,6 @@ typedef struct Cliente Cliente;
 Cliente novoCliente(char[], char[], char[]);
 int clienteExiste(char[]);
 int gravarCliente(Cliente);
+Cliente verCliente(char[]);
 int atualizarCliente(Cliente);
 int excluirCliente(char[]);

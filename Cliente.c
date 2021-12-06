@@ -74,15 +74,51 @@ int gravarCliente(Cliente cliente)
 
   FILE *arquivo;
   arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, cliente.nome);
+  fprintf(arquivo, "%s", cliente.nome);
   fprintf(arquivo, "|");
-  fprintf(arquivo, cliente.sobrenome);
+  fprintf(arquivo, "%s", cliente.sobrenome);
   fprintf(arquivo, "|");
-  fprintf(arquivo, cliente.email);
+  fprintf(arquivo, "%s", cliente.email);
   fprintf(arquivo, "\n");
 
   fclose(arquivo);
   return 1;
+}
+
+/*
+Ver dados de cliente específico
+
+Atributos;
+  email; email do cliente
+Retornos:
+  Cliente: dados do cliente
+*/
+Cliente verCliente(char email[])
+{
+  Cliente cliente;
+  char linha[150] = "";
+
+  FILE *arquivo;
+
+  // Cria o arquivo caso seja a primeira execução
+  arquivo = fopen("./clientes.txt", "a");
+  fclose(arquivo);
+
+  // busca cliente no arquivo
+  arquivo = fopen("./clientes.txt", "r");
+  while (fgets(linha, 150, arquivo) != NULL)
+  {
+    // verifica se o email corresponde
+    if (strstr(linha, email))
+    {
+      strcpy(cliente.nome, strstr(linha, "|"));
+      strcpy(cliente.nome, strstr(linha, "|"));
+      strcpy(cliente.sobrenome, strstr(linha, "\n"));
+    }
+    fclose(arquivo);
+    break;
+  }
+  return cliente;
 }
 
 /*
@@ -115,16 +151,16 @@ int atualizarCliente(Cliente cliente)
     if (strstr(linha, cliente.email))
     {
       // atualiza os dados
-      fprintf(temp, cliente.nome);
+      fprintf(temp, "%s", cliente.nome);
       fprintf(temp, "|");
-      fprintf(temp, cliente.sobrenome);
+      fprintf(temp, "%s", cliente.sobrenome);
       fprintf(temp, "|");
-      fprintf(temp, cliente.email);
+      fprintf(temp, "%s", cliente.email);
       fprintf(temp, "\n");
     }
     else
     {
-      fprintf(temp, linha);
+      fprintf(temp, "%s", linha);
     }
   }
 
@@ -167,7 +203,7 @@ int excluirCliente(char email[])
     // verifica se o email nao corresponde
     if (!strstr(linha, email))
     {
-      fprintf(temp, linha);
+      fprintf(temp, "%s", linha);
     }
   }
 
