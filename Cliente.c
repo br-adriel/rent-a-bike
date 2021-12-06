@@ -101,7 +101,7 @@ Cliente verCliente(char email[])
 
   // busca cliente no arquivo
   arquivo = fopen("./clientes.txt", "r");
-  while (fgets(linha, 150, arquivo) != NULL)
+  while (fgets(linha, sizeof(linha), arquivo))
   {
     // verifica se o email corresponde
     if (strstr(linha, email))
@@ -116,9 +116,9 @@ Cliente verCliente(char email[])
         free(dadosCliente[i]);
       }
       free(dadosCliente);
+      fclose(arquivo);
+      break;
     }
-    fclose(arquivo);
-    break;
   }
   return cliente;
 }
