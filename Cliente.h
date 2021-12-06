@@ -11,5 +11,5 @@ Cliente novoCliente(char[], char[], char[]);
 int clienteExiste(char[]);
 int gravarCliente(Cliente);
 Cliente verCliente(char[]);
-int atualizarCliente(Cliente);
+int atualizarCliente(char[], char[], char[], char[]);
 int excluirCliente(char[]);

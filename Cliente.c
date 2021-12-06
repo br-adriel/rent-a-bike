@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 #include "Cliente.h"
+#include "utils.h"
+#include <stdlib.h>
 
 /*
 Cria um novo Cliente
@@ -74,7 +76,7 @@ int gravarCliente(Cliente cliente)
 
   FILE *arquivo;
   arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, "%s|%s|%s\n", cliente.nome, cliente.sobrenome, cliente.email);
+  fprintf(arquivo, "%s|%s|%s|\n", cliente.nome, cliente.sobrenome, cliente.email);
   fclose(arquivo);
   return 1;
 }
@@ -93,7 +95,6 @@ Cliente verCliente(char email[])
   char linha[150] = "";
 
   FILE *arquivo;
-
   // Cria o arquivo caso seja a primeira execução
   arquivo = fopen("./clientes.txt", "a");
   fclose(arquivo);
@@ -105,9 +106,16 @@ Cliente verCliente(char email[])
     // verifica se o email corresponde
     if (strstr(linha, email))
     {
-      strcpy(cliente.nome, strstr(linha, "|"));
-      strcpy(cliente.nome, strstr(linha, "|"));
-      strcpy(cliente.sobrenome, strstr(linha, "\n"));
+      char **dadosCliente = quebrarStr(linha, '|');
+      strcpy(cliente.nome, dadosCliente[0]);
+      strcpy(cliente.sobrenome, dadosCliente[1]);
+      strcpy(cliente.email, dadosCliente[2]);
+
+      for (int i = 0; i < 4; i++)
+      {
+        free(dadosCliente[i]);
+      }
+      free(dadosCliente);
     }
     fclose(arquivo);
     break;
@@ -119,15 +127,18 @@ Cliente verCliente(char email[])
 Atualiza registro de um cliente
 
 Atributos:
-  cliente: cliente a ser atualizado
+  emailAntigo: email do cliente a ser atualizado
+  email: novo email
+  nome: novo nome
+  sobrenome: novo sobrenome
 Retornos:
   0 - O cliente nao existe
   1 - Cliente atualizado
 */
-int atualizarCliente(Cliente cliente)
+int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobrenome[])
 {
   // verifica se o cliente está salvo
-  int linhaRegistro = clienteExiste(cliente.email);
+  int linhaRegistro = clienteExiste(emailAntigo);
   if (linhaRegistro == -1)
   {
     return 0;
@@ -142,10 +153,10 @@ int atualizarCliente(Cliente cliente)
   while (fgets(linha, 150, arquivo) != NULL)
   {
     // verifica se o email corresponde
-    if (strstr(linha, cliente.email))
+    if (strstr(linha, emailAntigo))
     {
       // atualiza os dados
-      fprintf(temp, "%s|%s|%s\n", cliente.nome, cliente.sobrenome, cliente.email);
+      fprintf(temp, "%s|%s|%s|\n", nome, sobrenome, email);
     }
     else
     {
