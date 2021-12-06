@@ -17,3 +17,8 @@ void msgInvalido(void)
     printf("// Escolha inválida! //\n");
     printf("///////////////////////\n\n");
 }
+
+void msgRegistroSalvo(void)
+{
+    printf("\n/i/ Registro salvo!\n\n");
+}
