@@ -67,20 +67,14 @@ Retorna:
 */
 int gravarCliente(Cliente cliente)
 {
-  if (clienteExiste(cliente.email))
+  if (clienteExiste(cliente.email) != -1)
   {
     return 0;
   }
 
   FILE *arquivo;
   arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, "%s", cliente.nome);
-  fprintf(arquivo, "|");
-  fprintf(arquivo, "%s", cliente.sobrenome);
-  fprintf(arquivo, "|");
-  fprintf(arquivo, "%s", cliente.email);
-  fprintf(arquivo, "\n");
-
+  fprintf(arquivo, "%s|%s|%s\n", cliente.nome, cliente.sobrenome, cliente.email);
   fclose(arquivo);
   return 1;
 }
@@ -151,12 +145,7 @@ int atualizarCliente(Cliente cliente)
     if (strstr(linha, cliente.email))
     {
       // atualiza os dados
-      fprintf(temp, "%s", cliente.nome);
-      fprintf(temp, "|");
-      fprintf(temp, "%s", cliente.sobrenome);
-      fprintf(temp, "|");
-      fprintf(temp, "%s", cliente.email);
-      fprintf(temp, "\n");
+      fprintf(temp, "%s|%s|%s\n", cliente.nome, cliente.sobrenome, cliente.email);
     }
     else
     {
