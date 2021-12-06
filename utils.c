@@ -25,6 +25,16 @@ void msgRegistroSalvo(void)
   printf("\n/i/ Registro salvo!\n\n");
 }
 
+void msgErro(void)
+{
+  printf("\n/!/ Um erro ocoreu.\n\n");
+}
+
+void msgRegistroExcluido(void)
+{
+  printf("\n/i/ Registro excluído!\n\n");
+}
+
 /*
 Separa uma string em varias
 
@@ -43,6 +53,10 @@ char **quebrarStr(char origem[], char pontoQuebra)
   {
     if (origem[i] == pontoQuebra)
     {
+      tamPalavra++;
+      palavra = realloc(palavra, tamPalavra * sizeof(char));
+      palavra[tamPalavra - 1] = '\0';
+
       tamTotal++;
       resultado = realloc(resultado, tamTotal * sizeof(char *));
       resultado[tamTotal - 1] = palavra;
@@ -60,6 +74,10 @@ char **quebrarStr(char origem[], char pontoQuebra)
   // retorna palavra se há letras apos a ultima quebra
   if (strlen(palavra) > 0)
   {
+    tamPalavra++;
+    palavra = realloc(palavra, tamPalavra * sizeof(char));
+    palavra[tamPalavra - 1] = '\0';
+
     tamTotal++;
     resultado = realloc(resultado, tamTotal * sizeof(char *));
     resultado[tamTotal - 1] = palavra;
