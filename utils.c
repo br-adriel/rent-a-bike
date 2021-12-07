@@ -84,3 +84,26 @@ char **quebrarStr(char origem[], char pontoQuebra)
   }
   return resultado;
 }
+
+char *formatarPalavra(char palavra[], int tamanho)
+{
+  char *resultado = malloc(0);
+  int tamPalavra = strlen(palavra);
+
+  for (int i = 0; i < tamanho - 1; i++)
+  {
+    resultado = realloc(resultado, (i + 1) * sizeof(char));
+    if (i < tamPalavra)
+    {
+      resultado[i] = palavra[i];
+    }
+    else
+    {
+      resultado[i] = ' ';
+    }
+  }
+
+  resultado = realloc(resultado, tamanho * sizeof(char));
+  resultado[tamanho - 1] = '\0';
+  return resultado;
+}
