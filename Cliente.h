@@ -13,3 +13,5 @@ int gravarCliente(Cliente);
 Cliente verCliente(char[]);
 int atualizarCliente(char[], char[], char[], char[]);
 int excluirCliente(char[]);
+Cliente *buscaCliente(char[]);
+Cliente linhaParaCliente(char[]);

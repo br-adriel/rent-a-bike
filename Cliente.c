@@ -106,16 +106,7 @@ Cliente verCliente(char email[])
     // verifica se o email corresponde
     if (strstr(linha, email))
     {
-      char **dadosCliente = quebrarStr(linha, '|');
-      strcpy(cliente.nome, dadosCliente[0]);
-      strcpy(cliente.sobrenome, dadosCliente[1]);
-      strcpy(cliente.email, dadosCliente[2]);
-
-      for (int i = 0; i < 4; i++)
-      {
-        free(dadosCliente[i]);
-      }
-      free(dadosCliente);
+      cliente = linhaParaCliente(linha);
       fclose(arquivo);
       break;
     }
@@ -178,7 +169,7 @@ int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobreno
 Deleta registro de um cliente
 
 Atributos:
-  cliente: cliente a ser atualizado
+  email: email do cliente a ser exlcuido
 Retornos:
   0 - O cliente nao existe
   1 - Cliente deletado
@@ -215,4 +206,65 @@ int excluirCliente(char email[])
   rename("./clientes.temp.txt", "./clientes.txt");
 
   return 1;
+}
+
+/*
+Busca cliente que tenha dado especifico
+
+Atributos:
+  termo: termo de busca
+Retornos:
+  Cliente*: vetor de clientes
+*/
+Cliente *buscaCliente(char termo[])
+{
+  Cliente *resultado = malloc(0);
+  Cliente clienteAtual;
+  int quantidade = 0;
+  FILE *arquivo;
+  char linha[150];
+
+  arquivo = fopen("./clientes.txt", "r");
+  while (fgets(linha, sizeof(linha), arquivo))
+  {
+    if (strstr(linha, termo))
+    {
+      clienteAtual = linhaParaCliente(linha);
+
+      quantidade++;
+      resultado = realloc(resultado, quantidade * sizeof(Cliente));
+      resultado[quantidade - 1] = clienteAtual;
+    }
+  }
+
+  // marca o fim do array
+  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/fim/!|\n");
+  quantidade++;
+  resultado = realloc(resultado, quantidade * sizeof(Cliente));
+  resultado[quantidade - 1] = clienteAtual;
+  return resultado;
+}
+
+/*
+Funcao que converte linha de texto em Cliente
+
+Atributos:
+  linha: string de texto
+Retornos:
+  Cliente: cliente com as informacoes passadas
+*/
+Cliente linhaParaCliente(char linha[])
+{
+  Cliente cliente;
+  char **dadosCliente = quebrarStr(linha, '|');
+  strcpy(cliente.nome, dadosCliente[0]);
+  strcpy(cliente.sobrenome, dadosCliente[1]);
+  strcpy(cliente.email, dadosCliente[2]);
+
+  for (int i = 0; i < 4; i++)
+  {
+    free(dadosCliente[i]);
+  }
+  free(dadosCliente);
+  return cliente;
 }
