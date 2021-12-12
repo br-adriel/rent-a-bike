@@ -6,3 +6,4 @@ int validaMinutos(int);
 int validaCor(char[]);
 int validaBicicletaAtiva(int);
 int validaData(int, int, int);
+int validaPreco(float);

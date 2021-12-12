@@ -294,3 +294,23 @@ int validaData(int dia, int mes, int ano)
     return 0;
   }
 }
+
+/*
+Validação de preco
+
+Atributos:
+  preco
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
+int validaPreco(float preco)
+{
+  if (preco >= 0.01)
+  {
+    return 1;
+  }
+  printf("/!/ Preço inválido: o preço precisa ser no mínimo 0.01\n");
+  return 0;
+}

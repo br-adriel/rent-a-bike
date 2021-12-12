@@ -3,6 +3,7 @@
 #include "telasCliente.h"
 #include "telasBicicleta.h"
 #include "utils.h"
+#include "validadores.h"
 
 void telaInicial(void);
 void telaSobre(void);
@@ -65,6 +66,7 @@ void telaAlterarPreco(void)
 {
     int opcao = 2;
     float novoPreco = 0.00;
+    int precoValido = 0;
 
     do
     {
@@ -76,9 +78,14 @@ void telaAlterarPreco(void)
         {
             printf("/!/ Lembre-se de usar . ao invés de ,\n");
             printf("Preço atual: R$ 3.25\n");
-            printf("Novo preço: ");
-            scanf("%f", &novoPreco);
-            limparBuffer();
+            do
+            {
+                printf("Novo preço: ");
+                scanf("%f", &novoPreco);
+                limparBuffer();
+
+                precoValido = validaPreco(novoPreco);
+            } while (!precoValido);
         }
 
         printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n", novoPreco);
@@ -90,9 +97,7 @@ void telaAlterarPreco(void)
         switch (opcao)
         {
         case 1:
-            printf("= = = = = = = = =");
-            printf("Novo preço salvo!");
-            printf("= = = = = = = = =");
+            msgRegistroSalvo();
             break;
         case 2:
         case 3:
@@ -112,8 +117,8 @@ void telaSobre(void)
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.7.12\n");
-        printf("Última atualização: 06/12/2021\n");
+        printf("Versão: 0.7.13\n");
+        printf("Última atualização: 12/12/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");
         printf("\n");
