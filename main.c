@@ -46,66 +46,14 @@ void telaInicial(void)
             telaGerenciarBicicletas();
             break;
         case 4:
-            telaAlterarPreco();
-            break;
-        case 5:
-            telaRelatorioLucros();
-            break;
-        case 6:
             telaSobre();
             break;
-        case 7:
+        case 5:
             break;
         default:
             msgInvalido();
         }
-    } while (opcao != 7);
-}
-
-void telaAlterarPreco(void)
-{
-    int opcao = 2;
-    float novoPreco = 0.00;
-    int precoValido = 0;
-
-    do
-    {
-        printf("\n//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Alterar preço da hora\n");
-        printf("--------------------------------------------------\n\n");
-
-        if (opcao == 2)
-        {
-            printf("/!/ Lembre-se de usar . ao invés de ,\n");
-            printf("Preço atual: R$ 3.25\n");
-            do
-            {
-                printf("Novo preço: ");
-                scanf("%f", &novoPreco);
-                limparBuffer();
-
-                precoValido = validaPreco(novoPreco);
-            } while (!precoValido);
-        }
-
-        printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n", novoPreco);
-        printf("[1] Sim\n[2] Não, alterar novamente\n[3] Cancelar\n");
-        printf(">> ");
-        scanf("%1d", &opcao);
-        limparBuffer();
-
-        switch (opcao)
-        {
-        case 1:
-            msgRegistroSalvo();
-            break;
-        case 2:
-        case 3:
-            break;
-        default:
-            msgInvalido();
-        }
-    } while (opcao != 1 && opcao != 3);
+    } while (opcao != 5);
 }
 
 void telaSobre(void)
@@ -117,7 +65,7 @@ void telaSobre(void)
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.7.13\n");
+        printf("Versão: 0.7.14\n");
         printf("Última atualização: 12/12/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");

@@ -16,7 +16,9 @@ void telaGerenciarAlugueis(void)
         printf("\n[1] Novo aluguél\n");
         printf("[2] Listar aluguéis\n");
         printf("[3] Buscar aluguél\n");
-        printf("\n[4] Voltar\n");
+        printf("[4] Relatório de lucros\n");
+        printf("[5] Alterar preço da hora\n");
+        printf("\n[6] Voltar\n");
         printf(">> ");
         scanf("%1d", &opcao);
         limparBuffer();
@@ -34,6 +36,12 @@ void telaGerenciarAlugueis(void)
             telaBuscarAluguel();
             break;
         case 4:
+            telaRelatorioLucros();
+            break;
+        case 5:
+            telaAlterarPreco();
+            break;
+        case 6:
             break;
         default:
             msgInvalido();
@@ -450,4 +458,50 @@ void telaRelatorioLucros(void)
             msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
+}
+
+void telaAlterarPreco(void)
+{
+    int opcao = 2;
+    float novoPreco = 0.00;
+    int precoValido = 0;
+
+    do
+    {
+        printf("\n//////////////////////////////////////////////////\n");
+        printf("RENT A BIKE - Alterar preço da hora\n");
+        printf("--------------------------------------------------\n\n");
+
+        if (opcao == 2)
+        {
+            printf("/!/ Lembre-se de usar . ao invés de ,\n");
+            printf("Preço atual: R$ 3.25\n");
+            do
+            {
+                printf("Novo preço: R$ ");
+                scanf("%f", &novoPreco);
+                limparBuffer();
+
+                precoValido = validaPreco(novoPreco);
+            } while (!precoValido);
+        }
+
+        printf("\n\nO novo preço será R$ %.2f, deseja salvar?\n", novoPreco);
+        printf("[1] Sim\n[2] Não, alterar novamente\n[3] Cancelar\n");
+        printf(">> ");
+        scanf("%1d", &opcao);
+        limparBuffer();
+
+        switch (opcao)
+        {
+        case 1:
+            msgRegistroSalvo();
+            break;
+        case 2:
+        case 3:
+            break;
+        default:
+            msgInvalido();
+        }
+    } while (opcao != 1 && opcao != 3);
 }
