@@ -3,7 +3,6 @@
 #include "telasCliente.h"
 #include "telasBicicleta.h"
 #include "utils.h"
-#include "validadores.h"
 
 void telaInicial(void);
 void telaSobre(void);
@@ -24,11 +23,9 @@ void telaInicial(void)
         printf("--------------------------------------------------\n");
         printf("\n[1] Gerenciar aluguéis\n");
         printf("[2] Gerenciar clientes\n");
-        printf("[3] Gerenciar bicicletas\n");
-        printf("[4] Alterar preço da hora\n");
-        printf("[5] Relatório de lucros\n\n");
-        printf("[6] Sobre\n");
-        printf("[7] Encerrar\n");
+        printf("[3] Gerenciar bicicletas\n\n");
+        printf("[4] Sobre\n");
+        printf("[5] Encerrar\n");
         printf(">> ");
         scanf("%1d", &opcao);
         limparBuffer();
@@ -65,7 +62,7 @@ void telaSobre(void)
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Sobre\n");
         printf("--------------------------------------------------\n\n");
-        printf("Versão: 0.7.14\n");
+        printf("Versão: 0.7.15\n");
         printf("Última atualização: 12/12/2021\n");
         printf("Desenvolvido por Adriel Faria dos Santos\n");
         printf("\n--------------------------------------------------\n");

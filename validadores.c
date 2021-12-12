@@ -314,3 +314,32 @@ int validaPreco(float preco)
   printf("/!/ Preço inválido: o preço precisa ser no mínimo 0.01\n");
   return 0;
 }
+
+/*
+Validação de telefone
+
+Atributos:
+  telefone
+
+Retorno:
+  0 - invalido
+  1 - valido
+*/
+int validaTelefone(char telefone[])
+{
+  if (strlen(telefone) != 11)
+  {
+    printf("/!/ Telefone inválido: o telefone preisa ter 11 digitos\n");
+    return 0;
+  }
+
+  for (int i = 0; i < strlen(telefone); i++)
+  {
+    if (!isdigit(telefone[i]))
+    {
+      printf("/!/ Telefone inválido: o telefone pode conter apenas números\n");
+      return 0;
+    }
+  }
+  return 1;
+}
