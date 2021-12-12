@@ -15,9 +15,7 @@ void limparBuffer()
 
 void msgInvalido(void)
 {
-  printf("\n///////////////////////\n");
-  printf("// Escolha inválida! //\n");
-  printf("///////////////////////\n\n");
+  printf("\n/!/ Escolha inválida!\n");
 }
 
 void msgRegistroSalvo(void)
@@ -105,5 +103,38 @@ char *formatarPalavra(char palavra[], int tamanho)
 
   resultado = realloc(resultado, tamanho * sizeof(char));
   resultado[tamanho - 1] = '\0';
+  return resultado;
+}
+
+char *formatarTelefone(char telefone[])
+{
+  char *resultado = malloc(sizeof(char) * 16);
+  resultado[0] = '(';
+
+  int iRes = 1;
+  for (int i = 0; i < 2; i++)
+  {
+    resultado[iRes] = telefone[i];
+    iRes++;
+  }
+
+  resultado[3] = ')';
+  resultado[4] = ' ';
+  iRes = 5;
+  for (int i = 2; i < 7; i++)
+  {
+    resultado[iRes] = telefone[i];
+    iRes++;
+  }
+
+  resultado[10] = '-';
+  iRes = 11;
+  for (int i = 7; i < 12; i++)
+  {
+    resultado[iRes] = telefone[i];
+    iRes++;
+  }
+
+  resultado[iRes] = '\0';
   return resultado;
 }
