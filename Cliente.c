@@ -15,13 +15,13 @@ Atributos:
 Return:
   Cliente
 */
-Cliente novoCliente(char nome[], char sobrenome[], char email[], char telefone[])
+Cliente *novoCliente(char nome[], char sobrenome[], char email[], char telefone[])
 {
-  Cliente cliente;
-  strcpy(cliente.nome, nome);
-  strcpy(cliente.sobrenome, sobrenome);
-  strcpy(cliente.email, email);
-  strcpy(cliente.telefone, telefone);
+  Cliente *cliente = malloc(sizeof(Cliente));
+  strcpy(cliente->nome, nome);
+  strcpy(cliente->sobrenome, sobrenome);
+  strcpy(cliente->email, email);
+  strcpy(cliente->telefone, telefone);
   return cliente;
 }
 
@@ -69,16 +69,16 @@ Retorna:
   0 - cliente já está registrado
   1 - cliente gravado no arquivo
 */
-int gravarCliente(Cliente cliente)
+int gravarCliente(Cliente *cliente)
 {
-  if (clienteExiste(cliente.email) != -1)
+  if (clienteExiste(cliente->email) != -1)
   {
     return 0;
   }
 
   FILE *arquivo;
   arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, "%s|%s|%s|%s|\n", cliente.nome, cliente.sobrenome, cliente.telefone, cliente.email);
+  fprintf(arquivo, "%s|%s|%s|%s|\n", cliente->nome, cliente->sobrenome, cliente->telefone, cliente->email);
   fclose(arquivo);
   return 1;
 }
@@ -91,9 +91,9 @@ Atributos;
 Retornos:
   Cliente: dados do cliente
 */
-Cliente verCliente(char email[])
+Cliente *verCliente(char email[])
 {
-  Cliente cliente;
+  Cliente *cliente = malloc(sizeof(Cliente));
   char linha[150] = "";
 
   FILE *arquivo;
@@ -219,10 +219,10 @@ Atributos:
 Retornos:
   Cliente*: vetor de clientes
 */
-Cliente *buscaCliente(char termo[])
+Cliente **buscaCliente(char termo[])
 {
-  Cliente *resultado = malloc(0);
-  Cliente clienteAtual;
+  Cliente **resultado = malloc(0);
+  Cliente *clienteAtual = malloc(sizeof(Cliente));
   int quantidade = 0;
   FILE *arquivo;
   char linha[150];
@@ -256,14 +256,14 @@ Atributos:
 Retornos:
   Cliente: cliente com as informacoes passadas
 */
-Cliente linhaParaCliente(char linha[])
+Cliente *linhaParaCliente(char linha[])
 {
-  Cliente cliente;
+  Cliente *cliente = malloc(sizeof(Cliente));
   char **dadosCliente = quebrarStr(linha, '|');
-  strcpy(cliente.nome, dadosCliente[0]);
-  strcpy(cliente.sobrenome, dadosCliente[1]);
-  strcpy(cliente.telefone, dadosCliente[2]);
-  strcpy(cliente.email, dadosCliente[3]);
+  strcpy(cliente->nome, dadosCliente[0]);
+  strcpy(cliente->sobrenome, dadosCliente[1]);
+  strcpy(cliente->telefone, dadosCliente[2]);
+  strcpy(cliente->email, dadosCliente[3]);
 
   for (int i = 0; i < 5; i++)
   {
