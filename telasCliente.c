@@ -62,6 +62,7 @@ void telaNovoCliente(void)
   char email[PATH_MAX] = "";
   char nome[PATH_MAX] = "";
   char sobrenome[PATH_MAX] = "";
+  char telefone[12] = "";
   int inputValido = 0;
 
   do
@@ -101,11 +102,22 @@ void telaNovoCliente(void)
         printf("\n");
       } while (!inputValido);
 
+      do
+      {
+        printf("\nTelefone: ");
+        scanf("%s", telefone);
+        limparBuffer();
+
+        inputValido = validaTelefone(telefone);
+        printf("\n");
+      } while (!inputValido);
+
       printf("\n--------------------------------------------------\n");
     }
     printf("\nEmail: %s\n", email);
     printf("Nome: %s\n", nome);
-    printf("Sobrenome: %s", sobrenome);
+    printf("Sobrenome: %s\n", sobrenome);
+    printf("Telefone: %s", formatarTelefone(telefone));
     printf("\n\n--------------------------------------------------\n\n");
     printf("Salvar registro?");
     printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -117,7 +129,7 @@ void telaNovoCliente(void)
     switch (opcao)
     {
     case 1:
-      if (gravarCliente(novoCliente(nome, sobrenome, email)) == 1)
+      if (gravarCliente(novoCliente(nome, sobrenome, email, telefone)) == 1)
       {
         msgRegistroSalvo();
       }
@@ -151,7 +163,7 @@ void telaBuscarCliente(void)
 
     // exibe resultado
     printf("\nResultados:\n");
-    printf("Nome                 | Sobrenome            | Email\n");
+    printf("Nome                 | Sobrenome            | Telefone        | Email\n");
 
     int i = 0;
     if (!strstr(resultado[0].nome, "/!fim/!"))
@@ -161,9 +173,11 @@ void telaBuscarCliente(void)
         Cliente cli = resultado[i];
         char *nomeF = formatarPalavra(cli.nome, 20);
         char *sobrenomeF = formatarPalavra(cli.sobrenome, 20);
-        printf("%s  | %s  | %s\n", nomeF, sobrenomeF, cli.email);
+        char *telefoneF = formatarTelefone(cli.telefone);
+        printf("%s  | %s  | %s | %s\n", nomeF, sobrenomeF, telefoneF, cli.email);
         free(nomeF);
         free(sobrenomeF);
+        free(telefoneF);
         i++;
       }
     }
@@ -221,6 +235,7 @@ void telaVerCliente(char email[])
       cliente = verCliente(email);
       printf("Nome: %s\n", cliente.nome);
       printf("Sobrenome: %s\n", cliente.sobrenome);
+      printf("Telefone: %s\n", formatarTelefone(cliente.telefone));
       printf("Email: %s", cliente.email);
       printf("\n--------------------------------------------------\n");
       printf("\n");
@@ -258,6 +273,7 @@ void telaEditarCliente(char email[])
   char novoEmail[PATH_MAX] = "";
   char nome[PATH_MAX] = "";
   char sobrenome[PATH_MAX] = "";
+  char telefone[12] = "";
   int inputValido = 0;
   Cliente cliente = verCliente(email);
 
@@ -297,11 +313,22 @@ void telaEditarCliente(char email[])
         inputValido = validaNome(sobrenome);
         printf("\n");
       } while (!inputValido);
+
+      do
+      {
+        printf("\nTelefone do cliente [ %s ]: ", formatarTelefone(cliente.telefone));
+        scanf("%11s", telefone);
+        limparBuffer();
+
+        inputValido = validaTelefone(telefone);
+        printf("\n");
+      } while (!inputValido);
     }
     printf("\n\n--------------------------------------------------\n\n");
     printf("Email: %s\n", email);
     printf("Nome: %s\n", nome);
     printf("Sobrenome: %s\n", sobrenome);
+    printf("Telefone: %s\n", formatarTelefone(telefone));
     printf("\n--------------------------------------------------\n\n");
     printf("Atualizar?");
     printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -313,7 +340,7 @@ void telaEditarCliente(char email[])
     switch (opcao)
     {
     case 1:
-      if (atualizarCliente(cliente.email, novoEmail, nome, sobrenome))
+      if (atualizarCliente(cliente.email, novoEmail, nome, sobrenome, telefone))
       {
         msgRegistroSalvo();
       }
@@ -345,7 +372,8 @@ void telaExcluirCliente(char email[])
     printf("Email: %s\n", cliente.email);
     printf("Nome: %s\n", cliente.nome);
     printf("Sobrenome: %s\n", cliente.sobrenome);
-    printf("\n--------------------------------------------------\n\n");
+    printf("Telefone: %s\n", cliente.telefone);
+    printf("\n--------------------------------------------------\n");
     printf("\n");
     printf("Excluir cliente?");
     printf("\n[1] Sim\n[2] Não");

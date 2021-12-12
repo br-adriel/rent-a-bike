@@ -11,15 +11,17 @@ Atributos:
   Nome: nome do cliente
   Sobrenome: sobrenome do cliente
   Email: email do cliente
+  Telefone: telefone do cliente
 Return:
   Cliente
 */
-Cliente novoCliente(char nome[], char sobrenome[], char email[])
+Cliente novoCliente(char nome[], char sobrenome[], char email[], char telefone[])
 {
   Cliente cliente;
   strcpy(cliente.nome, nome);
   strcpy(cliente.sobrenome, sobrenome);
   strcpy(cliente.email, email);
+  strcpy(cliente.telefone, telefone);
   return cliente;
 }
 
@@ -76,7 +78,7 @@ int gravarCliente(Cliente cliente)
 
   FILE *arquivo;
   arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, "%s|%s|%s|\n", cliente.nome, cliente.sobrenome, cliente.email);
+  fprintf(arquivo, "%s|%s|%s|%s|\n", cliente.nome, cliente.sobrenome, cliente.telefone, cliente.email);
   fclose(arquivo);
   return 1;
 }
@@ -122,11 +124,12 @@ Atributos:
   email: novo email
   nome: novo nome
   sobrenome: novo sobrenome
+  telefone: novo telefone
 Retornos:
   0 - O cliente nao existe
   1 - Cliente atualizado
 */
-int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobrenome[])
+int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobrenome[], char telefone[])
 {
   // verifica se o cliente está salvo
   int linhaRegistro = clienteExiste(emailAntigo);
@@ -147,7 +150,7 @@ int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobreno
     if (strstr(linha, emailAntigo))
     {
       // atualiza os dados
-      fprintf(temp, "%s|%s|%s|\n", nome, sobrenome, email);
+      fprintf(temp, "%s|%s|%s|%s|\n", nome, sobrenome, telefone, email);
     }
     else
     {
@@ -238,7 +241,7 @@ Cliente *buscaCliente(char termo[])
   }
 
   // marca o fim do array
-  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/fim/!|\n");
+  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/!fim/!|/fim/!|\n");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Cliente));
   resultado[quantidade - 1] = clienteAtual;
@@ -259,9 +262,10 @@ Cliente linhaParaCliente(char linha[])
   char **dadosCliente = quebrarStr(linha, '|');
   strcpy(cliente.nome, dadosCliente[0]);
   strcpy(cliente.sobrenome, dadosCliente[1]);
-  strcpy(cliente.email, dadosCliente[2]);
+  strcpy(cliente.telefone, dadosCliente[2]);
+  strcpy(cliente.email, dadosCliente[3]);
 
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 5; i++)
   {
     free(dadosCliente[i]);
   }
