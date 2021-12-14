@@ -13,7 +13,7 @@ Bicicleta* novaBicicleta(char[], char[], char[], int);
 int bicicletaExiste(char[]);
 int gravarBicicleta(Bicicleta*);
 Bicicleta* verBicicleta(char[]);
-int atualizarBicicleta(char[], char[], char[], char[]);
+int atualizarBicicleta(char[], char[], char[], int);
 int excluirBicicleta(char[]);
 Bicicleta **buscaBicicleta(char[]);
 Bicicleta *linhaParaBicicleta(char[]);

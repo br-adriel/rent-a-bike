@@ -108,7 +108,56 @@ Bicicleta *verBicicleta(char codigo[])
   return bicicleta;
 };
 
-// int atualizarBicicleta(char[], char[], char[], char[]);
+/*
+Atualiza registro de uma bicicleta
+
+Atributos:
+  codigo: codigo da bicicleta a ser alterada
+  cor: nova cor
+  categoria: nova categoria
+  disponivel: novo estado de disponibilidade
+Retornos:
+  0 - A bicicleta nao existe
+  1 - Bicicleta atualizada
+*/
+int atualizarBicicleta(char codigo[], char cor[], char categoria[], int disponivel)
+{
+  // verifica se o bicicleta está salvo
+  if (bicicletaExiste(codigo) == -1)
+  {
+    return 0;
+  }
+
+  // transfere dados do arquivo original para um temporario
+  char linha[70] = "";
+  FILE *arquivo, *temp;
+  arquivo = fopen("./bicicletas.txt", "r");
+  temp = fopen("./bicicletas.temp.txt", "a");
+
+  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  {
+    // verifica se o email corresponde
+    if (strstr(linha, codigo))
+    {
+      // atualiza os dados
+      fprintf(temp, "%s|%d|%s|%s|\n", codigo, disponivel, cor, categoria);
+    }
+    else
+    {
+      fprintf(temp, "%s", linha);
+    }
+  }
+
+  fclose(temp);
+  fclose(arquivo);
+
+  // deleta arquivo desatualizado e renomeia temporario
+  remove("./bicicletas.txt");
+  rename("./bicicletas.temp.txt", "./bicicletas.txt");
+
+  return 1;
+}
+
 // int excluirBicicleta(char[]);
 // Bicicleta **buscaBicicleta(char[]);
 

@@ -240,19 +240,21 @@ void telaEditarBicicleta(char codigo[])
     int opcao = 2;
 
     char cor[PATH_MAX] = "";
-    int ativa = 1;
+    char categoria[PATH_MAX] = "";
+    int disponivel = -1;
     int inputvalido = 0;
+    Bicicleta *bicicleta = verBicicleta(codigo);
 
     do
     {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Editar bicicleta #%s", codigo);
+        printf("RENT A BIKE - Editar bicicleta");
         if (opcao == 2)
         {
             printf("\n--------------------------------------------------\n");
             do
             {
-                printf("\nCor [Azul]: ");
+                printf("\nCor [%s]: ", bicicleta->cor);
                 scanf("%s", cor);
                 limparBuffer();
 
@@ -261,18 +263,31 @@ void telaEditarBicicleta(char codigo[])
 
             do
             {
-                printf("\nDisponível [1]:\n[0] NÃO [1] SIM\n>>");
-                scanf("%d", &ativa);
+                printf("\nCategoria/tipo [%s]: ", bicicleta->categoria);
+                scanf("%s", categoria);
                 limparBuffer();
 
-                inputvalido = validaDisponivel(ativa);
+                inputvalido = validaPalavra(categoria, 20);
+            } while (!inputvalido);
+
+            do
+            {
+                printf("\nDisponível para aluguél [");
+                bicicleta->disponivel ? printf("SIM") : printf("NÃO");
+                printf("]:\n");
+                printf("[0] NÃO [1] SIM\n>> ");
+                scanf("%d", &disponivel);
+                limparBuffer();
+
+                inputvalido = validaDisponivel(disponivel);
             } while (!inputvalido);
         }
         printf("\n\n--------------------------------------------------\n\n");
         printf("Código: %s\n", codigo);
         printf("Cor: %s\n", cor);
-        printf("Ativa: ");
-        ativa ? printf("SIM\n") : printf("NÂO\n");
+        printf("Categoria/tipo: %s\n", categoria);
+        printf("Disponível para aluguél: ");
+        disponivel ? printf("SIM") : printf("NÃO");
         printf("\n--------------------------------------------------\n\n");
         printf("Atualizar?");
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -284,10 +299,14 @@ void telaEditarBicicleta(char codigo[])
         switch (opcao)
         {
         case 1:
-            // Salva mudanças
-            printf("\n= = = = = = = = = =");
-            printf("\nAlterações salvas!");
-            printf("\n= = = = = = = = = =\n\n");
+            if (atualizarBicicleta(codigo, cor, categoria, disponivel))
+            {
+                msgRegistroSalvo();
+            }
+            else
+            {
+                printf("/!/ Um erro ocorreu.");
+            }
             break;
         case 2:
         case 3:
