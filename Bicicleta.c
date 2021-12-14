@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils.h"
 
 /*
 Cria uma nova Bicicleta
@@ -86,4 +87,28 @@ int gravarBicicleta(Bicicleta *bicicleta)
 // int atualizarBicicleta(char[], char[], char[], char[]);
 // int excluirBicicleta(char[]);
 // Bicicleta **buscaBicicleta(char[]);
-// Bicicleta *linhaParaBicicleta(char[]);
+
+/*
+Funcao que converte linha de texto em Cliente
+
+Atributos:
+  linha: "codigo|disponivel|cor|categoria|\n"
+Retornos:
+  Bicicleta: bicicleta com as informacoes passadas
+*/
+Bicicleta *linhaParaBicicleta(char linha[])
+{
+  Bicicleta *bicicleta = malloc(sizeof(Bicicleta));
+  char **dadosBicicleta = quebrarStr(linha, '|');
+  strcpy(bicicleta->codigo, dadosBicicleta[0]);
+  bicicleta->disponivel = atoi(dadosBicicleta[1]);
+  strcpy(bicicleta->cor, dadosBicicleta[2]);
+  strcpy(bicicleta->categoria, dadosBicicleta[3]);
+
+  for (int i = 0; i < 5; i++)
+  {
+    free(dadosBicicleta[i]);
+  }
+  free(dadosBicicleta);
+  return bicicleta;
+}
