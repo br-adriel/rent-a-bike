@@ -4,6 +4,7 @@
 #include <limits.h>
 #include "validadores.h"
 #include "Bicicleta.h"
+#include <stdlib.h>
 
 void telaGerenciarBicicletas(void)
 {
@@ -321,11 +322,21 @@ void telaEditarBicicleta(char codigo[])
 void telaExcluirBicicleta(char codigo[])
 {
     int opcao = 0;
+    Bicicleta *bicicleta = verBicicleta(codigo);
 
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Excluir bicicleta");
     do
     {
+        printf("\n\n--------------------------------------------------\n\n");
+        printf("Codigo: %s\n", bicicleta->codigo);
+        printf("Disponível para aluguél: ");
+        bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+        printf("Cor: %s\n", bicicleta->cor);
+        printf("Categoria/tipo: %s\n", bicicleta->categoria);
+        printf("\n--------------------------------------------------\n");
         printf("\n");
-        printf("Excluir bicicleta %s?", codigo);
+        printf("Excluir bicicleta?");
         printf("\n[1] Sim\n[2] Não");
         printf("\n>> ");
         scanf("%1d", &opcao);
@@ -335,9 +346,14 @@ void telaExcluirBicicleta(char codigo[])
         switch (opcao)
         {
         case 1:
-            printf("\n= = = = = = = = = =");
-            printf("\nBicicleta excluída!");
-            printf("\n= = = = = = = = = =\n\n");
+            if (excluirBicicleta(bicicleta->codigo))
+            {
+                msgRegistroExcluido();
+            }
+            else
+            {
+                msgErro();
+            }
             break;
         case 2:
             break;
@@ -345,4 +361,5 @@ void telaExcluirBicicleta(char codigo[])
             msgInvalido();
         }
     } while (opcao != 1 && opcao != 2);
+    free(bicicleta);
 }

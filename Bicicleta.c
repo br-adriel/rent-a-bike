@@ -136,7 +136,7 @@ int atualizarBicicleta(char codigo[], char cor[], char categoria[], int disponiv
 
   while (fgets(linha, sizeof(linha), arquivo) != NULL)
   {
-    // verifica se o email corresponde
+    // verifica se o codigo corresponde
     if (strstr(linha, codigo))
     {
       // atualiza os dados
@@ -158,7 +158,48 @@ int atualizarBicicleta(char codigo[], char cor[], char categoria[], int disponiv
   return 1;
 }
 
-// int excluirBicicleta(char[]);
+/*
+Deleta registro de uma bicicleta
+
+Atributos:
+  codigo: codigo da bicicleta a ser exlcuida
+Retornos:
+  0 - Bicicleta nao existe
+  1 - Bicicleta deletada
+*/
+int excluirBicicleta(char codigo[])
+{
+  // verifica se o bicicleta está salvo
+  if (bicicletaExiste(codigo) == -1)
+  {
+    return 0;
+  }
+
+  // transfere dados do arquivo original para um temporario
+  char linha[70] = "";
+  FILE *arquivo, *temp;
+  arquivo = fopen("./bicicletas.txt", "r");
+  temp = fopen("./bicicletas.temp.txt", "a");
+
+  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  {
+    // verifica se o codigo nao corresponde
+    if (!strstr(linha, codigo))
+    {
+      fprintf(temp, "%s", linha);
+    }
+  }
+
+  fclose(temp);
+  fclose(arquivo);
+
+  // deleta arquivo desatualizado e renomeia temporario
+  remove("./bicicletas.txt");
+  rename("./bicicletas.temp.txt", "./bicicletas.txt");
+
+  return 1;
+}
+
 // Bicicleta **buscaBicicleta(char[]);
 
 /*
