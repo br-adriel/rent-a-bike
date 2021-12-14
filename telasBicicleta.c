@@ -5,6 +5,7 @@
 #include "validadores.h"
 #include "Bicicleta.h"
 #include <stdlib.h>
+#include <string.h>
 
 void telaGerenciarBicicletas(void)
 {
@@ -134,7 +135,7 @@ void telaBuscarBicicleta(void)
 {
     int opcao = 0;
     char codigo[PATH_MAX] = "";
-    char cor[PATH_MAX] = "";
+    char termoBusca[PATH_MAX] = "";
     int inputValido = 0;
 
     do
@@ -142,22 +143,43 @@ void telaBuscarBicicleta(void)
         printf("//////////////////////////////////////////////////\n");
         printf("RENT A BIKE - Buscar bicicleta\n");
         printf("--------------------------------------------------\n");
-        do
-        {
-            printf("\nCor: ");
-            scanf("%15s", cor);
-            limparBuffer();
-
-            inputValido = validaPalavra(cor, 20);
-            printf("\n");
-        } while (!inputValido);
-
-        // faz a busca
+        printf("\nTermo de busca: ");
+        scanf("%s", termoBusca);
+        limparBuffer();
         printf("\n--------------------------------------------------\n");
+
+        Bicicleta **resultado = buscaBicicleta(termoBusca);
+
+        // exibe resultados
         printf("\nResultados:\n");
-        printf("Código | Cor       | Ativa\n");
-        printf("000000 | Amarela   | Sim\n");
-        printf("000001 | Amarela   | Não\n");
+        printf("Código | Disponível | Cor                  | Categoria\n");
+        int i = 0;
+        if (!strstr(resultado[0]->codigo, "/!fim/!"))
+        {
+            while (!strstr(resultado[i]->codigo, "/!fim/!"))
+            {
+                Bicicleta *bici = resultado[i];
+                char *codigoF = formatarPalavra(bici->codigo, 6);
+                char disponivelF[] = "NÃO";
+                if (bici->disponivel)
+                {
+                    strcpy(disponivelF, "SIM");
+                }
+                char *corF = formatarPalavra(bici->cor, 20);
+                char *categoriaF = formatarPalavra(bici->categoria, 20);
+                printf("%s | %s        | %s | %s\n", codigoF, disponivelF, corF, categoriaF);
+                free(codigoF);
+                free(corF);
+                free(categoriaF);
+                free(bici);
+                i++;
+            }
+        }
+        else
+        {
+            printf("/i/ Nenhuma bicicleta encontrada!\n");
+        }
+        free(resultado);
         printf("\n");
         printf("[1] Ver bicicleta\n");
         printf("[2] Cancelar\n");
@@ -170,7 +192,7 @@ void telaBuscarBicicleta(void)
         case 1:
             do
             {
-                printf("\nDigite o codigo da bicicleta: ");
+                printf("\nDigite o código da bicicleta: ");
                 scanf("%s", codigo);
                 limparBuffer();
 
@@ -178,6 +200,7 @@ void telaBuscarBicicleta(void)
             } while (!inputValido);
 
             telaVerBicicleta(codigo);
+            opcao = 2;
             break;
         case 2:
             break;

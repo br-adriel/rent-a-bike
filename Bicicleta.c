@@ -200,7 +200,42 @@ int excluirBicicleta(char codigo[])
   return 1;
 }
 
-// Bicicleta **buscaBicicleta(char[]);
+/*
+Busca bicicleta que tenha dado especifico
+
+Atributos:
+  termo: termo de busca
+Retornos:
+  Bicicleta*: vetor de bicicletas
+*/
+Bicicleta **buscaBicicleta(char termo[])
+{
+  Bicicleta **resultado = malloc(0);
+  Bicicleta *bicicletaAtual = malloc(sizeof(Bicicleta));
+  int quantidade = 0;
+  FILE *arquivo;
+  char linha[70];
+
+  arquivo = fopen("./bicicletas.txt", "r");
+  while (fgets(linha, sizeof(linha), arquivo))
+  {
+    if (strstr(linha, termo))
+    {
+      bicicletaAtual = linhaParaBicicleta(linha);
+
+      quantidade++;
+      resultado = realloc(resultado, quantidade * sizeof(Bicicleta));
+      resultado[quantidade - 1] = bicicletaAtual;
+    }
+  }
+
+  // marca o fim do array
+  bicicletaAtual = linhaParaBicicleta("/!fim/!|/!fim/!|/!fim/!|/fim/!|\n");
+  quantidade++;
+  resultado = realloc(resultado, quantidade * sizeof(Bicicleta));
+  resultado[quantidade - 1] = bicicletaAtual;
+  return resultado;
+}
 
 /*
 Funcao que converte linha de texto em Bicicleta
