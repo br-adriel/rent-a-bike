@@ -85,6 +85,7 @@ char **quebrarStr(char origem[], char pontoQuebra)
 
 char *formatarPalavra(char palavra[], int tamanho)
 {
+  tamanho = tamanho + 1;
   char *resultado = malloc(0);
   int tamPalavra = strlen(palavra);
 

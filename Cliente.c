@@ -181,8 +181,7 @@ Retornos:
 int excluirCliente(char email[])
 {
   // verifica se o cliente está salvo
-  int linhaRegistro = clienteExiste(email);
-  if (linhaRegistro == -1)
+  if (clienteExiste(email) == -1)
   {
     return 0;
   }
