@@ -78,7 +78,12 @@ int gravarBicicleta(Bicicleta *bicicleta)
 
   FILE *arquivo;
   arquivo = fopen("./bicicletas.txt", "a");
-  fprintf(arquivo, "%s|%d|%s|%s|\n", bicicleta->codigo, bicicleta->disponivel, bicicleta->cor, bicicleta->categoria);
+  char disp[] = "NÃO";
+  if (bicicleta->disponivel)
+  {
+    strcpy(disp, "SIM");
+  }
+  fprintf(arquivo, "%s|%s|%s|%s|\n", bicicleta->codigo, disp, bicicleta->cor, bicicleta->categoria);
   fclose(arquivo);
   return 1;
 };
@@ -140,7 +145,12 @@ int atualizarBicicleta(char codigo[], char cor[], char categoria[], int disponiv
     if (strstr(linha, codigo))
     {
       // atualiza os dados
-      fprintf(temp, "%s|%d|%s|%s|\n", codigo, disponivel, cor, categoria);
+      char disp[] = "NÃO";
+      if (disponivel)
+      {
+        strcpy(disp, "SIM");
+      }
+      fprintf(temp, "%s|%s|%s|%s|\n", codigo, disp, cor, categoria);
     }
     else
     {
@@ -250,7 +260,14 @@ Bicicleta *linhaParaBicicleta(char linha[])
   Bicicleta *bicicleta = malloc(sizeof(Bicicleta));
   char **dadosBicicleta = quebrarStr(linha, '|');
   strcpy(bicicleta->codigo, dadosBicicleta[0]);
-  bicicleta->disponivel = atoi(dadosBicicleta[1]);
+  if (strstr(dadosBicicleta[1], "SIM"))
+  {
+    bicicleta->disponivel = 1;
+  }
+  else
+  {
+    bicicleta->disponivel = 0;
+  }
   strcpy(bicicleta->cor, dadosBicicleta[2]);
   strcpy(bicicleta->categoria, dadosBicicleta[3]);
 
