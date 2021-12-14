@@ -257,6 +257,7 @@ void telaVerBicicleta(char codigo[])
             msgInvalido();
         }
     } while (opcao != 3);
+    free(bicicleta);
 }
 
 void telaEditarBicicleta(char codigo[])
@@ -340,6 +341,7 @@ void telaEditarBicicleta(char codigo[])
             break;
         }
     } while (opcao != 1 && opcao != 3);
+    free(bicicleta);
 }
 
 void telaExcluirBicicleta(char codigo[])
