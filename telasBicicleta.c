@@ -67,16 +67,16 @@ void telaNovaBicicleta(void)
                 scanf("%s", cor);
                 limparBuffer();
 
-                inputValido = validaCor(cor);
+                inputValido = validaPalavra(cor, 20);
             } while (!inputValido);
 
             do
             {
-                printf("\nAtiva?\n[0] NÃO [1] SIM\n>>");
+                printf("\nDisponível?\n[0] NÃO [1] SIM\n>>");
                 scanf("%d", &ativa);
                 limparBuffer();
 
-                inputValido = validaBicicletaAtiva(ativa);
+                inputValido = validaDisponivel(ativa);
             } while (!inputValido);
 
             printf("\n\n--------------------------------------------------\n");
@@ -121,7 +121,7 @@ void telaBuscarBicicleta(void)
             scanf("%15s", cor);
             limparBuffer();
 
-            inputValido = validaCor(cor);
+            inputValido = validaPalavra(cor, 20);
             printf("\n");
         } while (!inputValido);
 
@@ -219,16 +219,16 @@ void telaEditarBicicleta(char codigo[])
                 scanf("%s", cor);
                 limparBuffer();
 
-                inputvalido = validaCor(cor);
+                inputvalido = validaPalavra(cor, 20);
             } while (!inputvalido);
 
             do
             {
-                printf("\nAtiva [1]:\n[0] NÃO [1] SIM\n>>");
+                printf("\nDisponível [1]:\n[0] NÃO [1] SIM\n>>");
                 scanf("%d", &ativa);
                 limparBuffer();
 
-                inputvalido = validaBicicletaAtiva(ativa);
+                inputvalido = validaDisponivel(ativa);
             } while (!inputvalido);
         }
         printf("\n\n--------------------------------------------------\n\n");

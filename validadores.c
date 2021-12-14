@@ -115,28 +115,28 @@ Retorno:
   0 - invalido
   1 - valido
 */
-int validaNome(char nome[])
+int validaPalavra(char palavra[], int tamanho)
 {
   // verifica se tem mais de 20 caracteres
-  if (strlen(nome) > 20)
+  if (strlen(palavra) > tamanho)
   {
-    printf("/!/ Inválido: nomes e sobrenomes não podem exceder 20 caracteres\n");
+    printf("/!/ Inválido: não pode excede %d caracteres\n", tamanho);
     return 0;
   }
 
   // verifica se tem espaços
-  if (strchr(nome, ' '))
+  if (strchr(palavra, ' '))
   {
-    printf("/!/ Inválido: nomes e sobrenomes não podem conter espaços\n");
+    printf("/!/ Inválido: não pode conter espaços em branco\n");
     return 0;
   }
 
   // verifica se há numeros
-  for (int i = 0; i < strlen(nome); i++)
+  for (int i = 0; i < strlen(palavra); i++)
   {
-    if (!isalpha(nome[i]))
+    if (!isalpha(palavra[i]))
     {
-      printf("/!/ Inválido: nomes e sobrenomes devem conter apenas letras\n");
+      printf("/!/ Inválido: deve conter apenas letras\n");
       return 0;
     }
   }
@@ -184,45 +184,7 @@ int validaMinutos(int minutos)
 }
 
 /*
-Validação de cor
-
-Atributos:
-  cor: cor para verificar validade
-
-Retorno:
-  0 - invalido
-  1 - valido
-*/
-int validaCor(char cor[])
-{
-  // verifica se tem mais de 20 caracteres
-  if (strlen(cor) > 20)
-  {
-    printf("/!/ Cor inválida: a cor não pode exceder 20 caracteres\n");
-    return 0;
-  }
-
-  // verifica se tem espaços
-  if (strchr(cor, ' '))
-  {
-    printf("/!/ Cor inválida: a cor não pode conter espaços\n");
-    return 0;
-  }
-
-  // verifica se há numeros
-  for (int i = 0; i < strlen(cor); i++)
-  {
-    if (!isalpha(cor[i]))
-    {
-      printf("/!/ Cor inválida: a cor deve conter apenas letras\n");
-      return 0;
-    }
-  }
-  return 1;
-}
-
-/*
-Validação de bicicleta ativa
+Validação de bicicleta disponível
 
 Atributos:
   opcao: opcao passada para verificar validade
@@ -231,13 +193,13 @@ Retorno:
   0 - invalido
   1 - valido
 */
-int validaBicicletaAtiva(int opcao)
+int validaDisponivel(int opcao)
 {
   if (opcao == 0 || opcao == 1)
   {
     return 1;
   }
-  printf("/!/ Opção inválida: precisa ser 0 ou 1\n");
+  printf("/!/ Inválido: precisa ser 0 ou 1\n");
   return 0;
 }
 

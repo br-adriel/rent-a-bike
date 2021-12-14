@@ -88,7 +88,7 @@ void telaNovoCliente(void)
         scanf("%s", nome);
         limparBuffer();
 
-        inputValido = validaNome(nome);
+        inputValido = validaPalavra(nome, 20);
         printf("\n");
       } while (!inputValido);
 
@@ -98,7 +98,7 @@ void telaNovoCliente(void)
         scanf("%s", sobrenome);
         limparBuffer();
 
-        inputValido = validaNome(sobrenome);
+        inputValido = validaPalavra(sobrenome, 20);
         printf("\n");
       } while (!inputValido);
 
@@ -303,7 +303,7 @@ void telaEditarCliente(char email[])
         scanf("%s", nome);
         limparBuffer();
 
-        inputValido = validaNome(nome);
+        inputValido = validaPalavra(nome, 20);
         printf("\n");
       } while (!inputValido);
 
@@ -313,7 +313,7 @@ void telaEditarCliente(char email[])
         scanf("%s", sobrenome);
         limparBuffer();
 
-        inputValido = validaNome(sobrenome);
+        inputValido = validaPalavra(sobrenome, 20);
         printf("\n");
       } while (!inputValido);
 
