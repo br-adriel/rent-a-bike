@@ -46,7 +46,7 @@ void telaGerenciarAlugueis(void)
         default:
             msgInvalido();
         }
-    } while (opcao != 4);
+    } while (opcao != 6);
 }
 
 void telaNovoAluguel(void)
