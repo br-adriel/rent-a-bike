@@ -3,6 +3,7 @@
 #include "telasBicicleta.h"
 #include <limits.h>
 #include "validadores.h"
+#include "Bicicleta.h"
 
 void telaGerenciarBicicletas(void)
 {
@@ -49,9 +50,10 @@ void telaGerenciarBicicletas(void)
 void telaNovaBicicleta(void)
 {
     int opcao = 2;
-    char codigo[6] = "";
+    char codigo[PATH_MAX] = "";
     char cor[PATH_MAX] = "";
-    int ativa = 1;
+    char categoria[PATH_MAX] = "";
+    int disponivel = -1;
     int inputValido = 0;
 
     do
@@ -63,6 +65,14 @@ void telaNovaBicicleta(void)
         {
             do
             {
+                printf("\nCódigo: ");
+                scanf("%s", codigo);
+                limparBuffer();
+
+                inputValido = validaCodigo(codigo, 6);
+            } while (!inputValido);
+            do
+            {
                 printf("\nCor: ");
                 scanf("%s", cor);
                 limparBuffer();
@@ -72,18 +82,29 @@ void telaNovaBicicleta(void)
 
             do
             {
-                printf("\nDisponível?\n[0] NÃO [1] SIM\n>>");
-                scanf("%d", &ativa);
+                printf("\nCategoria/tipo: ");
+                scanf("%s", categoria);
                 limparBuffer();
 
-                inputValido = validaDisponivel(ativa);
+                inputValido = validaPalavra(categoria, 20);
+            } while (!inputValido);
+
+            do
+            {
+                printf("\nDisponível para aluguél? [0] NÃO [1] SIM\n>> ");
+                scanf("%d", &disponivel);
+                limparBuffer();
+
+                inputValido = validaDisponivel(disponivel);
             } while (!inputValido);
 
             printf("\n\n--------------------------------------------------\n");
         }
         printf("\nCódigo: %s\n", codigo);
         printf("Cor: %s\n", cor);
-        ativa ? printf("Ativa: SIM") : printf("Ativa: NÂO");
+        printf("Categoria/tipo: %s\n", categoria);
+        printf("Disponível para aluguél: ");
+        disponivel ? printf("SIM") : printf("NÃO");
         printf("\n\n--------------------------------------------------\n\n");
         printf("Salvar registro?");
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -95,9 +116,14 @@ void telaNovaBicicleta(void)
         switch (opcao)
         {
         case 1:
-            printf("\n= = = = = = = =");
-            printf("\nRegistro salvo!");
-            printf("\n= = = = = = = =\n\n");
+            if (gravarBicicleta(novaBicicleta(codigo, cor, categoria, disponivel)) == 1)
+            {
+                msgRegistroSalvo();
+            }
+            else
+            {
+                printf("/!/ Já existe uma bicicleta com esse código\n\n");
+            }
             break;
         }
     } while (opcao == 2);
