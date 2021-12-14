@@ -189,24 +189,35 @@ void telaBuscarBicicleta(void)
 void telaVerBicicleta(char codigo[])
 {
     int opcao = 3;
+    Bicicleta *bicicleta;
+
     do
     {
         printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Ver bicicleta");
-        printf("\n--------------------------------------------------\n");
-        printf("\nCódigo: %s\n", codigo);
-        printf("Cor: Azul\n");
-        1 ? printf("Ativa: SIM\n") : printf("Ativa: NÃO");
-        printf("\n--------------------------------------------------\n");
-        printf("\n");
-        printf("[1] Editar\n");
-        printf("[2] Apagar\n");
-        printf("\n[3] Voltar\n");
-        printf(">> ");
-        scanf("%1d", &opcao);
-        limparBuffer();
-        printf("\n");
-
+        printf("RENT A BIKE - Ver bicicleta\n");
+        printf("\n--------------------------------------------------\n\n");
+        if (bicicletaExiste(codigo) == -1)
+        {
+            printf("\n/!/ A bicicleta não existe\n\n");
+        }
+        else
+        {
+            bicicleta = verBicicleta(codigo);
+            printf("Código: %s\n", bicicleta->codigo);
+            printf("Dispónível para aluguél: ");
+            bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+            printf("Cor: %s\n", bicicleta->cor);
+            printf("Categoria/tipo: %s\n", bicicleta->categoria);
+            printf("\n--------------------------------------------------\n");
+            printf("\n");
+            printf("[1] Editar\n");
+            printf("[2] Apagar\n");
+            printf("\n[3] Voltar\n");
+            printf(">> ");
+            scanf("%1d", &opcao);
+            limparBuffer();
+            printf("\n");
+        }
         switch (opcao)
         {
         case 1:

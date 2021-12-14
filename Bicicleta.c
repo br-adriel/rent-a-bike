@@ -83,13 +83,37 @@ int gravarBicicleta(Bicicleta *bicicleta)
   return 1;
 };
 
-// Bicicleta *verBicicleta(char[]);
+Bicicleta *verBicicleta(char codigo[])
+{
+  Bicicleta *bicicleta = malloc(sizeof(Bicicleta));
+  char linha[70] = "";
+
+  FILE *arquivo;
+  // Cria o arquivo caso seja a primeira execução
+  arquivo = fopen("./bicicletas.txt", "a");
+  fclose(arquivo);
+
+  // busca bicicleta no arquivo
+  arquivo = fopen("./bicicletas.txt", "r");
+  while (fgets(linha, sizeof(linha), arquivo))
+  {
+    // verifica se o código corresponde
+    if (strstr(linha, codigo))
+    {
+      bicicleta = linhaParaBicicleta(linha);
+      fclose(arquivo);
+      break;
+    }
+  }
+  return bicicleta;
+};
+
 // int atualizarBicicleta(char[], char[], char[], char[]);
 // int excluirBicicleta(char[]);
 // Bicicleta **buscaBicicleta(char[]);
 
 /*
-Funcao que converte linha de texto em Cliente
+Funcao que converte linha de texto em Bicicleta
 
 Atributos:
   linha: "codigo|disponivel|cor|categoria|\n"
