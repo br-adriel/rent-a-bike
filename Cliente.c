@@ -53,6 +53,7 @@ int clienteExiste(char email[])
     if (strstr(linha, email))
     {
       numLinha = linhaAtual;
+      break;
     }
     linhaAtual++;
   }
