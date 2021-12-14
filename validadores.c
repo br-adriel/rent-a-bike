@@ -96,12 +96,14 @@ int validaCodigo(char codigo[], int comprimento)
   }
 
   // verifica se contém apenas letras e numeros
-  if (isalnum(codigo))
+  for (int i = 0; i < strlen(codigo); i++)
   {
-    printf("/!/ Código inválido: o código não pode ter símbolos\n");
-    return 0;
+    if (!isalnum(codigo[i]))
+    {
+      printf("/!/ Código inválido: o código não pode ter símbolos\n");
+      return 0;
+    }
   }
-
   return 1;
 }
 
