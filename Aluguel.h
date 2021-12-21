@@ -11,4 +11,6 @@ struct Aluguel
 
 typedef struct Aluguel Aluguel;
 
+void definirPrecoHora(float);
+float lerPrecoHora();
 Aluguel *novoAluguel(char[], char[]);
