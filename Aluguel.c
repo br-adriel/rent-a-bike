@@ -1,6 +1,7 @@
 #include "Aluguel.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*
 Define o preco da hora dos alugueis

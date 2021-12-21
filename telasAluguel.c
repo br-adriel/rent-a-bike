@@ -3,6 +3,7 @@
 #include "telasAluguel.h"
 #include "validadores.h"
 #include <limits.h>
+#include "Aluguel.h"
 
 void telaGerenciarAlugueis(void)
 {
@@ -475,7 +476,7 @@ void telaAlterarPreco(void)
         if (opcao == 2)
         {
             printf("/!/ Lembre-se de usar . ao invés de ,\n");
-            printf("Preço atual: R$ 3.25\n");
+            printf("Preço atual: R$ %.2f\n", lerPrecoHora());
             do
             {
                 printf("Novo preço: R$ ");
@@ -495,6 +496,7 @@ void telaAlterarPreco(void)
         switch (opcao)
         {
         case 1:
+            definirPrecoHora(novoPreco);
             msgRegistroSalvo();
             break;
         case 2:
