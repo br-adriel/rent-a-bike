@@ -9,7 +9,6 @@ struct Aluguel
   struct tm *saida;
   struct tm *retorno;
   char situacao[10];
-  char codigo[10];
 };
 
 typedef struct Aluguel Aluguel;
