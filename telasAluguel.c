@@ -15,11 +15,10 @@ void telaGerenciarAlugueis(void)
         printf("RENT A BIKE - Gerenciar aluguéis\n");
         printf("--------------------------------------------------\n");
         printf("\n[1] Novo aluguél\n");
-        printf("[2] Listar aluguéis\n");
-        printf("[3] Buscar aluguél\n");
-        printf("[4] Relatório de lucros\n");
-        printf("[5] Alterar preço da hora\n");
-        printf("\n[6] Voltar\n");
+        printf("[2] Buscar aluguél\n");
+        printf("[3] Relatório de lucros\n");
+        printf("[4] Alterar preço da hora\n");
+        printf("\n[5] Voltar\n");
         printf(">> ");
         scanf("%1d", &opcao);
         limparBuffer();
@@ -31,23 +30,20 @@ void telaGerenciarAlugueis(void)
             telaNovoAluguel();
             break;
         case 2:
-            telaListarAlugueis();
-            break;
-        case 3:
             telaBuscarAluguel();
             break;
-        case 4:
+        case 3:
             telaRelatorioLucros();
             break;
-        case 5:
+        case 4:
             telaAlterarPreco();
             break;
-        case 6:
+        case 5:
             break;
         default:
             msgInvalido();
         }
-    } while (opcao != 6);
+    } while (opcao != 5);
 }
 
 void telaNovoAluguel(void)
@@ -126,54 +122,6 @@ void telaNovoAluguel(void)
             break;
         }
     } while (opcao == 2);
-}
-
-void telaListarAlugueis(void)
-{
-    int opcao = 2;
-    char codigo[PATH_MAX] = "";
-    int inputValido = 0;
-    do
-    {
-        printf("//////////////////////////////////////////////////\n");
-        printf("RENT A BIKE - Listar aluguéis\n");
-        printf("--------------------------------------------------\n\n");
-        printf("Código | Cliente          | Preco    | Data\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-        printf("\n--------------------------------------------------\n");
-        printf("[1] Visualizar aluguél\n");
-        printf("\n[2] voltar\n");
-        printf(">> ");
-        scanf("%1d", &opcao);
-        limparBuffer();
-        printf("\n");
-
-        switch (opcao)
-        {
-        case 1:
-            do
-            {
-                printf("Digite o código do aluguél: ");
-                scanf("%s", codigo);
-                limparBuffer();
-
-                inputValido = validaCodigo(codigo, 6);
-                printf("\n");
-            } while (!inputValido);
-            telaVerAluguel(codigo);
-            break;
-        case 2:
-            break;
-        default:
-            msgInvalido();
-        }
-    } while (opcao != 2);
 }
 
 void telaVerAluguel(char codigo[])

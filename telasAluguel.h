@@ -1,6 +1,5 @@
 void telaGerenciarAlugueis(void);
 void telaNovoAluguel(void);
-void telaListarAlugueis(void);
 void telaVerAluguel(char[]);
 void telaEditarAluguel(char[]);
 void telaExcluirAluguel(char[]);
