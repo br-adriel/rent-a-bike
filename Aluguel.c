@@ -3,6 +3,25 @@
 #include <stdlib.h>
 #include <string.h>
 
+int *getCodigo()
+{
+  FILE *arquivo;
+  arquivo = fopen("./.codAluguel.txt", "r");
+
+  char linha[10] = "";
+  fgets(linha, sizeof(linha), arquivo);
+  fclose(arquivo);
+
+  int codigoInt = atoi(linha);
+  codigoInt++;
+
+  arquivo = fopen("./.codAluguel.txt", "w");
+  fprintf(arquivo, "%d", codigoInt);
+  fclose(arquivo);
+
+  return codigoInt - 1;
+}
+
 /*
 Define o preco da hora dos alugueis
 
@@ -50,12 +69,15 @@ Return:
 Aluguel *novoAluguel(char cliente[], char bicicleta[])
 {
   Aluguel *aluguel = malloc(sizeof(Aluguel));
+  sprintf(aluguel->codigo, "%d", getCodigo());
   strcpy(aluguel->cliente, cliente);
   strcpy(aluguel->bicicleta, bicicleta);
 
+  aluguel->valor = lerPrecoHora();
+
   time_t dataHoraSaida;
   time(&dataHoraSaida);
-
   aluguel->saida = localtime(&dataHoraSaida);
+  aluguel->retorno = localtime(&dataHoraSaida);
   return aluguel;
 }
