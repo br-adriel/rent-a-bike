@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int *getCodigo()
+int getCodigo()
 {
   FILE *arquivo;
   arquivo = fopen("./.codAluguel.txt", "r");
@@ -72,9 +72,9 @@ Aluguel *novoAluguel(char cliente[], char bicicleta[])
   sprintf(aluguel->codigo, "al%d", getCodigo());
   strcpy(aluguel->cliente, cliente);
   strcpy(aluguel->bicicleta, bicicleta);
+  strcpy(aluguel->situacao, "EM ABERTO");
 
   aluguel->valor = lerPrecoHora();
-
   time_t dataHoraSaida;
   time(&dataHoraSaida);
   aluguel->saida = localtime(&dataHoraSaida);
@@ -116,4 +116,38 @@ int aluguelExiste(char codigo[])
   }
   fclose(arquivo);
   return numLinha;
+}
+
+/*
+Grava o aluguel no arquivo
+
+Atributos:
+  aluguel: Aluguel a ser gravado
+*/
+void gravarAluguel(Aluguel *aluguel)
+{
+  char saidaFormatada[20];
+  strftime(saidaFormatada, sizeof saidaFormatada, "%d/%m/%Y-%H:%M:%S", aluguel->saida);
+
+  char retornoFormatado[20];
+  strftime(retornoFormatado, sizeof retornoFormatado, "%d/%m/%Y-%H:%M:%S", aluguel->retorno);
+
+  char situacao[] = "EM ABERTO";
+  if (strstr(aluguel->situacao, "FECHADO"))
+  {
+    strcpy(situacao, "FECHADO");
+  }
+
+  FILE *arquivo;
+  arquivo = fopen("./alugueis.txt", "a");
+  fprintf(
+      arquivo, "%s|%s|%s|%f|%s|%s|%s|\n",
+      aluguel->codigo,
+      aluguel->cliente,
+      aluguel->bicicleta,
+      aluguel->valor,
+      saidaFormatada,
+      retornoFormatado,
+      situacao);
+  fclose(arquivo);
 }
