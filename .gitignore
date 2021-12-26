@@ -57,4 +57,9 @@ Mkfile.old
 dkms.conf
 
 # Arquivos de texto
-*.txt
+alugueis.txt
+clientes.txt
+bicicletas.txt
+.alugueis.txt
+.clientes.txt
+.bicicletas.txt
