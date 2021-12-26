@@ -4,6 +4,8 @@
 #include "validadores.h"
 #include <limits.h>
 #include "Aluguel.h"
+#include "Bicicleta.h"
+#include "Cliente.h"
 
 void telaGerenciarAlugueis(void)
 {
@@ -50,9 +52,8 @@ void telaNovoAluguel(void)
 {
   int opcao = 2;
   char codBicicleta[PATH_MAX] = "";
-  int horasUso = 0;
-  int minutosUso = 0;
   char emailCliente[PATH_MAX] = "";
+  Bicicleta *bicicleta;
   int inputValido = 0;
 
   do
@@ -73,24 +74,6 @@ void telaNovoAluguel(void)
 
       do
       {
-        printf("\nHoras em uso: ");
-        scanf("%d", &horasUso);
-        limparBuffer();
-
-        inputValido = validaHora(horasUso);
-      } while (!inputValido);
-
-      do
-      {
-        printf("\nMinutos em uso: ");
-        scanf("%2d", &minutosUso);
-        limparBuffer();
-
-        inputValido = validaMinutos(minutosUso);
-      } while (!inputValido);
-
-      do
-      {
         printf("\nEmail do cliente: ");
         scanf("%s", emailCliente);
         limparBuffer();
@@ -101,10 +84,7 @@ void telaNovoAluguel(void)
       printf("\n\n--------------------------------------------------\n");
     }
     printf("\nCliente: %s\n", emailCliente);
-    printf("Tempo em uso: %dh %dmin\n", horasUso, minutosUso);
     printf("Código da bicicleta: %s\n", codBicicleta);
-    printf("Preço: R$ 32.21\n");
-    printf("Data de emissão: 31/12/9999");
     printf("\n\n--------------------------------------------------\n\n");
     printf("Salvar registro?");
     printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -116,9 +96,29 @@ void telaNovoAluguel(void)
     switch (opcao)
     {
     case 1:
-      printf("\n= = = = = = = =");
-      printf("\nRegistro salvo!");
-      printf("\n= = = = = = = =\n\n");
+      if (bicicletaExiste(codBicicleta) == -1)
+      {
+        printf("/!/ A bicicleta não existe\n");
+      }
+      else
+      {
+        bicicleta = verBicicleta(codBicicleta);
+        if (!bicicleta->disponivel)
+        {
+          printf("/!/ A bicicleta não está disponível para aluguél\n");
+        }
+        else if (clienteExiste(emailCliente) == -1)
+        {
+          printf("/!/ O cliente não existe\n");
+        }
+        else
+        {
+          gravarAluguel(novoAluguel(emailCliente, codBicicleta));
+          atualizarBicicleta(bicicleta->codigo, bicicleta->cor, bicicleta->categoria, 0);
+          msgRegistroSalvo();
+        }
+      }
+
       break;
     }
   } while (opcao == 2);
