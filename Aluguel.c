@@ -190,3 +190,36 @@ Aluguel *linhaParaAluguel(char linha[])
   strcpy(aluguel->situacao, dadosAluguel[16]);
   return aluguel;
 }
+
+/*
+Ver dados de aluguel específico
+
+Atributos;
+  codigo: codigo do aluguel
+Retornos:
+  Aluguel: dados do aluguel
+*/
+Aluguel *verAluguel(char codigo[])
+{
+  Aluguel *aluguel = malloc(sizeof(Aluguel));
+  char linha[250] = "";
+
+  // Cria o arquivo caso seja a primeira execução
+  FILE *arquivo;
+  arquivo = fopen("./alugueis.txt", "a");
+  fclose(arquivo);
+
+  // busca aluguel no arquivo
+  arquivo = fopen("./alugueis.txt", "r");
+  while (fgets(linha, sizeof(linha), arquivo))
+  {
+    // verifica se a saida corresponde
+    if (strstr(linha, codigo))
+    {
+      aluguel = linhaParaAluguel(linha);
+      fclose(arquivo);
+      break;
+    }
+  }
+  return aluguel;
+}
