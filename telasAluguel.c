@@ -139,10 +139,10 @@ void telaVerAluguel(char codigo[])
     printf("--------------------------------------------------\n");
     printf("-- Aluguél ------------------------------------\n");
     printf("Código: %s\n", aluguel->codigo);
+    printf("Situação: %s\n", aluguel->situacao);
     printf("Data de retirada: %s\n", saidaAluguelStr(aluguel));
     if (strstr(aluguel->situacao, "FECHADO"))
     {
-      printf("Situação: FECHADO\n");
       printf("Data de retorno: %s\n", retornoAluguelStr(aluguel));
       printf("Preço: R$ %.2f\n", aluguel->valor);
     }
