@@ -127,10 +127,10 @@ Atributos:
 void gravarAluguel(Aluguel *aluguel)
 {
   char saidaFormatada[20];
-  strftime(saidaFormatada, sizeof saidaFormatada, "%d/%m/%Y-%H:%M:%S", aluguel->saida);
+  strftime(saidaFormatada, sizeof saidaFormatada, "%d|%m|%Y|%H|%M|%S", aluguel->saida);
 
   char retornoFormatado[20];
-  strftime(retornoFormatado, sizeof retornoFormatado, "%d/%m/%Y-%H:%M:%S", aluguel->retorno);
+  strftime(retornoFormatado, sizeof retornoFormatado, "%d|%m|%Y|%H|%M|%S", aluguel->retorno);
 
   char situacao[] = "EM ABERTO";
   if (strstr(aluguel->situacao, "FECHADO"))
