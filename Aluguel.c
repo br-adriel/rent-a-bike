@@ -259,7 +259,6 @@ Aluguel **buscarAluguel(char termo[])
   char linha[250];
 
   // Cria o arquivo caso seja a primeira execução
-  FILE *arquivo;
   arquivo = fopen("./alugueis.txt", "a");
   fclose(arquivo);
 
