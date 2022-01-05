@@ -240,7 +240,7 @@ Bicicleta **buscaBicicleta(char termo[])
   }
 
   // marca o fim do array
-  bicicletaAtual = linhaParaBicicleta("/!fim/!|/!fim/!|/!fim/!|/fim/!|\n");
+  bicicletaAtual = linhaParaBicicleta("/!fim/!|/!fim/!|/!fim/!|/!fim/!|\n");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Bicicleta));
   resultado[quantidade - 1] = bicicletaAtual;

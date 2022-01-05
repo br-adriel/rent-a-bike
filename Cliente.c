@@ -241,7 +241,7 @@ Cliente **buscaCliente(char termo[])
   }
 
   // marca o fim do array
-  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/!fim/!|/fim/!|\n");
+  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/!fim/!|/!fim/!|\n");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Cliente));
   resultado[quantidade - 1] = clienteAtual;
