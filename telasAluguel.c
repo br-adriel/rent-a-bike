@@ -6,6 +6,7 @@
 #include "Aluguel.h"
 #include "Bicicleta.h"
 #include "Cliente.h"
+#include <string.h>
 
 void telaGerenciarAlugueis(void)
 {
@@ -127,22 +128,53 @@ void telaNovoAluguel(void)
 void telaVerAluguel(char codigo[])
 {
   int opcao = 3;
+  Aluguel *aluguel = verAluguel(codigo);
+  Cliente *cliente;
+  Bicicleta *bicicleta;
+
   do
   {
     printf("//////////////////////////////////////////////////\n");
-    printf("RENT A BIKE - Aluguél #%s\n", codigo);
+    printf("RENT A BIKE - Ver aluguél\n");
     printf("--------------------------------------------------\n");
-    printf("-- Cliente ---------------------------------------\n");
-    printf("Nome: Fulano Sicrano\n");
-    printf("Email: fulano@email.com\n");
-    printf("-- Bicicleta -------------------------------------\n");
-    printf("Código: 123456\n");
-    printf("Cor: Azul\n");
-    printf("Situação: Em manutenção\n");
     printf("-- Aluguél ------------------------------------\n");
-    printf("Tempo em uso: 1h 15min\n");
-    printf("Preço: R$ 32.21\n");
-    printf("Data de emissão: 31/12/9999");
+    printf("Código: %s\n", aluguel->codigo);
+    printf("Data de retirada: %s\n", saidaAluguelStr(aluguel));
+    if (strstr(aluguel->situacao, "FECHADO"))
+    {
+      printf("Situação: FECHADO\n");
+      printf("Data de retorno: %s\n", retornoAluguelStr(aluguel));
+      printf("Preço: R$ %.2f\n", aluguel->valor);
+    }
+
+    printf("-- Cliente ---------------------------------------\n");
+    if (clienteExiste(aluguel->cliente) == -1)
+    {
+      printf("Email: %s\n", aluguel->cliente);
+      printf("/i/ O cliente não está cadastrado no banco de dados\n");
+    }
+    else
+    {
+      cliente = verCliente(aluguel->cliente);
+      printf("Nome: %s %s\n", cliente->nome, cliente->sobrenome);
+      printf("Email: %s\n", cliente->email);
+    }
+
+    printf("-- Bicicleta -------------------------------------\n");
+    if (bicicletaExiste(aluguel->bicicleta) == -1)
+    {
+      printf("Código: %s\n", aluguel->bicicleta);
+      printf("/i/ A bicicleta não está cadastrada no banco de dados\n");
+    }
+    else
+    {
+      bicicleta = verBicicleta(aluguel->bicicleta);
+      printf("Código: %s\n", bicicleta->codigo);
+      printf("Cor: %s\n", bicicleta->cor);
+      printf("Categoria: %s\n", bicicleta->categoria);
+      printf("Disponível: ");
+      bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+    }
     printf("\n--------------------------------------------------\n");
     printf("\n");
     printf("[1] Editar\n");
