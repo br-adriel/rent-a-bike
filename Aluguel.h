@@ -2,7 +2,7 @@
 
 struct Aluguel
 {
-  char codigo[10];
+  char codigo[11];
   char cliente[71];
   char bicicleta[7];
   float valor;
@@ -21,3 +21,4 @@ void gravarAluguel(Aluguel *);
 Aluguel *verAluguel(char[]);
 char *saidaAluguelStr(Aluguel *);
 char *retornoAluguelStr(Aluguel *);
+Aluguel **buscarAluguel(char[]);

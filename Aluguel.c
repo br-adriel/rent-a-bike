@@ -243,3 +243,43 @@ char *retornoAluguelStr(Aluguel *aluguel)
   strftime(retornoStr, 24, "%d/%m/%Y às %H:%M:%S", aluguel->retorno);
   return retornoStr;
 }
+
+/*
+Atributos:
+  termo: termo de busca
+Retornos:
+  Vetor de alugueis
+*/
+Aluguel **buscarAluguel(char termo[])
+{
+  Aluguel **resultado = malloc(0);
+  Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
+  int quantidade = 0;
+  FILE *arquivo;
+  char linha[250];
+
+  // Cria o arquivo caso seja a primeira execução
+  FILE *arquivo;
+  arquivo = fopen("./alugueis.txt", "a");
+  fclose(arquivo);
+
+  arquivo = fopen("./alugueis.txt", "r");
+  while (fgets(linha, sizeof(linha), arquivo))
+  {
+    if (strstr(linha, termo))
+    {
+      aluguelAtual = linhaParaAluguel(linha);
+
+      quantidade++;
+      resultado = realloc(resultado, quantidade * sizeof(Aluguel));
+      resultado[quantidade - 1] = aluguelAtual;
+    }
+  }
+
+  // marca o fim do array
+  aluguelAtual = linhaParaAluguel("/!fim/!|/!fim/!|/!fim/!|0.0|01|01|2000|10|10|10|01|01|2000|10|10|10|/!fim/!|\n");
+  quantidade++;
+  resultado = realloc(resultado, quantidade * sizeof(Aluguel));
+  resultado[quantidade - 1] = aluguelAtual;
+  return resultado;
+}
