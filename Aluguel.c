@@ -194,7 +194,7 @@ Aluguel *linhaParaAluguel(char linha[])
 /*
 Ver dados de aluguel específico
 
-Atributos;
+Atributos:
   codigo: codigo do aluguel
 Retornos:
   Aluguel: dados do aluguel
@@ -222,4 +222,24 @@ Aluguel *verAluguel(char codigo[])
     }
   }
   return aluguel;
+}
+
+/*
+Retorna data/hora de saida do aluguel em string
+*/
+char *saidaAluguelStr(Aluguel *aluguel)
+{
+  char *saidaStr = "";
+  strftime(saidaStr, 24, "%d/%m/%Y às %H:%M:%S", aluguel->saida);
+  return saidaStr;
+}
+
+/*
+Retorna data/hora de retorno do aluguel em string
+*/
+char *retornoAluguelStr(Aluguel *aluguel)
+{
+  char *retornoStr = "";
+  strftime(retornoStr, 24, "%d/%m/%Y às %H:%M:%S", aluguel->retorno);
+  return retornoStr;
 }

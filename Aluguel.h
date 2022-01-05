@@ -19,3 +19,5 @@ Aluguel *novoAluguel(char[], char[]);
 int aluguelExiste(char[]);
 void gravarAluguel(Aluguel *);
 Aluguel *verAluguel(char[]);
+char *saidaAluguelStr(Aluguel *);
+char *retornoAluguelStr(Aluguel *);
