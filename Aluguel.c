@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils.h"
 
 int getCodigo()
 {
@@ -150,4 +151,42 @@ void gravarAluguel(Aluguel *aluguel)
       retornoFormatado,
       situacao);
   fclose(arquivo);
+}
+
+/*
+Funcao que converte linha de texto em Aluguel
+
+Atributos:
+  linha: string de texto
+Retornos:
+  Aluguel: aluguel com as informacoes passadas
+*/
+Aluguel *linhaParaAluguel(char linha[])
+{
+  Aluguel *aluguel = malloc(sizeof(Aluguel));
+  char **dadosAluguel = quebrarStr(linha, '|');
+
+  strcpy(aluguel->codigo, dadosAluguel[0]);
+  strcpy(aluguel->cliente, dadosAluguel[1]);
+  strcpy(aluguel->bicicleta, dadosAluguel[2]);
+  aluguel->valor = atof(dadosAluguel[3]);
+
+  // data de saida
+  aluguel->saida->tm_mday = atoi(dadosAluguel[4]);
+  aluguel->saida->tm_mon = atoi(dadosAluguel[5]);
+  aluguel->saida->tm_year = atoi(dadosAluguel[6]);
+  aluguel->saida->tm_hour = atoi(dadosAluguel[7]);
+  aluguel->saida->tm_min = atoi(dadosAluguel[8]);
+  aluguel->saida->tm_sec = atoi(dadosAluguel[9]);
+
+  // data de retorno
+  aluguel->retorno->tm_mday = atoi(dadosAluguel[10]);
+  aluguel->retorno->tm_mon = atoi(dadosAluguel[11]);
+  aluguel->retorno->tm_year = atoi(dadosAluguel[12]);
+  aluguel->retorno->tm_hour = atoi(dadosAluguel[13]);
+  aluguel->retorno->tm_min = atoi(dadosAluguel[14]);
+  aluguel->retorno->tm_sec = atoi(dadosAluguel[15]);
+
+  strcpy(aluguel->situacao, dadosAluguel[16]);
+  return aluguel;
 }
