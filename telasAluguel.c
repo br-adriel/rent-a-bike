@@ -128,7 +128,7 @@ void telaNovoAluguel(void)
 void telaVerAluguel(char codigo[])
 {
   int opcao = 3;
-  Aluguel *aluguel = verAluguel(codigo);
+  Aluguel *aluguel;
   Cliente *cliente;
   Bicicleta *bicicleta;
 
@@ -137,67 +137,75 @@ void telaVerAluguel(char codigo[])
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Ver aluguél\n");
     printf("--------------------------------------------------\n");
-    printf("-- Aluguél ------------------------------------\n");
-    printf("Código: %s\n", aluguel->codigo);
-    printf("Situação: %s\n", aluguel->situacao);
-    printf("Data de retirada: %s\n", saidaAluguelStr(aluguel));
-    if (strstr(aluguel->situacao, "FECHADO"))
+    if (aluguelExiste(codigo) == -1)
     {
-      printf("Data de retorno: %s\n", retornoAluguelStr(aluguel));
-      printf("Preço: R$ %.2f\n", aluguel->valor);
-    }
-
-    printf("-- Cliente ---------------------------------------\n");
-    if (clienteExiste(aluguel->cliente) == -1)
-    {
-      printf("Email: %s\n", aluguel->cliente);
-      printf("/i/ O cliente não está cadastrado no banco de dados\n");
+      printf("\n/!/ O aluguél não existe\n");
     }
     else
     {
-      cliente = verCliente(aluguel->cliente);
-      printf("Nome: %s %s\n", cliente->nome, cliente->sobrenome);
-      printf("Email: %s\n", cliente->email);
-    }
+      aluguel = verAluguel(codigo);
+      printf("\n-- Aluguél --------------------------------------\n");
+      printf("Código: %s\n", aluguel->codigo);
+      printf("Situação: %s\n", aluguel->situacao);
+      printf("Data de retirada: %s\n", saidaAluguelStr(aluguel));
+      if (strstr(aluguel->situacao, "FECHADO"))
+      {
+        printf("Data de retorno: %s\n", retornoAluguelStr(aluguel));
+        printf("Preço: R$ %.2f\n", aluguel->valor);
+      }
 
-    printf("-- Bicicleta -------------------------------------\n");
-    if (bicicletaExiste(aluguel->bicicleta) == -1)
-    {
-      printf("Código: %s\n", aluguel->bicicleta);
-      printf("/i/ A bicicleta não está cadastrada no banco de dados\n");
-    }
-    else
-    {
-      bicicleta = verBicicleta(aluguel->bicicleta);
-      printf("Código: %s\n", bicicleta->codigo);
-      printf("Cor: %s\n", bicicleta->cor);
-      printf("Categoria: %s\n", bicicleta->categoria);
-      printf("Disponível: ");
-      bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
-    }
-    printf("\n--------------------------------------------------\n");
-    printf("\n");
-    printf("[1] Editar\n");
-    printf("[2] Apagar\n");
-    printf("\n[3] Voltar\n");
-    printf(">> ");
-    scanf("%1d", &opcao);
-    limparBuffer();
-    printf("\n");
+      printf("-- Cliente ---------------------------------------\n");
+      if (clienteExiste(aluguel->cliente) == -1)
+      {
+        printf("Email: %s\n", aluguel->cliente);
+        printf("/i/ O cliente não está cadastrado no banco de dados\n");
+      }
+      else
+      {
+        cliente = verCliente(aluguel->cliente);
+        printf("Nome: %s %s\n", cliente->nome, cliente->sobrenome);
+        printf("Email: %s\n", cliente->email);
+      }
 
-    switch (opcao)
-    {
-    case 1:
-      telaEditarAluguel(codigo);
-      break;
-    case 2:
-      telaExcluirAluguel(codigo);
-      opcao = 3;
-      break;
-    case 3:
-      break;
-    default:
-      msgInvalido();
+      printf("-- Bicicleta -------------------------------------\n");
+      if (bicicletaExiste(aluguel->bicicleta) == -1)
+      {
+        printf("Código: %s\n", aluguel->bicicleta);
+        printf("/i/ A bicicleta não está cadastrada no banco de dados\n");
+      }
+      else
+      {
+        bicicleta = verBicicleta(aluguel->bicicleta);
+        printf("Código: %s\n", bicicleta->codigo);
+        printf("Cor: %s\n", bicicleta->cor);
+        printf("Categoria: %s\n", bicicleta->categoria);
+        printf("Disponível atualmente: ");
+        bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+      }
+      printf("\n--------------------------------------------------\n");
+      printf("\n");
+      printf("[1] Editar\n");
+      printf("[2] Apagar\n");
+      printf("\n[3] Voltar\n");
+      printf(">> ");
+      scanf("%1d", &opcao);
+      limparBuffer();
+      printf("\n");
+
+      switch (opcao)
+      {
+      case 1:
+        telaEditarAluguel(codigo);
+        break;
+      case 2:
+        telaExcluirAluguel(codigo);
+        opcao = 3;
+        break;
+      case 3:
+        break;
+      default:
+        msgInvalido();
+      }
     }
   } while (opcao != 3);
 }
@@ -318,38 +326,67 @@ void telaExcluirAluguel(char codigo[])
 void telaBuscarAluguel(void)
 {
   int opcao = 0;
-  int dia = 0;
-  int mes = 0;
-  int ano = 0;
   int inputValido = 0;
-  char codigo[PATH_MAX];
-  int dataValida = 0;
+  char codigo[PATH_MAX] = "";
+  char termoBusca[PATH_MAX] = "";
 
   do
   {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Buscar aluguél\n");
     printf("--------------------------------------------------\n");
-    do
-    {
-      printf("\nData do aluguél (DD/MM/AAAA): ");
-      scanf("%d/%d/%d", &dia, &mes, &ano);
-
-      dataValida = validaData(dia, mes, ano);
-    } while (!dataValida);
+    printf("\nTermo de busca: ");
+    scanf("%s", termoBusca);
     limparBuffer();
-
     printf("\n");
-    // faz a busca
-    printf("\n--------------------------------------------------\n");
+
+    Aluguel **resultado = buscarAluguel(termoBusca);
+
+    // exibe resultado
     printf("\nResultados:\n");
-    printf("Código | Email do cliente | Preço    | Data\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
+    printf("Código    | Email do cliente                             | Bicicleta | Retirada               | Retorno                | Situação  | Preço\n");
+
+    int i = 0;
+    if (!strstr(resultado[0]->codigo, "/!fim/!"))
+    {
+      while (!strstr(resultado[i]->codigo, "/!fim/!"))
+      {
+        Aluguel *alu = resultado[i];
+
+        char *aluCodigo = formatarPalavra(alu->codigo, 10);
+        char *aluEmail = formatarPalavra(alu->cliente, 45);
+        char *aluBici = formatarPalavra(alu->bicicleta, 10);
+        char *aluSituacao = formatarPalavra(alu->situacao, 9);
+
+        if (strstr(alu->situacao, "FECHADO"))
+        {
+          printf("%s| %s| %s| %s | %s | %s | R$ %.2f\n",
+                 aluCodigo,
+                 aluEmail,
+                 aluBici,
+                 saidaAluguelStr(alu),
+                 retornoAluguelStr(alu),
+                 aluSituacao,
+                 alu->valor);
+        }
+        else
+        {
+          printf("%s| %s| %s| %s | %s | %s | R$ %s\n",
+                 aluCodigo,
+                 aluEmail,
+                 aluBici,
+                 saidaAluguelStr(alu),
+                 "----------------------",
+                 aluSituacao,
+                 "---");
+        }
+        i++;
+      }
+    }
+    else
+    {
+      printf("/i/ Nenhum aluguél encontrado!\n");
+    }
     printf("\n");
     printf("[1] Ver Aluguel\n");
     printf("[2] Cancelar\n");
@@ -366,10 +403,20 @@ void telaBuscarAluguel(void)
         scanf("%s", codigo);
         limparBuffer();
 
-        inputValido = validaCodigo(codigo, 6);
+        if (aluguelExiste(codigo) == -1)
+        {
+          inputValido = 0;
+          printf("/!/ Código inválido: o aluguél não existe\n");
+        }
+        else
+        {
+          inputValido = 1;
+        }
+
       } while (!inputValido);
 
       telaVerAluguel(codigo);
+      opcao = 2;
       break;
     case 2:
       break;
