@@ -174,7 +174,7 @@ void telaBuscarCliente(void)
         char *nomeF = formatarPalavra(cli->nome, 20);
         char *sobrenomeF = formatarPalavra(cli->sobrenome, 20);
         char *telefoneF = formatarTelefone(cli->telefone);
-        printf("%s  | %s  | %s | %s\n", nomeF, sobrenomeF, telefoneF, cli->email);
+        printf("%s | %s | %s | %s\n", nomeF, sobrenomeF, telefoneF, cli->email);
         free(nomeF);
         free(sobrenomeF);
         free(telefoneF);
