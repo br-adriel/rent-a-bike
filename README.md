@@ -4,31 +4,55 @@ Sistema para gerenciamento de aluguéis de bicicletas.
 
 <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="Embolema C" title="Desenvolvido com C">
 
-## Cenário previsto de aplicação
+## Cenário de aplicabilidade
 
-O software a ser desenvolvido pretende atender um cenário imaginário no qual uma companhia de aluguéis
-de bicicletas deseja, a partir de um pequeno sistema, registrar as informações referentes às suas bicicletas,
-seus clientes, e os aluguéis realizados, bem como, a partir dessas informações, o software ser capaz de
-calcular o valor de cada empréstimo automaticamente e também um relatório de lucros.
+O software pretende atender ao cenário no qual uma companhia de aluguéis
+de bicicletas deseja, a partir de um pequeno sistema, registrar as informações
+referentes às suas bicicletas, clientes, e aluguéis realizados. Além disso,
+a partir dessas informações o software é capaz de calcular o valor de cada
+aluguél automaticamente e também gerar um relatório com informações das ultimas
+movimentacões realizadas.
 
 ## Módulos do projeto
 
-O sistema será dividido em três módulos
+O sistema é dividido em três módulos principais (Aluguéis, Clientes e Bicicletas)
+e dois módulos de funcionalidades genéricas (Validadores e Utils).
 
 #### Aluguéis
 
-- Dados: Email do cliente, data, horas em uso, minutos em uso, preço
-- Funcionalidades: CRUD, pesquisa por data, relatório de lucros
+- Dados:
+  - Email do cliente
+  - Código da bicicleta
+  - Data/hora de retirada da bicicleta
+  - Data/hora de retorno da bicicleta
+  - Preço do aluguél
+  - Situação do aluguél
+- Funcionalidades:
+  - CRUD
+  - Pesquisa de aluguéis
+  - Relatório de lucros
 
 #### Clientes
 
-- Dados: Nome, sobrenome, email
-- Funcionalidades: CRUD, pesquisa por nome
+- Dados:
+  - Nome
+  - Sobrenome
+  - Email
+  - Telefone
+- Funcionalidades:
+  - CRUD
+  - Pesquisa de clientes
 
 #### Bicicletas
 
-- Dados: Código, ativa, cor
-- Funcionalidades: CRUD, pesquisa por cor
+- Dados:
+  - Código
+  - Disponibilidade
+  - Cor
+  - Categoria/tipo
+- Funcionalidades:
+  - CRUD
+  - Pesquisa de bicicletas
 
 ## Execução
 
