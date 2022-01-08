@@ -71,16 +71,31 @@ Return:
 Aluguel *novoAluguel(char cliente[], char bicicleta[])
 {
   Aluguel *aluguel = malloc(sizeof(Aluguel));
-  sprintf(aluguel->codigo, "al%d", getCodigo());
+  sprintf(aluguel->codigo, "r%db", getCodigo());
   strcpy(aluguel->cliente, cliente);
   strcpy(aluguel->bicicleta, bicicleta);
   strcpy(aluguel->situacao, "EM ABERTO");
 
   aluguel->valor = lerPrecoHora();
-  time_t dataHoraSaida;
-  time(&dataHoraSaida);
-  aluguel->saida = localtime(&dataHoraSaida);
-  aluguel->retorno = localtime(&dataHoraSaida);
+  time_t dataHora;
+  time(&dataHora);
+  struct tm *dataHoraTm = localtime(&dataHora);
+
+  // data de saida
+  aluguel->saida.tm_mday = dataHoraTm->tm_mday;
+  aluguel->saida.tm_mon = dataHoraTm->tm_mon - 1;
+  aluguel->saida.tm_year = dataHoraTm->tm_year - 1900;
+  aluguel->saida.tm_hour = dataHoraTm->tm_hour;
+  aluguel->saida.tm_min = dataHoraTm->tm_min;
+  aluguel->saida.tm_sec = dataHoraTm->tm_sec;
+
+  // data de retorno
+  aluguel->retorno.tm_mday = dataHoraTm->tm_mday;
+  aluguel->retorno.tm_mon = dataHoraTm->tm_mon - 1;
+  aluguel->retorno.tm_year = dataHoraTm->tm_year - 1900;
+  aluguel->retorno.tm_hour = dataHoraTm->tm_hour;
+  aluguel->retorno.tm_min = dataHoraTm->tm_min;
+  aluguel->retorno.tm_sec = dataHoraTm->tm_sec;
   return aluguel;
 }
 
@@ -129,10 +144,31 @@ Atributos:
 void gravarAluguel(Aluguel *aluguel)
 {
   char saidaFormatada[20];
-  strftime(saidaFormatada, sizeof saidaFormatada, "%d|%m|%Y|%H|%M|%S", aluguel->saida);
+
+  time_t tempo;
+  time(&tempo);
+  struct tm *saidaAluguel = localtime(&tempo);
+
+  saidaAluguel->tm_mday = aluguel->saida.tm_mday;
+  saidaAluguel->tm_mon = aluguel->saida.tm_mon + 1;
+  saidaAluguel->tm_year = aluguel->saida.tm_year + 1900;
+  saidaAluguel->tm_hour = aluguel->saida.tm_hour;
+  saidaAluguel->tm_min = aluguel->saida.tm_min;
+  saidaAluguel->tm_sec = aluguel->saida.tm_sec;
+
+  strftime(saidaFormatada, sizeof saidaFormatada, "%d|%m|%Y|%H|%M|%S", saidaAluguel);
 
   char retornoFormatado[20];
-  strftime(retornoFormatado, sizeof retornoFormatado, "%d|%m|%Y|%H|%M|%S", aluguel->retorno);
+
+  struct tm *retornoAluguel = localtime(&tempo);
+  retornoAluguel->tm_mday = aluguel->retorno.tm_mday;
+  retornoAluguel->tm_mon = aluguel->retorno.tm_mon + 1;
+  retornoAluguel->tm_year = aluguel->retorno.tm_year + 1900;
+  retornoAluguel->tm_hour = aluguel->retorno.tm_hour;
+  retornoAluguel->tm_min = aluguel->retorno.tm_min;
+  retornoAluguel->tm_sec = aluguel->retorno.tm_sec;
+
+  strftime(retornoFormatado, sizeof retornoFormatado, "%d|%m|%Y|%H|%M|%S", retornoAluguel);
 
   char situacao[] = "EM ABERTO";
   if (strstr(aluguel->situacao, "FECHADO"))
@@ -173,24 +209,20 @@ Aluguel *linhaParaAluguel(char linha[])
   aluguel->valor = atof(dadosAluguel[3]);
 
   // data de saida
-  time_t dataHora;
-  time(&dataHora);
-  aluguel->saida = localtime(&dataHora);
-  aluguel->saida->tm_mday = atoi(dadosAluguel[4]);
-  aluguel->saida->tm_mon = atoi(dadosAluguel[5]) - 1;
-  aluguel->saida->tm_year = atoi(dadosAluguel[6]) - 1900;
-  aluguel->saida->tm_hour = atoi(dadosAluguel[7]);
-  aluguel->saida->tm_min = atoi(dadosAluguel[8]);
-  aluguel->saida->tm_sec = atoi(dadosAluguel[9]);
+  aluguel->saida.tm_mday = atoi(dadosAluguel[4]);
+  aluguel->saida.tm_mon = atoi(dadosAluguel[5]) - 1;
+  aluguel->saida.tm_year = atoi(dadosAluguel[6]) - 1900;
+  aluguel->saida.tm_hour = atoi(dadosAluguel[7]);
+  aluguel->saida.tm_min = atoi(dadosAluguel[8]);
+  aluguel->saida.tm_sec = atoi(dadosAluguel[9]);
 
   // data de retorno
-  aluguel->retorno = localtime(&dataHora);
-  aluguel->retorno->tm_mday = atoi(dadosAluguel[10]);
-  aluguel->retorno->tm_mon = atoi(dadosAluguel[11]) - 1;
-  aluguel->retorno->tm_year = atoi(dadosAluguel[12]) - 1900;
-  aluguel->retorno->tm_hour = atoi(dadosAluguel[13]);
-  aluguel->retorno->tm_min = atoi(dadosAluguel[14]);
-  aluguel->retorno->tm_sec = atoi(dadosAluguel[15]);
+  aluguel->retorno.tm_mday = atoi(dadosAluguel[10]);
+  aluguel->retorno.tm_mon = atoi(dadosAluguel[11]) - 1;
+  aluguel->retorno.tm_year = atoi(dadosAluguel[12]) - 1900;
+  aluguel->retorno.tm_hour = atoi(dadosAluguel[13]);
+  aluguel->retorno.tm_min = atoi(dadosAluguel[14]);
+  aluguel->retorno.tm_sec = atoi(dadosAluguel[15]);
 
   strcpy(aluguel->situacao, dadosAluguel[16]);
 
@@ -241,7 +273,18 @@ Retorna data/hora de saida do aluguel em string
 char *saidaAluguelStr(Aluguel *aluguel)
 {
   char saidaStr[30] = "";
-  strftime(saidaStr, sizeof(saidaStr), "%d/%m/%Y às %H:%M:%S", aluguel->saida);
+
+  time_t tempo;
+  time(&tempo);
+  struct tm *saidaAluguel = localtime(&tempo);
+  saidaAluguel->tm_mday = aluguel->saida.tm_mday;
+  saidaAluguel->tm_mon = aluguel->saida.tm_mon;
+  saidaAluguel->tm_year = aluguel->saida.tm_year;
+  saidaAluguel->tm_hour = aluguel->saida.tm_hour;
+  saidaAluguel->tm_min = aluguel->saida.tm_min;
+  saidaAluguel->tm_sec = aluguel->saida.tm_sec;
+
+  strftime(saidaStr, sizeof(saidaStr), "%d/%m/%Y às %H:%M:%S", saidaAluguel);
   return strndup(saidaStr, sizeof(saidaStr));
 }
 
@@ -251,7 +294,19 @@ Retorna data/hora de retorno do aluguel em string
 char *retornoAluguelStr(Aluguel *aluguel)
 {
   char retornoStr[30] = "";
-  strftime(retornoStr, sizeof(retornoStr), "%d/%m/%Y às %H:%M:%S", aluguel->retorno);
+
+  time_t tempo;
+  time(&tempo);
+  struct tm *retornoAluguel = localtime(&tempo);
+
+  retornoAluguel->tm_mday = aluguel->retorno.tm_mday;
+  retornoAluguel->tm_mon = aluguel->retorno.tm_mon;
+  retornoAluguel->tm_year = aluguel->retorno.tm_year;
+  retornoAluguel->tm_hour = aluguel->retorno.tm_hour;
+  retornoAluguel->tm_min = aluguel->retorno.tm_min;
+  retornoAluguel->tm_sec = aluguel->retorno.tm_sec;
+
+  strftime(retornoStr, sizeof(retornoStr), "%d/%m/%Y às %H:%M:%S", retornoAluguel);
   return strndup(retornoStr, sizeof(retornoStr));
 }
 
@@ -292,4 +347,85 @@ Aluguel **buscarAluguel(char termo[])
   resultado = realloc(resultado, quantidade * sizeof(Aluguel));
   resultado[quantidade - 1] = aluguelAtual;
   return resultado;
+}
+
+// Atualiza aluguel em aberto e calcula preco
+void fecharAluguel(char codigo[])
+{
+  Aluguel *aluguel = verAluguel(codigo);
+  if (strstr(aluguel->situacao, "EM ABERTO"))
+  {
+    strcpy(aluguel->situacao, "FECHADO");
+
+    time_t dataHoraRetorno;
+    time(&dataHoraRetorno);
+    struct tm *dataHoraTmRet = localtime(&dataHoraRetorno);
+
+    aluguel->retorno.tm_mday = dataHoraTmRet->tm_mday;
+    aluguel->retorno.tm_mon = dataHoraTmRet->tm_mon;
+    aluguel->retorno.tm_year = dataHoraTmRet->tm_year;
+    aluguel->retorno.tm_hour = dataHoraTmRet->tm_hour;
+    aluguel->retorno.tm_min = dataHoraTmRet->tm_min;
+    aluguel->retorno.tm_sec = dataHoraTmRet->tm_sec;
+
+    time_t tempo;
+    time(&tempo);
+    struct tm *dataHoraTmSai = localtime(&tempo);
+    dataHoraTmSai->tm_mday = aluguel->saida.tm_mday;
+    dataHoraTmSai->tm_mon = aluguel->saida.tm_mon;
+    dataHoraTmSai->tm_year = aluguel->saida.tm_year;
+    dataHoraTmSai->tm_hour = aluguel->saida.tm_hour;
+    dataHoraTmSai->tm_min = aluguel->saida.tm_min;
+    dataHoraTmSai->tm_sec = aluguel->saida.tm_sec;
+
+    // calcula tempo percorrido em segundos
+    float tempoPercorrido = difftime(dataHoraRetorno, mktime(dataHoraTmSai));
+    tempoPercorrido = tempoPercorrido / 3600; // transforma em horas
+
+    // calcula preco do aluguel
+    aluguel->valor = aluguel->valor * tempoPercorrido;
+
+    char linha[250] = "";
+    FILE *arquivo, *temp;
+    arquivo = fopen("./alugueis.txt", "r");
+    temp = fopen("./alugueis.temp.txt", "a");
+
+    while (fgets(linha, sizeof(linha), arquivo) != NULL)
+    {
+      // verifica se o codigo corresponde
+      if (strstr(linha, codigo))
+      {
+        fprintf(
+            temp, "%s|%s|%s|%f|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%s|\n",
+            aluguel->codigo,
+            aluguel->cliente,
+            aluguel->bicicleta,
+            aluguel->valor,
+            aluguel->saida.tm_mday,
+            aluguel->saida.tm_mon + 1,
+            aluguel->saida.tm_year + 1900,
+            aluguel->saida.tm_hour,
+            aluguel->saida.tm_min,
+            aluguel->saida.tm_sec,
+            aluguel->retorno.tm_mday,
+            aluguel->retorno.tm_mon + 1,
+            aluguel->retorno.tm_year + 1900,
+            aluguel->retorno.tm_hour,
+            aluguel->retorno.tm_min,
+            aluguel->retorno.tm_sec,
+            aluguel->situacao);
+      }
+      else
+      {
+        fprintf(temp, "%s", linha);
+      }
+    }
+
+    fclose(temp);
+    fclose(arquivo);
+
+    // deleta arquivo desatualizado e renomeia temporario
+    remove("./alugueis.txt");
+    rename("./alugueis.temp.txt", "./alugueis.txt");
+  }
 }
