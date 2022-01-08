@@ -184,6 +184,10 @@ void telaVerAluguel(char codigo[])
       }
       printf("\n--------------------------------------------------\n");
       printf("\n");
+      if (strstr(aluguel->situacao, "EM ABERTO"))
+      {
+        printf("[0] Fechar aluguél\n");
+      }
       printf("[1] Editar\n");
       printf("[2] Apagar\n");
       printf("\n[3] Voltar\n");
@@ -194,6 +198,13 @@ void telaVerAluguel(char codigo[])
 
       switch (opcao)
       {
+      case 0:
+        fecharAluguel(codigo);
+        if (bicicletaExiste(aluguel->bicicleta) != -1)
+        {
+          atualizarBicicleta(bicicleta->codigo, bicicleta->cor, bicicleta->categoria, 1);
+        }
+        break;
       case 1:
         telaEditarAluguel(codigo);
         break;
