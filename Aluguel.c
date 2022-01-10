@@ -319,7 +319,6 @@ Retornos:
 Aluguel **buscarAluguel(char termo[])
 {
   Aluguel **resultado = malloc(0);
-  Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
   int quantidade = 0;
   FILE *arquivo;
   char linha[250];
@@ -333,6 +332,7 @@ Aluguel **buscarAluguel(char termo[])
   {
     if (strstr(linha, termo))
     {
+      Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
       aluguelAtual = linhaParaAluguel(linha);
 
       quantidade++;
@@ -342,6 +342,7 @@ Aluguel **buscarAluguel(char termo[])
   }
 
   // marca o fim do array
+  Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
   aluguelAtual = linhaParaAluguel("/!fim/!|/!fim/!|/!fim/!|0.0|01|01|2000|10|10|10|01|01|2000|10|10|10|/!fim/!|\n");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Aluguel));
