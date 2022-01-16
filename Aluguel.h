@@ -22,4 +22,5 @@ Aluguel *verAluguel(char[]);
 char *saidaAluguelStr(Aluguel *);
 char *retornoAluguelStr(Aluguel *);
 Aluguel **buscarAluguel(char[]);
-void fecharAluguel(char codigo[]);
+void fecharAluguel(char[]);
+int excluirAluguel(char[]);

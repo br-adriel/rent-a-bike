@@ -430,3 +430,35 @@ void fecharAluguel(char codigo[])
     rename("./alugueis.temp.txt", "./alugueis.txt");
   }
 }
+
+int excluirAluguel(char codigo[])
+{
+  if (aluguelExiste(codigo) == -1)
+  {
+    return 0;
+  }
+
+  // transfere dados do arquivo original para um temporario
+  char linha[250] = "";
+  FILE *arquivo, *temp;
+  arquivo = fopen("./alugueis.txt", "r");
+  temp = fopen("./alugueis.temp.txt", "a");
+
+  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  {
+    // verifica se o codigo nao corresponde
+    if (!strstr(linha, codigo))
+    {
+      fprintf(temp, "%s", linha);
+    }
+  }
+
+  fclose(temp);
+  fclose(arquivo);
+
+  // deleta arquivo desatualizado e renomeia temporario
+  remove("./alugueis.txt");
+  rename("./alugueis.temp.txt", "./alugueis.txt");
+
+  return 1;
+}
