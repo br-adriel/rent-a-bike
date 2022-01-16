@@ -206,7 +206,14 @@ void telaBuscarCliente(void)
         inputValido = validaEmail(email);
         printf("\n");
       } while (!inputValido);
-      telaVerCliente(email);
+      if (clienteExiste(email) != -1)
+      {
+        telaVerCliente(email);
+      }
+      else
+      {
+        printf("/!/ O cliente não existe\n");
+      }
       opcao = 2;
       break;
     case 2:
@@ -293,7 +300,7 @@ void telaEditarCliente(char email[])
         scanf("%s", novoEmail);
         limparBuffer();
 
-        inputValido = validaEmail(email);
+        inputValido = validaEmail(novoEmail);
         printf("\n");
       } while (!inputValido);
 
@@ -328,7 +335,7 @@ void telaEditarCliente(char email[])
       } while (!inputValido);
     }
     printf("\n\n--------------------------------------------------\n\n");
-    printf("Email: %s\n", email);
+    printf("Email: %s\n", novoEmail);
     printf("Nome: %s\n", nome);
     printf("Sobrenome: %s\n", sobrenome);
     printf("Telefone: %s\n", formatarTelefone(telefone));

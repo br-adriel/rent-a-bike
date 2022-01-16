@@ -3,7 +3,7 @@ struct Cliente
   char nome[21];
   char sobrenome[21];
   char telefone[12];
-  char email[71];
+  char email[46];
 };
 
 typedef struct Cliente Cliente;

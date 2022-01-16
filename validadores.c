@@ -16,9 +16,9 @@ int validaEmail(char email[])
 {
   // verifica se email esta no limite de caracteres
   int tamEmail = strlen(email);
-  if (tamEmail > 70)
+  if (tamEmail > 46)
   {
-    printf("/!/ Email inválido: o email contém mais de 70 caracteres\n");
+    printf("/!/ Email inválido: o email contém mais de 45 caracteres\n");
     return 0;
   }
 
