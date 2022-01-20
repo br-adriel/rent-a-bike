@@ -146,46 +146,6 @@ int validaPalavra(char palavra[], int tamanho)
 }
 
 /*
-Validação de hora
-
-Atributos:
-  hora: hora apara verificar validade
-
-Retorno:
-  0 - invalido
-  1 - valido
-*/
-int validaHora(int hora)
-{
-  if (hora < 0)
-  {
-    printf("/!/ Hora inválida: não há quantidade de horas negativa\n");
-    return 1;
-  }
-  return 0;
-}
-
-/*
-Validação de minutos
-
-Atributos:
-  minutos: minutos para verificar validade
-
-Retorno:
-  0 - invalido
-  1 - valido
-*/
-int validaMinutos(int minutos)
-{
-  if (minutos >= 0 && minutos < 60)
-  {
-    return 1;
-  }
-  printf("/!/ Minutos inválidos: o minuto deve ser um valor de 0 à 59\n");
-  return 0;
-}
-
-/*
 Validação de bicicleta disponível
 
 Atributos:
@@ -203,60 +163,6 @@ int validaDisponivel(int opcao)
   }
   printf("/!/ Inválido: precisa ser 0 ou 1\n");
   return 0;
-}
-
-/*
-Validação de data
-
-Atributos:
-  dia
-  mes
-  ano
-
-Retorno:
-  0 - invalida
-  1 - valida
-*/
-int validaData(int dia, int mes, int ano)
-// Fonte: includehelp.com/c-programs/validate-date.aspx
-{
-  if (ano >= 1900 && ano <= 3000)
-  {
-    if (mes >= 1 && mes <= 12)
-    {
-      if ((dia >= 1 && dia <= 31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12))
-      {
-        return 1;
-      }
-      else if ((dia >= 1 && dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11))
-      {
-        return 1;
-      }
-      else if ((dia >= 1 && dia <= 28) && (mes == 2))
-      {
-        return 1;
-      }
-      else if (dia == 29 && mes == 2 && (ano % 400 == 0 || (ano % 4 == 0 && ano % 100 != 0)))
-      {
-        return 1;
-      }
-      else
-      {
-        printf("/!/ Data inválida: não há dia %d para o mês %d\n", dia, mes);
-        return 0;
-      }
-    }
-    else
-    {
-      printf("/!/ Data inválida: o mês precisa ser um valor de 01 a 12\n");
-      return 0;
-    }
-  }
-  else
-  {
-    printf("/!/ Data inválida: o ano precisa ser um valor de 1900 à 3000\n");
-    return 0;
-  }
 }
 
 /*
