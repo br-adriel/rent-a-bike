@@ -39,7 +39,14 @@ void telaGerenciarBicicletas(void)
             scanf("%s", codigo);
             limparBuffer();
 
-            telaVerBicicleta(codigo);
+            if (bicicletaExiste(codigo) != -1)
+            {
+                telaVerBicicleta(codigo);
+            }
+            else
+            {
+                printf("/!/ A bicicleta não existe!\n");
+            }
             break;
         case 4:
             break;
@@ -160,18 +167,12 @@ void telaBuscarBicicleta(void)
             {
                 Bicicleta *bici = resultado[i];
                 char *codigoF = formatarPalavra(bici->codigo, 6);
-                char disponivelF[] = "NÃO";
-                if (bici->disponivel)
-                {
-                    strcpy(disponivelF, "SIM");
-                }
                 char *corF = formatarPalavra(bici->cor, 20);
-                char *categoriaF = formatarPalavra(bici->categoria, 20);
-                printf("%s | %s        | %s | %s\n", codigoF, disponivelF, corF, categoriaF);
-                free(codigoF);
-                free(corF);
-                free(categoriaF);
-                free(bici);
+                printf("%s | %s        | %s | %s\n",
+                       codigoF,
+                       bici->disponivel,
+                       corF,
+                       bici->categoria);
                 i++;
             }
         }
@@ -179,34 +180,43 @@ void telaBuscarBicicleta(void)
         {
             printf("/i/ Nenhuma bicicleta encontrada!\n");
         }
-        free(resultado);
-        printf("\n");
-        printf("[1] Ver bicicleta\n");
-        printf("[2] Cancelar\n");
-        printf(">> ");
-        scanf("%1d", &opcao);
-        limparBuffer();
-
-        switch (opcao)
+        do
         {
-        case 1:
-            do
+            printf("\n");
+            printf("[1] Ver bicicleta\n");
+            printf("[2] Cancelar\n");
+            printf(">> ");
+            scanf("%1d", &opcao);
+            limparBuffer();
+
+            switch (opcao)
             {
-                printf("\nDigite o código da bicicleta: ");
-                scanf("%s", codigo);
-                limparBuffer();
+            case 1:
+                do
+                {
+                    printf("\nDigite o código da bicicleta: ");
+                    scanf("%s", codigo);
+                    limparBuffer();
 
-                inputValido = validaCodigo(codigo, 6);
-            } while (!inputValido);
+                    inputValido = validaCodigo(codigo, 6);
+                } while (!inputValido);
 
-            telaVerBicicleta(codigo);
-            opcao = 2;
-            break;
-        case 2:
-            break;
-        default:
-            msgInvalido();
-        }
+                if (bicicletaExiste(codigo) != -1)
+                {
+                    telaVerBicicleta(codigo);
+                }
+                else
+                {
+                    printf("/!/ A bicicleta não existe!\n");
+                }
+                opcao = 2;
+                break;
+            case 2:
+                break;
+            default:
+                msgInvalido();
+            }
+        } while (opcao != 1 && opcao != 2);
     } while (opcao != 2);
 }
 
@@ -228,8 +238,7 @@ void telaVerBicicleta(char codigo[])
         {
             bicicleta = verBicicleta(codigo);
             printf("Código: %s\n", bicicleta->codigo);
-            printf("Dispónível para aluguél: ");
-            bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+            printf("Dispónível para aluguél: %s\n", bicicleta->disponivel);
             printf("Cor: %s\n", bicicleta->cor);
             printf("Categoria/tipo: %s\n", bicicleta->categoria);
             printf("\n--------------------------------------------------\n");
@@ -279,7 +288,7 @@ void telaEditarBicicleta(char codigo[])
             printf("\n--------------------------------------------------\n");
             do
             {
-                printf("\nCor [%s]: ", bicicleta->cor);
+                printf("\nCor [ %s ]: ", bicicleta->cor);
                 scanf("%s", cor);
                 limparBuffer();
 
@@ -288,7 +297,7 @@ void telaEditarBicicleta(char codigo[])
 
             do
             {
-                printf("\nCategoria/tipo [%s]: ", bicicleta->categoria);
+                printf("\nCategoria/tipo [ %s ]: ", bicicleta->categoria);
                 scanf("%s", categoria);
                 limparBuffer();
 
@@ -297,9 +306,7 @@ void telaEditarBicicleta(char codigo[])
 
             do
             {
-                printf("\nDisponível para aluguél [");
-                bicicleta->disponivel ? printf("SIM") : printf("NÃO");
-                printf("]:\n");
+                printf("\nDisponível para aluguél [ %s ]\n", bicicleta->disponivel);
                 printf("[0] NÃO [1] SIM\n>> ");
                 scanf("%d", &disponivel);
                 limparBuffer();
@@ -311,8 +318,7 @@ void telaEditarBicicleta(char codigo[])
         printf("Código: %s\n", codigo);
         printf("Cor: %s\n", cor);
         printf("Categoria/tipo: %s\n", categoria);
-        printf("Disponível para aluguél: ");
-        disponivel ? printf("SIM") : printf("NÃO");
+        printf("Disponível para aluguél: %s\n", bicicleta->disponivel);
         printf("\n--------------------------------------------------\n\n");
         printf("Atualizar?");
         printf("\n[1] Sim\n[2] Não, preencher novamente\n[3] Cancelar");
@@ -355,8 +361,7 @@ void telaExcluirBicicleta(char codigo[])
     {
         printf("\n\n--------------------------------------------------\n\n");
         printf("Codigo: %s\n", bicicleta->codigo);
-        printf("Disponível para aluguél: ");
-        bicicleta->disponivel ? printf("SIM\n") : printf("NÃO\n");
+        printf("Disponível para aluguél: %s\n", bicicleta->disponivel);
         printf("Cor: %s\n", bicicleta->cor);
         printf("Categoria/tipo: %s\n", bicicleta->categoria);
         printf("\n--------------------------------------------------\n");

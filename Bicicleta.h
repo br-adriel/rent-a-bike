@@ -3,7 +3,8 @@ struct Bicicleta
   char codigo[7];
   char cor[21];
   char categoria[21];
-  int disponivel;
+  char disponivel[5];
+  int ativa;
 };
 
 typedef struct Bicicleta Bicicleta;
@@ -16,4 +17,3 @@ Bicicleta* verBicicleta(char[]);
 int atualizarBicicleta(char[], char[], char[], int);
 int excluirBicicleta(char[]);
 Bicicleta **buscaBicicleta(char[]);
-Bicicleta *linhaParaBicicleta(char[]);

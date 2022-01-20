@@ -21,7 +21,8 @@ Bicicleta *novaBicicleta(char codigo[], char cor[], char categoria[], int dispon
   strcpy(bicicleta->codigo, codigo);
   strcpy(bicicleta->cor, cor);
   strcpy(bicicleta->categoria, categoria);
-  bicicleta->disponivel = disponivel;
+  strcpy(bicicleta->disponivel, disponivel ? "SIM" : "NÃO");
+  bicicleta->ativa = 1;
   return bicicleta;
 }
 
@@ -35,22 +36,24 @@ Retorna:
 */
 int bicicletaExiste(char codigo[])
 {
-  char linha[70] = "";
   int numLinha = -1;
   int linhaAtual = 0;
+
+  Bicicleta *bic;
+  bic = (Bicicleta *)malloc(sizeof(Bicicleta));
 
   FILE *arquivo;
 
   // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./bicicletas.txt", "a");
+  arquivo = fopen("./bicicletas.dat", "ab");
   fclose(arquivo);
 
   // le bicicletas do arquivo
-  arquivo = fopen("./bicicletas.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo) != NULL && numLinha == -1)
+  arquivo = fopen("./bicicletas.dat", "rb");
+  while (fread(bic, sizeof(Bicicleta), 1, arquivo) && numLinha == -1)
   {
     // verifica se o codigo corresponde
-    if (strstr(linha, codigo))
+    if (strcmp(bic->codigo, codigo) == 0 && bic->ativa)
     {
       numLinha = linhaAtual;
       break;
@@ -77,13 +80,8 @@ int gravarBicicleta(Bicicleta *bicicleta)
   }
 
   FILE *arquivo;
-  arquivo = fopen("./bicicletas.txt", "a");
-  char disp[] = "NÃO";
-  if (bicicleta->disponivel)
-  {
-    strcpy(disp, "SIM");
-  }
-  fprintf(arquivo, "%s|%s|%s|%s|\n", bicicleta->codigo, disp, bicicleta->cor, bicicleta->categoria);
+  arquivo = fopen("./bicicletas.dat", "ab");
+  fwrite(bicicleta, sizeof(Bicicleta), 1, arquivo);
   fclose(arquivo);
   return 1;
 };
@@ -91,21 +89,19 @@ int gravarBicicleta(Bicicleta *bicicleta)
 Bicicleta *verBicicleta(char codigo[])
 {
   Bicicleta *bicicleta = malloc(sizeof(Bicicleta));
-  char linha[70] = "";
 
   FILE *arquivo;
   // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./bicicletas.txt", "a");
+  arquivo = fopen("./bicicletas.dat", "ab");
   fclose(arquivo);
 
   // busca bicicleta no arquivo
-  arquivo = fopen("./bicicletas.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./bicicletas.dat", "rb");
+  while (fread(bicicleta, sizeof(Bicicleta), 1, arquivo))
   {
     // verifica se o código corresponde
-    if (strstr(linha, codigo))
+    if (strcmp(bicicleta->codigo, codigo) == 0 && bicicleta->ativa)
     {
-      bicicleta = linhaParaBicicleta(linha);
       fclose(arquivo);
       break;
     }
@@ -133,38 +129,29 @@ int atualizarBicicleta(char codigo[], char cor[], char categoria[], int disponiv
     return 0;
   }
 
-  // transfere dados do arquivo original para um temporario
-  char linha[70] = "";
-  FILE *arquivo, *temp;
-  arquivo = fopen("./bicicletas.txt", "r");
-  temp = fopen("./bicicletas.temp.txt", "a");
+  Bicicleta *bic;
+  bic = (Bicicleta *)malloc(sizeof(Bicicleta));
 
-  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  FILE *arquivo;
+  arquivo = fopen("./bicicletas.dat", "r+b");
+
+  while (fread(bic, sizeof(Bicicleta), 1, arquivo))
   {
     // verifica se o codigo corresponde
-    if (strstr(linha, codigo))
+    if (strcmp(bic->codigo, codigo) == 0 && bic->ativa)
     {
+      fseek(arquivo, -1 * sizeof(Bicicleta), SEEK_CUR);
+
       // atualiza os dados
-      char disp[] = "NÃO";
-      if (disponivel)
-      {
-        strcpy(disp, "SIM");
-      }
-      fprintf(temp, "%s|%s|%s|%s|\n", codigo, disp, cor, categoria);
-    }
-    else
-    {
-      fprintf(temp, "%s", linha);
+      strcpy(bic->cor, cor);
+      strcpy(bic->categoria, categoria);
+      strcpy(bic->disponivel, disponivel ? "SIM" : "NÃO");
+
+      fwrite(bic, sizeof(Bicicleta), 1, arquivo);
+      break;
     }
   }
-
-  fclose(temp);
   fclose(arquivo);
-
-  // deleta arquivo desatualizado e renomeia temporario
-  remove("./bicicletas.txt");
-  rename("./bicicletas.temp.txt", "./bicicletas.txt");
-
   return 1;
 }
 
@@ -185,28 +172,24 @@ int excluirBicicleta(char codigo[])
     return 0;
   }
 
-  // transfere dados do arquivo original para um temporario
-  char linha[70] = "";
-  FILE *arquivo, *temp;
-  arquivo = fopen("./bicicletas.txt", "r");
-  temp = fopen("./bicicletas.temp.txt", "a");
+  Bicicleta *bic;
+  bic = (Bicicleta *)malloc(sizeof(Bicicleta));
 
-  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  FILE *arquivo;
+  arquivo = fopen("./bicicletas.dat", "r+b");
+
+  while (fread(bic, sizeof(Bicicleta), 1, arquivo))
   {
-    // verifica se o codigo nao corresponde
-    if (!strstr(linha, codigo))
+    // verifica se o codigo corresponde
+    if (strcmp(bic->codigo, codigo) == 0 && bic->ativa)
     {
-      fprintf(temp, "%s", linha);
+      bic->ativa = 0;
+      fseek(arquivo, -1 * sizeof(Bicicleta), SEEK_CUR);
+      fwrite(bic, sizeof(Bicicleta), 1, arquivo);
+      fclose(arquivo);
+      break;
     }
   }
-
-  fclose(temp);
-  fclose(arquivo);
-
-  // deleta arquivo desatualizado e renomeia temporario
-  remove("./bicicletas.txt");
-  rename("./bicicletas.temp.txt", "./bicicletas.txt");
-
   return 1;
 }
 
@@ -220,61 +203,38 @@ Retornos:
 */
 Bicicleta **buscaBicicleta(char termo[])
 {
+
   Bicicleta **resultado = malloc(0);
-  Bicicleta *bicicletaAtual = malloc(sizeof(Bicicleta));
+  Bicicleta *bicAtual;
+
+  bicAtual = (Bicicleta *)malloc(sizeof(Bicicleta));
   int quantidade = 0;
   FILE *arquivo;
-  char linha[70];
 
-  arquivo = fopen("./bicicletas.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./bicicletas.dat", "rb");
+
+  while (fread(bicAtual, sizeof(Bicicleta), 1, arquivo))
   {
-    if (strstr(linha, termo))
+    if (
+        bicAtual->ativa &&
+        (strstr(bicAtual->cor, termo) ||
+         strstr(bicAtual->categoria, termo) ||
+         strstr(bicAtual->codigo, termo) ||
+         strstr(bicAtual->disponivel, termo)))
     {
-      bicicletaAtual = linhaParaBicicleta(linha);
-
       quantidade++;
       resultado = realloc(resultado, quantidade * sizeof(Bicicleta));
-      resultado[quantidade - 1] = bicicletaAtual;
+
+      Bicicleta *bic = malloc(sizeof(Bicicleta));
+      memcpy(bic, bicAtual, sizeof(Bicicleta));
+      resultado[quantidade - 1] = bic;
     }
   }
 
   // marca o fim do array
-  bicicletaAtual = linhaParaBicicleta("/!fim/!|/!fim/!|/!fim/!|/!fim/!|\n");
+  bicAtual = novaBicicleta("/!fim/!", "/!fim/!", "/!fim/!", 0);
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Bicicleta));
-  resultado[quantidade - 1] = bicicletaAtual;
+  resultado[quantidade - 1] = bicAtual;
   return resultado;
-}
-
-/*
-Funcao que converte linha de texto em Bicicleta
-
-Atributos:
-  linha: "codigo|disponivel|cor|categoria|\n"
-Retornos:
-  Bicicleta: bicicleta com as informacoes passadas
-*/
-Bicicleta *linhaParaBicicleta(char linha[])
-{
-  Bicicleta *bicicleta = malloc(sizeof(Bicicleta));
-  char **dadosBicicleta = quebrarStr(linha, '|');
-  strcpy(bicicleta->codigo, dadosBicicleta[0]);
-  if (strstr(dadosBicicleta[1], "SIM"))
-  {
-    bicicleta->disponivel = 1;
-  }
-  else
-  {
-    bicicleta->disponivel = 0;
-  }
-  strcpy(bicicleta->cor, dadosBicicleta[2]);
-  strcpy(bicicleta->categoria, dadosBicicleta[3]);
-
-  for (int i = 0; i < 5; i++)
-  {
-    free(dadosBicicleta[i]);
-  }
-  free(dadosBicicleta);
-  return bicicleta;
 }
