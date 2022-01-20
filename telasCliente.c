@@ -46,7 +46,15 @@ void telaGerenciarClientes(void)
         printf("\n");
       } while (!inputValido);
 
-      telaVerCliente(email);
+      if (clienteExiste(email) != -1)
+      {
+        telaVerCliente(email);
+      }
+      else
+      {
+        printf("/!/ O cliente não existe\n");
+      }
+
       break;
     case 4:
       break;
