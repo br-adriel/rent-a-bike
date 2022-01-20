@@ -194,7 +194,6 @@ int excluirCliente(char email[])
   {
     // verifica se o email nao corresponde
     if (strcmp(cli->email, email) == 0 && cli->ativo)
-      ;
     {
       cli->ativo = 0;
       fseek(arquivo, -1 * sizeof(Cliente), SEEK_CUR);
@@ -223,7 +222,7 @@ Cliente **buscaCliente(char termo[])
   int quantidade = 0;
   FILE *arquivo;
 
-  arquivo = fopen("./clientes.dat", "r");
+  arquivo = fopen("./clientes.dat", "rb");
   while (fread(clienteAtual, sizeof(Cliente), 1, arquivo))
   {
     if (
@@ -248,29 +247,4 @@ Cliente **buscaCliente(char termo[])
   resultado = realloc(resultado, quantidade * sizeof(Cliente));
   resultado[quantidade - 1] = clienteAtual;
   return resultado;
-}
-
-/*
-Funcao que converte linha de texto em Cliente
-
-Atributos:
-  linha: string de texto
-Retornos:
-  Cliente: cliente com as informacoes passadas
-*/
-Cliente *linhaParaCliente(char linha[])
-{
-  Cliente *cliente = malloc(sizeof(Cliente));
-  char **dadosCliente = quebrarStr(linha, '|');
-  strcpy(cliente->nome, dadosCliente[0]);
-  strcpy(cliente->sobrenome, dadosCliente[1]);
-  strcpy(cliente->telefone, dadosCliente[2]);
-  strcpy(cliente->email, dadosCliente[3]);
-
-  for (int i = 0; i < 5; i++)
-  {
-    free(dadosCliente[i]);
-  }
-  free(dadosCliente);
-  return cliente;
 }
