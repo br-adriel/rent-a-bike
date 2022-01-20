@@ -22,6 +22,7 @@ Cliente *novoCliente(char nome[], char sobrenome[], char email[], char telefone[
   strcpy(cliente->sobrenome, sobrenome);
   strcpy(cliente->email, email);
   strcpy(cliente->telefone, telefone);
+  cliente->ativo = 1;
   return cliente;
 }
 
@@ -35,22 +36,24 @@ Retorna:
 */
 int clienteExiste(char email[])
 {
-  char linha[150] = "";
   int numLinha = -1;
   int linhaAtual = 0;
+
+  Cliente *cli;
+  cli = (Cliente *)malloc(sizeof(Cliente));
 
   FILE *arquivo;
 
   // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./clientes.txt", "a");
+  arquivo = fopen("./clientes.dat", "ab");
   fclose(arquivo);
 
   // le clientes do arquivo
-  arquivo = fopen("./clientes.txt", "r");
-  while (fgets(linha, 150, arquivo) != NULL && numLinha == -1)
+  arquivo = fopen("./clientes.dat", "rb");
+  while (fread(cli, sizeof(Cliente), 1, arquivo) && numLinha == -1)
   {
     // verifica se o email corresponde
-    if (strstr(linha, email))
+    if (strcmp(cli->email, email) == 0 && cli->ativo)
     {
       numLinha = linhaAtual;
       break;
@@ -78,8 +81,8 @@ int gravarCliente(Cliente *cliente)
   }
 
   FILE *arquivo;
-  arquivo = fopen("./clientes.txt", "a");
-  fprintf(arquivo, "%s|%s|%s|%s|\n", cliente->nome, cliente->sobrenome, cliente->telefone, cliente->email);
+  arquivo = fopen("./clientes.dat", "ab");
+  fwrite(cliente, sizeof(Cliente), 1, arquivo);
   fclose(arquivo);
   return 1;
 }
@@ -94,34 +97,33 @@ Retornos:
 */
 Cliente *verCliente(char email[])
 {
-  Cliente *cliente = malloc(sizeof(Cliente));
-  char linha[150] = "";
+  Cliente *cli;
+  cli = (Cliente *)malloc(sizeof(Cliente));
 
   FILE *arquivo;
+
   // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./clientes.txt", "a");
+  arquivo = fopen("./clientes.dat", "ab");
   fclose(arquivo);
 
   // busca cliente no arquivo
-  arquivo = fopen("./clientes.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./clientes.dat", "rb");
+  while (fread(cli, sizeof(Cliente), 1, arquivo))
   {
     // verifica se o email corresponde
-    if (strstr(linha, email))
+    if (strcmp(cli->email, email) == 0 && cli->ativo)
     {
-      cliente = linhaParaCliente(linha);
       fclose(arquivo);
       break;
     }
   }
-  return cliente;
+  return cli;
 }
 
 /*
 Atualiza registro de um cliente
 
 Atributos:
-  emailAntigo: email do cliente a ser atualizado
   email: novo email
   nome: novo nome
   sobrenome: novo sobrenome
@@ -130,42 +132,38 @@ Retornos:
   0 - O cliente nao existe
   1 - Cliente atualizado
 */
-int atualizarCliente(char emailAntigo[], char email[], char nome[], char sobrenome[], char telefone[])
+int atualizarCliente(char email[], char nome[], char sobrenome[], char telefone[])
 {
   // verifica se o cliente está salvo
-  int linhaRegistro = clienteExiste(emailAntigo);
+  int linhaRegistro = clienteExiste(email);
   if (linhaRegistro == -1)
   {
     return 0;
   }
 
-  // transfere dados do arquivo original para um temporario
-  char linha[150] = "";
-  FILE *arquivo, *temp;
-  arquivo = fopen("./clientes.txt", "r");
-  temp = fopen("./clientes.temp.txt", "a");
+  Cliente *cli;
+  cli = (Cliente *)malloc(sizeof(Cliente));
 
-  while (fgets(linha, 150, arquivo) != NULL)
+  FILE *arquivo;
+  arquivo = fopen("./clientes.dat", "r+b");
+
+  while (fread(cli, sizeof(Cliente), 1, arquivo))
   {
     // verifica se o email corresponde
-    if (strstr(linha, emailAntigo))
+    if (strcmp(cli->email, email) == 0 && cli->ativo)
     {
+      fseek(arquivo, -1 * sizeof(Cliente), SEEK_CUR);
+
       // atualiza os dados
-      fprintf(temp, "%s|%s|%s|%s|\n", nome, sobrenome, telefone, email);
-    }
-    else
-    {
-      fprintf(temp, "%s", linha);
+      strcpy(cli->nome, nome);
+      strcpy(cli->sobrenome, sobrenome);
+      strcpy(cli->telefone, telefone);
+
+      fwrite(cli, sizeof(Cliente), 1, arquivo);
+      fclose(arquivo);
+      break;
     }
   }
-
-  fclose(temp);
-  fclose(arquivo);
-
-  // deleta arquivo desatualizado e renomeia temporario
-  remove("./clientes.txt");
-  rename("./clientes.temp.txt", "./clientes.txt");
-
   return 1;
 }
 
@@ -186,28 +184,25 @@ int excluirCliente(char email[])
     return 0;
   }
 
-  // transfere dados do arquivo original para um temporario
-  char linha[150] = "";
-  FILE *arquivo, *temp;
-  arquivo = fopen("./clientes.txt", "r");
-  temp = fopen("./clientes.temp.txt", "a");
+  Cliente *cli;
+  cli = (Cliente *)malloc(sizeof(Cliente));
 
-  while (fgets(linha, 150, arquivo) != NULL)
+  FILE *arquivo;
+  arquivo = fopen("./clientes.dat", "r+b");
+
+  while (fread(cli, sizeof(Cliente), 1, arquivo))
   {
     // verifica se o email nao corresponde
-    if (!strstr(linha, email))
+    if (strcmp(cli->email, email) == 0 && cli->ativo)
+      ;
     {
-      fprintf(temp, "%s", linha);
+      cli->ativo = 0;
+      fseek(arquivo, -1 * sizeof(Cliente), SEEK_CUR);
+      fwrite(cli, sizeof(Cliente), 1, arquivo);
+      fclose(arquivo);
+      break;
     }
   }
-
-  fclose(temp);
-  fclose(arquivo);
-
-  // deleta arquivo desatualizado e renomeia temporario
-  remove("./clientes.txt");
-  rename("./clientes.temp.txt", "./clientes.txt");
-
   return 1;
 }
 
@@ -222,26 +217,33 @@ Retornos:
 Cliente **buscaCliente(char termo[])
 {
   Cliente **resultado = malloc(0);
-  Cliente *clienteAtual = malloc(sizeof(Cliente));
+  Cliente *clienteAtual;
+
+  clienteAtual = (Cliente *)malloc(sizeof(Cliente));
   int quantidade = 0;
   FILE *arquivo;
-  char linha[150];
 
-  arquivo = fopen("./clientes.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./clientes.dat", "r");
+  while (fread(clienteAtual, sizeof(Cliente), 1, arquivo))
   {
-    if (strstr(linha, termo))
+    if (
+        clienteAtual->ativo &&
+        (strstr(clienteAtual->nome, termo) ||
+         strstr(clienteAtual->sobrenome, termo) ||
+         strstr(clienteAtual->telefone, termo) ||
+         strstr(clienteAtual->email, termo)))
     {
-      clienteAtual = linhaParaCliente(linha);
-
       quantidade++;
       resultado = realloc(resultado, quantidade * sizeof(Cliente));
-      resultado[quantidade - 1] = clienteAtual;
+
+      Cliente *cli = malloc(sizeof(Cliente));
+      memcpy(cli, clienteAtual, sizeof(Cliente));
+      resultado[quantidade - 1] = cli;
     }
   }
 
   // marca o fim do array
-  clienteAtual = linhaParaCliente("/!fim/!|/!fim/!|/!fim/!|/!fim/!|\n");
+  clienteAtual = novoCliente("/!fim/!", "/!fim/!", "/!fim/!", "/!fim/!");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Cliente));
   resultado[quantidade - 1] = clienteAtual;

@@ -183,10 +183,6 @@ void telaBuscarCliente(void)
         char *sobrenomeF = formatarPalavra(cli->sobrenome, 20);
         char *telefoneF = formatarTelefone(cli->telefone);
         printf("%s | %s | %s | %s\n", nomeF, sobrenomeF, telefoneF, cli->email);
-        free(nomeF);
-        free(sobrenomeF);
-        free(telefoneF);
-        free(cli);
         i++;
       }
     }
@@ -194,41 +190,43 @@ void telaBuscarCliente(void)
     {
       printf("/i/ Nenhum cliente encontrado!\n");
     }
-    free(resultado);
-    printf("\n");
-    printf("[1] Ver cliente\n");
-    printf("[2] Voltar\n");
-    printf(">> ");
-    scanf("%1d", &opcao);
-    limparBuffer();
-
-    switch (opcao)
+    do
     {
-    case 1:
-      do
-      {
-        printf("\nDigite o email do cliente: ");
-        scanf("%s", email);
-        limparBuffer();
+      printf("\n");
+      printf("[1] Ver cliente\n");
+      printf("[2] Voltar\n");
+      printf(">> ");
+      scanf("%1d", &opcao);
+      limparBuffer();
 
-        inputValido = validaEmail(email);
-        printf("\n");
-      } while (!inputValido);
-      if (clienteExiste(email) != -1)
+      switch (opcao)
       {
-        telaVerCliente(email);
+      case 1:
+        do
+        {
+          printf("\nDigite o email do cliente: ");
+          scanf("%s", email);
+          limparBuffer();
+
+          inputValido = validaEmail(email);
+          printf("\n");
+        } while (!inputValido);
+        if (clienteExiste(email) != -1)
+        {
+          telaVerCliente(email);
+        }
+        else
+        {
+          printf("/!/ O cliente não existe\n");
+        }
+        opcao = 2;
+        break;
+      case 2:
+        break;
+      default:
+        msgInvalido();
       }
-      else
-      {
-        printf("/!/ O cliente não existe\n");
-      }
-      opcao = 2;
-      break;
-    case 2:
-      break;
-    default:
-      msgInvalido();
-    }
+    } while (opcao != 1 && opcao != 2);
   } while (opcao != 2);
 }
 
@@ -288,7 +286,6 @@ void telaEditarCliente(char email[])
 {
   int opcao = 2;
 
-  char novoEmail[PATH_MAX] = "";
   char nome[PATH_MAX] = "";
   char sobrenome[PATH_MAX] = "";
   char telefone[12] = "";
@@ -302,15 +299,6 @@ void telaEditarCliente(char email[])
     if (opcao == 2)
     {
       printf("\n--------------------------------------------------\n");
-      do
-      {
-        printf("\nEmail [ %s ]: ", cliente->email);
-        scanf("%s", novoEmail);
-        limparBuffer();
-
-        inputValido = validaEmail(novoEmail);
-        printf("\n");
-      } while (!inputValido);
 
       do
       {
@@ -343,7 +331,7 @@ void telaEditarCliente(char email[])
       } while (!inputValido);
     }
     printf("\n\n--------------------------------------------------\n\n");
-    printf("Email: %s\n", novoEmail);
+    printf("Email: %s\n", email);
     printf("Nome: %s\n", nome);
     printf("Sobrenome: %s\n", sobrenome);
     printf("Telefone: %s\n", formatarTelefone(telefone));
@@ -358,7 +346,7 @@ void telaEditarCliente(char email[])
     switch (opcao)
     {
     case 1:
-      if (atualizarCliente(cliente->email, novoEmail, nome, sobrenome, telefone))
+      if (atualizarCliente(cliente->email, nome, sobrenome, telefone))
       {
         msgRegistroSalvo();
       }
