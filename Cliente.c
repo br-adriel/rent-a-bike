@@ -241,6 +241,8 @@ Cliente **buscaCliente(char termo[])
     }
   }
 
+  fclose(arquivo);
+
   // marca o fim do array
   clienteAtual = novoCliente("/!fim/!", "/!fim/!", "/!fim/!", "/!fim/!");
   quantidade++;
