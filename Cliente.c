@@ -22,8 +22,8 @@ Cliente *novoCliente(char nome[], char sobrenome[], char email[], char telefone[
   strcpy(cliente->sobrenome, sobrenome);
   strcpy(cliente->email, email);
   strcpy(cliente->telefone, telefone);
+  strcpy(cliente->temPendencia, "NÃO");
   cliente->ativo = 1;
-  cliente->temPendencia = 0;
   return cliente;
 }
 
@@ -133,7 +133,7 @@ Retornos:
   0 - O cliente nao existe
   1 - Cliente atualizado
 */
-int atualizarCliente(char email[], char nome[], char sobrenome[], char telefone[])
+int atualizarCliente(char email[], char nome[], char sobrenome[], char telefone[], char pendencia[])
 {
   // verifica se o cliente está salvo
   int linhaRegistro = clienteExiste(email);
@@ -159,6 +159,7 @@ int atualizarCliente(char email[], char nome[], char sobrenome[], char telefone[
       strcpy(cli->nome, nome);
       strcpy(cli->sobrenome, sobrenome);
       strcpy(cli->telefone, telefone);
+      strcpy(cli->temPendencia, pendencia);
 
       fwrite(cli, sizeof(Cliente), 1, arquivo);
       fclose(arquivo);

@@ -171,7 +171,7 @@ void telaBuscarCliente(void)
 
     // exibe resultado
     printf("\nResultados:\n");
-    printf("Nome                 | Sobrenome            | Telefone        | Email\n");
+    printf("Aluguél em aberto | Nome                 | Sobrenome            | Telefone        | Email\n");
 
     int i = 0;
     if (!strstr(resultado[0]->nome, "/!fim/!"))
@@ -182,7 +182,8 @@ void telaBuscarCliente(void)
         char *nomeF = formatarPalavra(cli->nome, 20);
         char *sobrenomeF = formatarPalavra(cli->sobrenome, 20);
         char *telefoneF = formatarTelefone(cli->telefone);
-        printf("%s | %s | %s | %s\n", nomeF, sobrenomeF, telefoneF, cli->email);
+        printf("%s               | %s | %s | %s | %s\n",
+               cli->temPendencia, nomeF, sobrenomeF, telefoneF, cli->email);
         i++;
       }
     }
@@ -251,7 +252,8 @@ void telaVerCliente(char email[])
       printf("Nome: %s\n", cliente->nome);
       printf("Sobrenome: %s\n", cliente->sobrenome);
       printf("Telefone: %s\n", formatarTelefone(cliente->telefone));
-      printf("Email: %s", cliente->email);
+      printf("Email: %s\n", cliente->email);
+      printf("Possui aluguéis em aberto: %s\n", cliente->temPendencia);
       printf("\n--------------------------------------------------\n");
       printf("\n");
       printf("[1] Editar\n");
@@ -346,7 +348,7 @@ void telaEditarCliente(char email[])
     switch (opcao)
     {
     case 1:
-      if (atualizarCliente(cliente->email, nome, sobrenome, telefone))
+      if (atualizarCliente(cliente->email, nome, sobrenome, telefone, cliente->temPendencia))
       {
         msgRegistroSalvo();
       }
