@@ -7,6 +7,7 @@
 #include "Bicicleta.h"
 #include "Cliente.h"
 #include <string.h>
+#include <stdlib.h>
 
 void telaGerenciarAlugueis(void)
 {
@@ -334,12 +335,18 @@ void telaBuscarAluguel(void)
                  "---");
         }
         i++;
+
+        free(aluEmail);
+        free(aluBici);
+        free(aluSituacao);
       }
     }
     else
     {
       printf("/i/ Nenhum aluguél encontrado!\n");
     }
+    free(resultado);
+
     do
     {
       printf("\n");
