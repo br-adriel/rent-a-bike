@@ -372,6 +372,7 @@ void telaExcluirCliente(char email[])
 {
   Cliente *cliente = verCliente(email);
   int opcao = 0;
+  int excluiu = -2;
 
   printf("//////////////////////////////////////////////////\n");
   printf("RENT A BIKE - Excluir cliente");
@@ -394,13 +395,18 @@ void telaExcluirCliente(char email[])
     switch (opcao)
     {
     case 1:
-      if (excluirCliente(cliente->email))
+      excluiu = excluirCliente(cliente->email);
+      switch (excluiu)
       {
+      case -1:
+        printf("/!/ O cliente possui aluguéis em aberto!\n");
+        break;
+      case 1:
         msgRegistroExcluido();
-      }
-      else
-      {
+        break;
+      default:
         msgErro();
+        break;
       }
       break;
     case 2:

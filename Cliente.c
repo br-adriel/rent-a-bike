@@ -175,6 +175,7 @@ Deleta registro de um cliente
 Atributos:
   email: email do cliente a ser exlcuido
 Retornos:
+  -1 - Cliente tem pendencias
   0 - O cliente nao existe
   1 - Cliente deletado
 */
@@ -194,17 +195,16 @@ int excluirCliente(char email[])
 
   while (fread(cli, sizeof(Cliente), 1, arquivo))
   {
-    // verifica se o email nao corresponde
-    if (strcmp(cli->email, email) == 0 && cli->ativo)
+    if (strcmp(cli->email, email) == 0 && cli->ativo && strstr(cli->temPendencia, "NÃO"))
     {
       cli->ativo = 0;
       fseek(arquivo, -1 * sizeof(Cliente), SEEK_CUR);
       fwrite(cli, sizeof(Cliente), 1, arquivo);
       fclose(arquivo);
-      break;
+      return 1;
     }
   }
-  return 1;
+  return -1;
 }
 
 /*
