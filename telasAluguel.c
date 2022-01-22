@@ -232,6 +232,9 @@ void telaVerAluguel(int codigo)
 void telaExcluirAluguel(int codigo)
 {
   int opcao = 0;
+  Aluguel *alu;
+  Cliente *cli;
+  int cliExiste = 0;
 
   do
   {
@@ -246,8 +249,15 @@ void telaExcluirAluguel(int codigo)
     switch (opcao)
     {
     case 1:
+      alu = verAluguel(codigo);
+      cliExiste = clienteExiste(alu->cliente);
+      if (cliExiste)
+      {
+        cli = verCliente(alu->cliente);
+      }
       if (excluirAluguel(codigo))
       {
+        atualizarCliente(cli->email, cli->nome, cli->sobrenome, cli->telefone, "NÃO");
         msgRegistroExcluido();
       }
       else
