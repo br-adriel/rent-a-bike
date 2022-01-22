@@ -165,21 +165,25 @@ void telaBuscarBicicleta(void)
     {
       while (!strstr(resultado[i]->codigo, "/!fim/!"))
       {
-        Bicicleta *bici = resultado[i];
-        char *codigoF = formatarPalavra(bici->codigo, 6);
-        char *corF = formatarPalavra(bici->cor, 20);
+        char *codigoF = formatarPalavra(resultado[i]->codigo, 6);
+        char *corF = formatarPalavra(resultado[i]->cor, 20);
         printf("%s | %s        | %s | %s\n",
                codigoF,
-               bici->disponivel,
+               resultado[i]->disponivel,
                corF,
-               bici->categoria);
+               resultado[i]->categoria);
         i++;
+
+        free(codigoF);
+        free(corF);
       }
     }
     else
     {
       printf("/i/ Nenhuma bicicleta encontrada!\n");
     }
+    free(resultado);
+
     do
     {
       printf("\n");
