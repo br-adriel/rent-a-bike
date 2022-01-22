@@ -10,8 +10,7 @@ int getCodigo()
   FILE *arquivo;
   arquivo = fopen("./codAluguel.dat", "rb");
 
-  int codigo;
-
+  int codigo = 0;
   fread(&codigo, sizeof(int), 1, arquivo);
   fclose(arquivo);
 
@@ -20,8 +19,7 @@ int getCodigo()
   arquivo = fopen("./codAluguel.dat", "wb");
   fwrite(&codigo, sizeof(int), 1, arquivo);
   fclose(arquivo);
-
-  return codigo - 1;
+  return codigo;
 }
 
 /*
@@ -88,16 +86,16 @@ Aluguel *novoAluguel(char cliente[], char bicicleta[])
 
   // data de saida
   aluguel->saida.tm_mday = dataHoraTm->tm_mday;
-  aluguel->saida.tm_mon = dataHoraTm->tm_mon - 1;
-  aluguel->saida.tm_year = dataHoraTm->tm_year - 1900;
+  aluguel->saida.tm_mon = dataHoraTm->tm_mon;
+  aluguel->saida.tm_year = dataHoraTm->tm_year;
   aluguel->saida.tm_hour = dataHoraTm->tm_hour;
   aluguel->saida.tm_min = dataHoraTm->tm_min;
   aluguel->saida.tm_sec = dataHoraTm->tm_sec;
 
   // data de retorno
   aluguel->retorno.tm_mday = dataHoraTm->tm_mday;
-  aluguel->retorno.tm_mon = dataHoraTm->tm_mon - 1;
-  aluguel->retorno.tm_year = dataHoraTm->tm_year - 1900;
+  aluguel->retorno.tm_mon = dataHoraTm->tm_mon;
+  aluguel->retorno.tm_year = dataHoraTm->tm_year;
   aluguel->retorno.tm_hour = dataHoraTm->tm_hour;
   aluguel->retorno.tm_min = dataHoraTm->tm_min;
   aluguel->retorno.tm_sec = dataHoraTm->tm_sec;
@@ -276,10 +274,13 @@ Aluguel **buscarAluguel(char termo[])
   fclose(arquivo);
 
   // marca o fim do array
-  aluguelAtual = novoAluguel("/!fim/!", "/!fim/!");
+  Aluguel *aluguelFim = malloc(sizeof(Aluguel));
+  strcpy(aluguelFim->cliente, "/!fim/!");
+  strcpy(aluguelFim->bicicleta, "/!fim/!");
+
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Aluguel));
-  resultado[quantidade - 1] = aluguelAtual;
+  resultado[quantidade - 1] = aluguelFim;
   return resultado;
 }
 
