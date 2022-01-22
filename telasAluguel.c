@@ -125,7 +125,7 @@ void telaNovoAluguel(void)
   } while (opcao == 2);
 }
 
-void telaVerAluguel(char codigo[])
+void telaVerAluguel(int codigo)
 {
   int opcao = 2;
   Aluguel *aluguel;
@@ -145,7 +145,7 @@ void telaVerAluguel(char codigo[])
     {
       aluguel = verAluguel(codigo);
       printf("\n-- Aluguél --------------------------------------\n");
-      printf("Código: %s\n", aluguel->codigo);
+      printf("Código: %d\n", aluguel->codigo);
       printf("Situação: %s\n", aluguel->situacao);
       printf("Data de retirada: %s\n", saidaAluguelStr(aluguel));
       if (strstr(aluguel->situacao, "FECHADO"))
@@ -217,14 +217,14 @@ void telaVerAluguel(char codigo[])
   } while (opcao != 2);
 }
 
-void telaExcluirAluguel(char codigo[])
+void telaExcluirAluguel(int codigo)
 {
   int opcao = 0;
 
   do
   {
     printf("\n");
-    printf("Excluir aluguél #%s?", codigo);
+    printf("Excluir aluguél #%d?", codigo);
     printf("\n[1] Sim\n[2] Não");
     printf("\n>> ");
     scanf("%1d", &opcao);
@@ -255,7 +255,7 @@ void telaBuscarAluguel(void)
 {
   int opcao = 0;
   int inputValido = 0;
-  char codigo[PATH_MAX] = "";
+  int codigo = -1;
   char termoBusca[PATH_MAX] = "";
 
   do
@@ -272,16 +272,19 @@ void telaBuscarAluguel(void)
 
     // exibe resultado
     printf("\nResultados:\n");
-    printf("Código    | Email do cliente                             | Bicicleta | Retirada               | Retorno                | Situação  | Preço\n");
+    printf("Código     | Email do cliente                             | Bicicleta | Retirada               | Retorno                | Situação  | Preço\n");
 
     int i = 0;
-    if (!strstr(resultado[0]->codigo, "/!fim/!"))
+    if (!strstr(resultado[0]->cliente, "/!fim/!"))
     {
-      while (!strstr(resultado[i]->codigo, "/!fim/!"))
+      while (!strstr(resultado[i]->cliente, "/!fim/!"))
       {
         Aluguel *alu = resultado[i];
 
-        char *aluCodigo = formatarPalavra(alu->codigo, 10);
+        char aluCodigo[11] = "";
+        sprintf(aluCodigo, "%d", alu->codigo);
+        strcpy(aluCodigo, formatarPalavra(aluCodigo, 11));
+
         char *aluEmail = formatarPalavra(alu->cliente, 45);
         char *aluBici = formatarPalavra(alu->bicicleta, 10);
         char *aluSituacao = formatarPalavra(alu->situacao, 9);
@@ -328,7 +331,7 @@ void telaBuscarAluguel(void)
       do
       {
         printf("\nDigite o código do aluguél: ");
-        scanf("%s", codigo);
+        scanf("%d", &codigo);
         limparBuffer();
 
         if (aluguelExiste(codigo) == -1)

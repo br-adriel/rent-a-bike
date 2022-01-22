@@ -8,20 +8,20 @@
 int getCodigo()
 {
   FILE *arquivo;
-  arquivo = fopen("./.codAluguel.txt", "r");
+  arquivo = fopen("./codAluguel.dat", "rb");
 
-  char linha[10] = "";
-  fgets(linha, sizeof(linha), arquivo);
+  int codigo;
+
+  fread(&codigo, sizeof(int), 1, arquivo);
   fclose(arquivo);
 
-  int codigoInt = atoi(linha);
-  codigoInt++;
+  codigo++;
 
-  arquivo = fopen("./.codAluguel.txt", "w");
-  fprintf(arquivo, "%d", codigoInt);
+  arquivo = fopen("./codAluguel.dat", "wb");
+  fwrite(&codigo, sizeof(int), 1, arquivo);
   fclose(arquivo);
 
-  return codigoInt - 1;
+  return codigo - 1;
 }
 
 /*
@@ -33,8 +33,8 @@ Atributos:
 void definirPrecoHora(float preco)
 {
   FILE *arquivo;
-  arquivo = fopen("./preco.txt", "w");
-  fprintf(arquivo, "%f", preco);
+  arquivo = fopen("./preco.dat", "wb");
+  fwrite(&preco, sizeof(float), 1, arquivo);
   fclose(arquivo);
 }
 
@@ -47,16 +47,18 @@ Retorno:
 float lerPrecoHora()
 {
   FILE *arquivo;
-  char linha[50] = "";
 
-  arquivo = fopen("./preco.txt", "a");
+  arquivo = fopen("./preco.dat", "ab");
   fclose(arquivo);
 
-  arquivo = fopen("./preco.txt", "r");
-  fgets(linha, sizeof linha, arquivo);
+  float preco;
+
+  arquivo = fopen("./preco.dat", "rb");
+  fread(&preco, sizeof(float), 1, arquivo);
+
   fclose(arquivo);
 
-  return atof(linha);
+  return preco;
 }
 
 /*
@@ -71,7 +73,10 @@ Return:
 Aluguel *novoAluguel(char cliente[], char bicicleta[])
 {
   Aluguel *aluguel = malloc(sizeof(Aluguel));
-  sprintf(aluguel->codigo, "r%db", getCodigo());
+
+  aluguel->codigo = getCodigo();
+  aluguel->ativo = 1;
+
   strcpy(aluguel->cliente, cliente);
   strcpy(aluguel->bicicleta, bicicleta);
   strcpy(aluguel->situacao, "EM ABERTO");
@@ -107,24 +112,26 @@ Atributos:
 Retorna:
   A linha do arquivo em que foi encontrado ou -1
 */
-int aluguelExiste(char codigo[])
+int aluguelExiste(int codigo)
 {
-  char linha[250] = "";
   int numLinha = -1;
   int linhaAtual = 0;
 
   FILE *arquivo;
 
+  Aluguel *alu;
+  alu = (Aluguel *)malloc(sizeof(Aluguel));
+
   // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./alugueis.txt", "a");
+  arquivo = fopen("./alugueis.dat", "ab");
   fclose(arquivo);
 
   // le alugueis do arquivo
-  arquivo = fopen("./alugueis.txt", "r");
-  while (fgets(linha, sizeof linha, arquivo) != NULL && numLinha == -1)
+  arquivo = fopen("./alugueis.dat", "rb");
+  while (fread(alu, sizeof(Aluguel), 1, arquivo) && numLinha == -1)
   {
-    // verifica se a saida corresponde
-    if (strstr(linha, codigo))
+    // verifica se o codigo corresponde
+    if (alu->codigo == codigo && alu->ativo)
     {
       numLinha = linhaAtual;
       break;
@@ -141,97 +148,18 @@ Grava o aluguel no arquivo
 Atributos:
   aluguel: Aluguel a ser gravado
 */
-void gravarAluguel(Aluguel *aluguel)
+int gravarAluguel(Aluguel *aluguel)
 {
-  char saidaFormatada[20];
-
-  time_t tempo;
-  time(&tempo);
-  struct tm *saidaAluguel = localtime(&tempo);
-
-  saidaAluguel->tm_mday = aluguel->saida.tm_mday;
-  saidaAluguel->tm_mon = aluguel->saida.tm_mon + 1;
-  saidaAluguel->tm_year = aluguel->saida.tm_year + 1900;
-  saidaAluguel->tm_hour = aluguel->saida.tm_hour;
-  saidaAluguel->tm_min = aluguel->saida.tm_min;
-  saidaAluguel->tm_sec = aluguel->saida.tm_sec;
-
-  strftime(saidaFormatada, sizeof saidaFormatada, "%d|%m|%Y|%H|%M|%S", saidaAluguel);
-
-  char retornoFormatado[20];
-
-  struct tm *retornoAluguel = localtime(&tempo);
-  retornoAluguel->tm_mday = aluguel->retorno.tm_mday;
-  retornoAluguel->tm_mon = aluguel->retorno.tm_mon + 1;
-  retornoAluguel->tm_year = aluguel->retorno.tm_year + 1900;
-  retornoAluguel->tm_hour = aluguel->retorno.tm_hour;
-  retornoAluguel->tm_min = aluguel->retorno.tm_min;
-  retornoAluguel->tm_sec = aluguel->retorno.tm_sec;
-
-  strftime(retornoFormatado, sizeof retornoFormatado, "%d|%m|%Y|%H|%M|%S", retornoAluguel);
-
-  char situacao[] = "EM ABERTO";
-  if (strstr(aluguel->situacao, "FECHADO"))
+  if (aluguelExiste(aluguel->codigo) != -1)
   {
-    strcpy(situacao, "FECHADO");
+    return 0;
   }
 
   FILE *arquivo;
-  arquivo = fopen("./alugueis.txt", "a");
-  fprintf(
-      arquivo, "%s|%s|%s|%f|%s|%s|%s|\n",
-      aluguel->codigo,
-      aluguel->cliente,
-      aluguel->bicicleta,
-      aluguel->valor,
-      saidaFormatada,
-      retornoFormatado,
-      situacao);
+  arquivo = fopen("./alugueis.dat", "ab");
+  fwrite(aluguel, sizeof(Aluguel), 1, arquivo);
   fclose(arquivo);
-}
-
-/*
-Funcao que converte linha de texto em Aluguel
-
-Atributos:
-  linha: string de texto
-Retornos:
-  Aluguel: aluguel com as informacoes passadas
-*/
-Aluguel *linhaParaAluguel(char linha[])
-{
-  Aluguel *aluguel = malloc(sizeof(Aluguel));
-  char **dadosAluguel = quebrarStr(linha, '|');
-
-  strcpy(aluguel->codigo, dadosAluguel[0]);
-  strcpy(aluguel->cliente, dadosAluguel[1]);
-  strcpy(aluguel->bicicleta, dadosAluguel[2]);
-  aluguel->valor = atof(dadosAluguel[3]);
-
-  // data de saida
-  aluguel->saida.tm_mday = atoi(dadosAluguel[4]);
-  aluguel->saida.tm_mon = atoi(dadosAluguel[5]) - 1;
-  aluguel->saida.tm_year = atoi(dadosAluguel[6]) - 1900;
-  aluguel->saida.tm_hour = atoi(dadosAluguel[7]);
-  aluguel->saida.tm_min = atoi(dadosAluguel[8]);
-  aluguel->saida.tm_sec = atoi(dadosAluguel[9]);
-
-  // data de retorno
-  aluguel->retorno.tm_mday = atoi(dadosAluguel[10]);
-  aluguel->retorno.tm_mon = atoi(dadosAluguel[11]) - 1;
-  aluguel->retorno.tm_year = atoi(dadosAluguel[12]) - 1900;
-  aluguel->retorno.tm_hour = atoi(dadosAluguel[13]);
-  aluguel->retorno.tm_min = atoi(dadosAluguel[14]);
-  aluguel->retorno.tm_sec = atoi(dadosAluguel[15]);
-
-  strcpy(aluguel->situacao, dadosAluguel[16]);
-
-  for (int i = 0; i < 18; i++)
-  {
-    free(dadosAluguel[i]);
-  }
-  free(dadosAluguel);
-  return aluguel;
+  return 1;
 }
 
 /*
@@ -242,24 +170,22 @@ Atributos:
 Retornos:
   Aluguel: dados do aluguel
 */
-Aluguel *verAluguel(char codigo[])
+Aluguel *verAluguel(int codigo)
 {
   Aluguel *aluguel = malloc(sizeof(Aluguel));
-  char linha[250] = "";
 
   // Cria o arquivo caso seja a primeira execução
   FILE *arquivo;
-  arquivo = fopen("./alugueis.txt", "a");
+  arquivo = fopen("./alugueis.dat", "ab");
   fclose(arquivo);
 
   // busca aluguel no arquivo
-  arquivo = fopen("./alugueis.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./alugueis.dat", "rb");
+  while (fread(aluguel, sizeof(Aluguel), 1, arquivo))
   {
     // verifica se o codigo corresponde
-    if (strstr(linha, codigo))
+    if (aluguel->codigo == codigo && aluguel->ativo)
     {
-      aluguel = linhaParaAluguel(linha);
       fclose(arquivo);
       break;
     }
@@ -319,31 +245,38 @@ Retornos:
 Aluguel **buscarAluguel(char termo[])
 {
   Aluguel **resultado = malloc(0);
+  Aluguel *aluguelAtual;
+
+  aluguelAtual = (Aluguel *)malloc(sizeof(Aluguel));
   int quantidade = 0;
   FILE *arquivo;
-  char linha[250];
 
-  // Cria o arquivo caso seja a primeira execução
-  arquivo = fopen("./alugueis.txt", "a");
-  fclose(arquivo);
-
-  arquivo = fopen("./alugueis.txt", "r");
-  while (fgets(linha, sizeof(linha), arquivo))
+  arquivo = fopen("./alugueis.dat", "rb");
+  while (fread(aluguelAtual, sizeof(Aluguel), 1, arquivo))
   {
-    if (strstr(linha, termo))
+    if (
+        aluguelAtual->ativo &&
+        (aluguelAtual->codigo == atoi(termo) ||
+         strstr(aluguelAtual->bicicleta, termo) ||
+         strstr(aluguelAtual->cliente, termo) ||
+         strstr(aluguelAtual->situacao, termo) ||
+         aluguelAtual->valor == atof(termo) ||
+         strstr(saidaAluguelStr(aluguelAtual), termo) ||
+         strstr(retornoAluguelStr(aluguelAtual), termo)))
     {
-      Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
-      aluguelAtual = linhaParaAluguel(linha);
-
       quantidade++;
       resultado = realloc(resultado, quantidade * sizeof(Aluguel));
-      resultado[quantidade - 1] = aluguelAtual;
+
+      Aluguel *alu = malloc(sizeof(Aluguel));
+      memcpy(alu, aluguelAtual, sizeof(Aluguel));
+      resultado[quantidade - 1] = alu;
     }
   }
 
+  fclose(arquivo);
+
   // marca o fim do array
-  Aluguel *aluguelAtual = malloc(sizeof(Aluguel));
-  aluguelAtual = linhaParaAluguel("/!fim/!|/!fim/!|/!fim/!|0.0|01|01|2000|10|10|10|01|01|2000|10|10|10|/!fim/!|\n");
+  aluguelAtual = novoAluguel("/!fim/!", "/!fim/!");
   quantidade++;
   resultado = realloc(resultado, quantidade * sizeof(Aluguel));
   resultado[quantidade - 1] = aluguelAtual;
@@ -351,10 +284,10 @@ Aluguel **buscarAluguel(char termo[])
 }
 
 // Atualiza aluguel em aberto e calcula preco
-void fecharAluguel(char codigo[])
+int fecharAluguel(int codigo)
 {
   Aluguel *aluguel = verAluguel(codigo);
-  if (strstr(aluguel->situacao, "EM ABERTO"))
+  if (strstr(aluguel->situacao, "EM ABERTO") && aluguel->ativo)
   {
     strcpy(aluguel->situacao, "FECHADO");
 
@@ -386,79 +319,52 @@ void fecharAluguel(char codigo[])
     // calcula preco do aluguel
     aluguel->valor = aluguel->valor * tempoPercorrido;
 
-    char linha[250] = "";
-    FILE *arquivo, *temp;
-    arquivo = fopen("./alugueis.txt", "r");
-    temp = fopen("./alugueis.temp.txt", "a");
+    FILE *arquivo;
+    arquivo = fopen("./alugueis.dat", "r+b");
 
-    while (fgets(linha, sizeof(linha), arquivo) != NULL)
+    Aluguel *alu = malloc(sizeof(Aluguel));
+
+    while (fread(alu, sizeof(Aluguel), 1, arquivo))
     {
       // verifica se o codigo corresponde
-      if (strstr(linha, codigo))
+      if (alu->codigo == codigo && alu->ativo)
       {
-        fprintf(
-            temp, "%s|%s|%s|%f|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%s|\n",
-            aluguel->codigo,
-            aluguel->cliente,
-            aluguel->bicicleta,
-            aluguel->valor,
-            aluguel->saida.tm_mday,
-            aluguel->saida.tm_mon + 1,
-            aluguel->saida.tm_year + 1900,
-            aluguel->saida.tm_hour,
-            aluguel->saida.tm_min,
-            aluguel->saida.tm_sec,
-            aluguel->retorno.tm_mday,
-            aluguel->retorno.tm_mon + 1,
-            aluguel->retorno.tm_year + 1900,
-            aluguel->retorno.tm_hour,
-            aluguel->retorno.tm_min,
-            aluguel->retorno.tm_sec,
-            aluguel->situacao);
-      }
-      else
-      {
-        fprintf(temp, "%s", linha);
+        fseek(arquivo, -1 * sizeof(Aluguel), SEEK_CUR);
+
+        fwrite(aluguel, sizeof(Aluguel), 1, arquivo);
+        fclose(arquivo);
+        return 1;
       }
     }
-
-    fclose(temp);
-    fclose(arquivo);
-
-    // deleta arquivo desatualizado e renomeia temporario
-    remove("./alugueis.txt");
-    rename("./alugueis.temp.txt", "./alugueis.txt");
+    return 0;
   }
+  return 0;
 }
 
-int excluirAluguel(char codigo[])
+int excluirAluguel(int codigo)
 {
   if (aluguelExiste(codigo) == -1)
   {
     return 0;
   }
 
-  // transfere dados do arquivo original para um temporario
-  char linha[250] = "";
-  FILE *arquivo, *temp;
-  arquivo = fopen("./alugueis.txt", "r");
-  temp = fopen("./alugueis.temp.txt", "a");
+  FILE *arquivo;
+  arquivo = fopen("./alugueis.dat", "r+b");
 
-  while (fgets(linha, sizeof(linha), arquivo) != NULL)
+  Aluguel *alu = malloc(sizeof(Aluguel));
+
+  while (fread(alu, sizeof(Aluguel), 1, arquivo))
   {
-    // verifica se o codigo nao corresponde
-    if (!strstr(linha, codigo))
+    if (alu->codigo == codigo && alu->ativo)
     {
-      fprintf(temp, "%s", linha);
+      fseek(arquivo, -1 * sizeof(Aluguel), SEEK_CUR);
+
+      alu->ativo = 0;
+
+      fwrite(alu, sizeof(Aluguel), 1, arquivo);
+      fclose(arquivo);
+      break;
     }
   }
-
-  fclose(temp);
-  fclose(arquivo);
-
-  // deleta arquivo desatualizado e renomeia temporario
-  remove("./alugueis.txt");
-  rename("./alugueis.temp.txt", "./alugueis.txt");
-
   return 1;
 }

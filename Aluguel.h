@@ -2,7 +2,8 @@
 
 struct Aluguel
 {
-  char codigo[11];
+  int codigo;
+  int ativo;
   char cliente[71];
   char bicicleta[7];
   float valor;
@@ -16,11 +17,11 @@ typedef struct Aluguel Aluguel;
 void definirPrecoHora(float);
 float lerPrecoHora();
 Aluguel *novoAluguel(char[], char[]);
-int aluguelExiste(char[]);
-void gravarAluguel(Aluguel *);
-Aluguel *verAluguel(char[]);
+int aluguelExiste(int);
+int gravarAluguel(Aluguel *);
+Aluguel *verAluguel(int);
 char *saidaAluguelStr(Aluguel *);
 char *retornoAluguelStr(Aluguel *);
 Aluguel **buscarAluguel(char[]);
-void fecharAluguel(char[]);
-int excluirAluguel(char[]);
+int fecharAluguel(int);
+int excluirAluguel(int);
