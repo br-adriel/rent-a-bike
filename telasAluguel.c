@@ -55,6 +55,7 @@ void telaNovoAluguel(void)
   char codBicicleta[PATH_MAX] = "";
   char emailCliente[PATH_MAX] = "";
   Bicicleta *bicicleta;
+  Cliente *cliente;
   int inputValido = 0;
 
   do
@@ -104,7 +105,7 @@ void telaNovoAluguel(void)
       else
       {
         bicicleta = verBicicleta(codBicicleta);
-        if (!bicicleta->disponivel)
+        if (strstr(bicicleta->disponivel, "NÃO"))
         {
           printf("/!/ A bicicleta não está disponível para aluguél\n");
         }
@@ -114,9 +115,18 @@ void telaNovoAluguel(void)
         }
         else
         {
-          gravarAluguel(novoAluguel(emailCliente, codBicicleta));
-          atualizarBicicleta(bicicleta->codigo, bicicleta->cor, bicicleta->categoria, 0);
-          msgRegistroSalvo();
+          cliente = verCliente(emailCliente);
+          if (strstr(cliente->temPendencia, "SIM"))
+          {
+            printf("/!/ O cliente já possui um aluguél em aberto\n");
+          }
+          else
+          {
+            gravarAluguel(novoAluguel(emailCliente, codBicicleta));
+            atualizarBicicleta(bicicleta->codigo, bicicleta->cor, bicicleta->categoria, 0);
+            atualizarCliente(cliente->email, cliente->nome, cliente->sobrenome, cliente->telefone, "SIM");
+            msgRegistroSalvo();
+          }
         }
       }
 
