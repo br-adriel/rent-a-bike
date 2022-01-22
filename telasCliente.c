@@ -185,12 +185,18 @@ void telaBuscarCliente(void)
         printf("%s               | %s | %s | %s | %s\n",
                cli->temPendencia, nomeF, sobrenomeF, telefoneF, cli->email);
         i++;
+
+        free(nomeF);
+        free(sobrenomeF);
+        free(telefoneF);
       }
     }
     else
     {
       printf("/i/ Nenhum cliente encontrado!\n");
     }
+    free(resultado);
+
     do
     {
       printf("\n");
