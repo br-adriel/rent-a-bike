@@ -175,6 +175,7 @@ void telaVerAluguel(int codigo)
         cliente = verCliente(aluguel->cliente);
         printf("Nome: %s %s\n", cliente->nome, cliente->sobrenome);
         printf("Email: %s\n", cliente->email);
+        printf("Telefone: %s\n", formatarTelefone(cliente->telefone));
       }
 
       printf("-- Bicicleta -------------------------------------\n");
@@ -212,6 +213,7 @@ void telaVerAluguel(int codigo)
         if (bicicletaExiste(aluguel->bicicleta) != -1)
         {
           atualizarBicicleta(bicicleta->codigo, bicicleta->cor, bicicleta->categoria, 1);
+          atualizarCliente(cliente->email, cliente->nome, cliente->sobrenome, cliente->telefone, "NÃO");
         }
         break;
       case 1:
