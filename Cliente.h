@@ -5,6 +5,7 @@ struct Cliente
   char telefone[12];
   char email[46];
   int ativo;
+  int temPendencia;
 };
 
 typedef struct Cliente Cliente;

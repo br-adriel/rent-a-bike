@@ -23,6 +23,7 @@ Cliente *novoCliente(char nome[], char sobrenome[], char email[], char telefone[
   strcpy(cliente->email, email);
   strcpy(cliente->telefone, telefone);
   cliente->ativo = 1;
+  cliente->temPendencia = 0;
   return cliente;
 }
 
