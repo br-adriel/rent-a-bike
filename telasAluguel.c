@@ -340,42 +340,45 @@ void telaBuscarAluguel(void)
     {
       printf("/i/ Nenhum aluguél encontrado!\n");
     }
-    printf("\n");
-    printf("[1] Ver Aluguel\n");
-    printf("[2] Cancelar\n");
-    printf(">> ");
-    scanf("%1d", &opcao);
-    limparBuffer();
-
-    switch (opcao)
+    do
     {
-    case 1:
-      do
+      printf("\n");
+      printf("[1] Ver Aluguel\n");
+      printf("[2] Cancelar\n");
+      printf(">> ");
+      scanf("%1d", &opcao);
+      limparBuffer();
+
+      switch (opcao)
       {
-        printf("\nDigite o código do aluguél: ");
-        scanf("%d", &codigo);
-        limparBuffer();
-
-        if (aluguelExiste(codigo) == -1)
+      case 1:
+        do
         {
-          inputValido = 0;
-          printf("/!/ Código inválido: o aluguél não existe\n");
-        }
-        else
-        {
-          inputValido = 1;
-        }
+          printf("\nDigite o código do aluguél: ");
+          scanf("%d", &codigo);
+          limparBuffer();
 
-      } while (!inputValido);
+          if (aluguelExiste(codigo) == -1)
+          {
+            inputValido = 0;
+            printf("/!/ Código inválido: o aluguél não existe\n");
+          }
+          else
+          {
+            inputValido = 1;
+          }
 
-      telaVerAluguel(codigo);
-      opcao = 2;
-      break;
-    case 2:
-      break;
-    default:
-      msgInvalido();
-    }
+        } while (!inputValido);
+
+        telaVerAluguel(codigo);
+        opcao = 2;
+        break;
+      case 2:
+        break;
+      default:
+        msgInvalido();
+      }
+    } while (opcao != 1 && opcao != 2);
   } while (opcao != 2);
 }
 
