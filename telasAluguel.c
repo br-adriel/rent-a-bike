@@ -20,7 +20,7 @@ void telaGerenciarAlugueis(void)
     printf("--------------------------------------------------\n");
     printf("\n[1] Novo aluguél\n");
     printf("[2] Buscar aluguél\n");
-    printf("[3] Relatório de lucros\n");
+    printf("[3] Relatório de atividades\n");
     printf("[4] Alterar preço da hora\n");
     printf("\n[5] Voltar\n");
     printf(">> ");
@@ -37,7 +37,7 @@ void telaGerenciarAlugueis(void)
       telaBuscarAluguel();
       break;
     case 3:
-      telaRelatorioLucros();
+      telaRelatorioAtividades();
       break;
     case 4:
       telaAlterarPreco();
@@ -389,49 +389,20 @@ void telaBuscarAluguel(void)
   } while (opcao != 2);
 }
 
-void telaRelatorioLucros(void)
+void telaRelatorioAtividades(void)
 {
   int opcao = 0;
+  Relatorio *rel;
 
   do
   {
-    if (opcao == 0)
-    {
-      printf("//////////////////////////////////////////////////\n");
-      printf("RENT A BIKE - Relatório de lucros\n");
-      printf("--------------------------------------------------\n");
-      printf("\n[1] Diário\n");
-      printf("[2] Semanal\n");
-      printf("[3] Mensal\n");
-      printf("\n[4] Voltar\n");
-      printf(">> ");
-      scanf("%1d", &opcao);
-      limparBuffer();
-
-      if (opcao == 4)
-      {
-        break;
-      }
-
-      printf("\n");
-      printf("\nGerando relatório...\n");
-    }
-
-    printf("\n-- Relatório 12/02/2020 ---------------------------\n");
-    printf("Aluguéis: 230\n");
-    printf("Lucro total: R$ 250.32\n");
-    printf("\n-- Detalhamento -----------------------------------\n");
-    printf("Código | Cliente          | Preco    | Data\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("000000 | fulano@email.com | R$ 23.19 | 31/12/9999\n");
-    printf("\n");
-    printf("Exportar?\n");
-    printf("[1] Sim\n[2] Não\n");
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Relatório de atividades\n");
+    printf("--------------------------------------------------\n");
+    printf("\n[1] Diário\n");
+    printf("[2] Semanal\n");
+    printf("[3] Mensal\n");
+    printf("\n[4] Voltar\n");
     printf(">> ");
     scanf("%1d", &opcao);
     limparBuffer();
@@ -439,16 +410,32 @@ void telaRelatorioLucros(void)
     switch (opcao)
     {
     case 1:
-      printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =");
-      printf("\nExportado para o arquivo \"Extrato-2021-11-05.txt\"");
-      printf("\n= = = = = = = = = = = = = = = = = = = = = = = = =\n");
+      rel = gerarRelatorio(1);
+      telaRelatorio(rel, 1);
       break;
     case 2:
+      rel = gerarRelatorio(7);
+      telaRelatorio(rel, 7);
+      break;
+    case 3:
+      rel = gerarRelatorio(30);
+      telaRelatorio(rel, 30);
+      break;
+    case 4:
       break;
     default:
       msgInvalido();
     }
-  } while (opcao != 1 && opcao != 2);
+  } while (opcao != 4);
+}
+
+void telaRelatorio(Relatorio *rel, int dias)
+{
+  printf("\nAtividade nos últimos %d dias\n", dias);
+  printf("Total de aluguéis alterados: %d\n", rel->total);
+  printf("Aluguéis em abertos: %d\n", rel->abertos);
+  printf("Aluguéis fechados: %d\n", rel->fechados);
+  printf("Lucro gerado: R$ %.2f\n\n", rel->lucro);
 }
 
 void telaAlterarPreco(void)
