@@ -10,10 +10,11 @@ struct Cliente
 
 typedef struct Cliente Cliente;
 
-Cliente* novoCliente(char[], char[], char[], char[]);
+Cliente *novoCliente(char[], char[], char[], char[]);
 int clienteExiste(char[]);
-int gravarCliente(Cliente*);
-Cliente* verCliente(char[]);
+int gravarCliente(Cliente *);
+Cliente *verCliente(char[]);
 int atualizarCliente(char[], char[], char[], char[], char[]);
 int excluirCliente(char[]);
 Cliente **buscaCliente(char[]);
+void listarClientes(int);

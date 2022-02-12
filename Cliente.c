@@ -252,3 +252,43 @@ Cliente **buscaCliente(char termo[])
   resultado[quantidade - 1] = clienteAtual;
   return resultado;
 }
+
+void listarClientes(int pendencia)
+{
+  FILE *arquivo;
+  arquivo = fopen("./clientes.dat", "rb");
+
+  Cliente *cliAtual = (Cliente *)malloc(sizeof(Cliente));
+
+  while (fread(cliAtual, sizeof(Cliente), 1, arquivo))
+  {
+    if (pendencia)
+    {
+      if (cliAtual->ativo && strstr(cliAtual->temPendencia, "SIM"))
+      {
+        char *nomeF = formatarPalavra(cliAtual->nome, 20);
+        char *sobrenomeF = formatarPalavra(cliAtual->sobrenome, 20);
+        char *telefoneF = formatarTelefone(cliAtual->telefone);
+        printf("%s | %s | %s | %s\n",
+               nomeF, sobrenomeF, telefoneF, cliAtual->email);
+        free(nomeF);
+        free(sobrenomeF);
+        free(telefoneF);
+      }
+    }
+    else
+    {
+      if (cliAtual->ativo && strstr(cliAtual->temPendencia, "NÃO"))
+      {
+        char *nomeF = formatarPalavra(cliAtual->nome, 20);
+        char *sobrenomeF = formatarPalavra(cliAtual->sobrenome, 20);
+        char *telefoneF = formatarTelefone(cliAtual->telefone);
+        printf("%s | %s | %s | %s\n",
+               nomeF, sobrenomeF, telefoneF, cliAtual->email);
+        free(nomeF);
+        free(sobrenomeF);
+        free(telefoneF);
+      }
+    }
+  }
+}

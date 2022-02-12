@@ -4,3 +4,4 @@ void telaBuscarCliente(void);
 void telaVerCliente(char[]);
 void telaEditarCliente(char[]);
 void telaExcluirCliente(char[]);
+void telaListarClientes(void);

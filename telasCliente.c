@@ -21,7 +21,8 @@ void telaGerenciarClientes(void)
     printf("\n[1] Novo cliente\n");
     printf("[2] Buscar cliente\n");
     printf("[3] Ver cliente\n");
-    printf("\n[4] Voltar\n");
+    printf("[4] Listar clientes\n");
+    printf("\n[5] Voltar\n");
     printf(">> ");
     scanf("%1d", &opcao);
     limparBuffer();
@@ -57,11 +58,14 @@ void telaGerenciarClientes(void)
 
       break;
     case 4:
+      telaListarClientes();
+      break;
+    case 5:
       break;
     default:
       msgInvalido();
     }
-  } while (opcao != 4);
+  } while (opcao != 5);
 }
 
 void telaNovoCliente(void)
@@ -422,4 +426,45 @@ void telaExcluirCliente(char email[])
     }
   } while (opcao != 1 && opcao != 2);
   free(cliente);
+}
+
+void telaListarClientes()
+{
+  int opcao = 3;
+
+  do
+  {
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Listar clientes\n");
+    printf("\n--------------------------------------------------\n\n");
+    printf("\n");
+    printf("[1] Clientes com aluguél aberto\n");
+    printf("[2] Clientes sem pendências\n");
+    printf("\n[3] Cancelar\n");
+    printf(">> ");
+    scanf("%1d", &opcao);
+    limparBuffer();
+    printf("\n");
+    switch (opcao)
+    {
+    case 1:
+      printf("\n\nCLIENTES COM ALUGUÉL ABERTO -----------------------------------------\n");
+      printf("Nome                 | Sobrenome            | Telefone        | Email\n");
+      listarClientes(1);
+      printf("\n");
+      opcao = 3;
+      break;
+    case 2:
+      printf("\nCLIENTES SEM PENDÊNCIAS -----------------------------------------------\n");
+      printf("Nome                 | Sobrenome            | Telefone        | Email\n");
+      listarClientes(0);
+      printf("\n");
+      opcao = 3;
+      break;
+    case 3:
+      break;
+    default:
+      msgInvalido();
+    }
+  } while (opcao != 3);
 }
