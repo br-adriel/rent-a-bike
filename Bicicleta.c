@@ -238,3 +238,43 @@ Bicicleta **buscaBicicleta(char termo[])
   resultado[quantidade - 1] = bicAtual;
   return resultado;
 }
+
+void listarBicicletas(int disponivel)
+{
+  FILE *arquivo;
+  arquivo = fopen("./bicicletas.dat", "rb");
+
+  Bicicleta *bicAtual = (Bicicleta *)malloc(sizeof(Bicicleta));
+
+  while (fread(bicAtual, sizeof(Bicicleta), 1, arquivo))
+  {
+    if (disponivel)
+    {
+      if (bicAtual->ativa && strstr(bicAtual->disponivel, "SIM"))
+      {
+        char *codigoF = formatarPalavra(bicAtual->codigo, 6);
+        char *corF = formatarPalavra(bicAtual->cor, 20);
+        printf("%s | %s | %s\n",
+               codigoF,
+               corF,
+               bicAtual->categoria);
+        free(codigoF);
+        free(corF);
+      }
+    }
+    else
+    {
+      if (bicAtual->ativa && strstr(bicAtual->disponivel, "NÃO"))
+      {
+        char *codigoF = formatarPalavra(bicAtual->codigo, 6);
+        char *corF = formatarPalavra(bicAtual->cor, 20);
+        printf("%s | %s | %s\n",
+               codigoF,
+               corF,
+               bicAtual->categoria);
+        free(codigoF);
+        free(corF);
+      }
+    }
+  }
+}

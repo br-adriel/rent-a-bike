@@ -20,7 +20,8 @@ void telaGerenciarBicicletas(void)
     printf("\n[1] Nova bicicleta\n");
     printf("[2] Buscar bicicleta\n");
     printf("[3] Ver bicicleta\n");
-    printf("\n[4] Voltar\n");
+    printf("[4] Listar bicicletas\n");
+    printf("\n[5] Voltar\n");
     printf(">> ");
     scanf("%1d", &opcao);
     limparBuffer();
@@ -49,11 +50,14 @@ void telaGerenciarBicicletas(void)
       }
       break;
     case 4:
+      telaListarBicicletas();
+      break;
+    case 5:
       break;
     default:
       msgInvalido();
     }
-  } while (opcao != 4);
+  } while (opcao != 5);
 }
 
 void telaNovaBicicleta(void)
@@ -352,6 +356,47 @@ void telaEditarBicicleta(char codigo[])
     }
   } while (opcao != 1 && opcao != 3);
   free(bicicleta);
+}
+
+void telaListarBicicletas()
+{
+  int opcao = 3;
+
+  do
+  {
+    printf("//////////////////////////////////////////////////\n");
+    printf("RENT A BIKE - Listar bicicletas\n");
+    printf("\n--------------------------------------------------\n\n");
+    printf("\n");
+    printf("[1] Bicicletas disponíveis\n");
+    printf("[2] Bicicletas indisponíveis\n");
+    printf("\n[3] Cancelar\n");
+    printf(">> ");
+    scanf("%1d", &opcao);
+    limparBuffer();
+    printf("\n");
+    switch (opcao)
+    {
+    case 1:
+      printf("\nBICICLETAS DISPONÍVEIS ------------------\n");
+      printf("Código | Cor                  | Categoria\n");
+      listarBicicletas(1);
+      printf("\n");
+      opcao = 3;
+      break;
+    case 2:
+      printf("\nBICICLETAS INDISPONÍVEIS ------------------\n");
+      printf("Código | Cor                  | Categoria\n");
+      listarBicicletas(0);
+      printf("\n");
+      opcao = 3;
+      break;
+    case 3:
+      break;
+    default:
+      msgInvalido();
+    }
+  } while (opcao != 3);
 }
 
 void telaExcluirBicicleta(char codigo[])

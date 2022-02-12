@@ -9,11 +9,11 @@ struct Bicicleta
 
 typedef struct Bicicleta Bicicleta;
 
-
-Bicicleta* novaBicicleta(char[], char[], char[], int);
+Bicicleta *novaBicicleta(char[], char[], char[], int);
 int bicicletaExiste(char[]);
-int gravarBicicleta(Bicicleta*);
-Bicicleta* verBicicleta(char[]);
+int gravarBicicleta(Bicicleta *);
+Bicicleta *verBicicleta(char[]);
 int atualizarBicicleta(char[], char[], char[], int);
 int excluirBicicleta(char[]);
 Bicicleta **buscaBicicleta(char[]);
+void listarBicicletas(int);
