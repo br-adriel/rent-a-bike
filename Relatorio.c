@@ -27,25 +27,29 @@ Relatorio *gerarRelatorio(int dias)
 
   while (fread(aluguelAtual, sizeof(Aluguel), 1, arquivo))
   {
-    if (strstr(aluguelAtual->situacao, "FECHADO"))
+    if (aluguelAtual->ativo)
     {
-      float diferenca = difftime(hoje, mktime(&(aluguelAtual->retorno)));
-      float diferencaDias = diferenca / 86400;
-      if (diferencaDias <= dias)
+
+      if (strstr(aluguelAtual->situacao, "FECHADO"))
       {
-        relatorio->total++;
-        relatorio->fechados++;
-        relatorio->lucro = relatorio->lucro + aluguelAtual->valor;
+        float diferenca = difftime(hoje, mktime(&(aluguelAtual->retorno)));
+        float diferencaDias = diferenca / 86400;
+        if (diferencaDias <= dias)
+        {
+          relatorio->total++;
+          relatorio->fechados++;
+          relatorio->lucro = relatorio->lucro + aluguelAtual->valor;
+        }
       }
-    }
-    else
-    {
-      float diferenca = difftime(hoje, mktime(&(aluguelAtual->saida)));
-      float diferencaDias = diferenca / 86400;
-      if (diferencaDias <= dias)
+      else
       {
-        relatorio->total++;
-        relatorio->abertos++;
+        float diferenca = difftime(hoje, mktime(&(aluguelAtual->saida)));
+        float diferencaDias = diferenca / 86400;
+        if (diferencaDias <= dias)
+        {
+          relatorio->total++;
+          relatorio->abertos++;
+        }
       }
     }
   }

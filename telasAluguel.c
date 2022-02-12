@@ -433,7 +433,7 @@ void telaRelatorio(Relatorio *rel, int dias)
 {
   printf("\nAtividade nos últimos %d dias\n", dias);
   printf("Total de aluguéis alterados: %d\n", rel->total);
-  printf("Aluguéis em abertos: %d\n", rel->abertos);
+  printf("Aluguéis em aberto: %d\n", rel->abertos);
   printf("Aluguéis fechados: %d\n", rel->fechados);
   printf("Lucro gerado: R$ %.2f\n\n", rel->lucro);
 }
