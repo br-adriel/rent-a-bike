@@ -436,8 +436,7 @@ void telaListarClientes()
   {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Listar clientes\n");
-    printf("\n--------------------------------------------------\n\n");
-    printf("\n");
+    printf("--------------------------------------------------\n\n");
     printf("[1] Clientes com aluguél aberto\n");
     printf("[2] Clientes sem pendências\n");
     printf("\n[3] Cancelar\n");

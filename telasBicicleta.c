@@ -366,8 +366,7 @@ void telaListarBicicletas()
   {
     printf("//////////////////////////////////////////////////\n");
     printf("RENT A BIKE - Listar bicicletas\n");
-    printf("\n--------------------------------------------------\n\n");
-    printf("\n");
+    printf("--------------------------------------------------\n\n");
     printf("[1] Bicicletas disponíveis\n");
     printf("[2] Bicicletas indisponíveis\n");
     printf("\n[3] Cancelar\n");
