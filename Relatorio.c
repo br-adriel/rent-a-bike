@@ -87,16 +87,9 @@ Relatorio *gerarRelatorio(int dias)
           relatorio->fechados++;
           relatorio->lucro = relatorio->lucro + aluguelAtual->valor;
 
-          if (comecoFechados == NULL)
-          {
-            comecoFechados = novoItem();
-            comecoFechados->aluguel = aluguelAtual;
-            comecoFechados->prox = NULL;
-          }
-          else
-          {
-            comecoFechados = adicionarItem(comecoFechados, aluguelAtual);
-          }
+          Aluguel *alu = malloc(sizeof(Aluguel));
+          memcpy(alu, aluguelAtual, sizeof(Aluguel));
+          comecoFechados = adicionarItem(comecoFechados, alu);
         }
       }
       else
@@ -108,16 +101,9 @@ Relatorio *gerarRelatorio(int dias)
           relatorio->total++;
           relatorio->abertos++;
 
-          if (comecoAbertos == NULL)
-          {
-            comecoAbertos = novoItem();
-            comecoAbertos->aluguel = aluguelAtual;
-            comecoAbertos->prox = NULL;
-          }
-          else
-          {
-            comecoAbertos = adicionarItem(comecoAbertos, aluguelAtual);
-          }
+          Aluguel *alu = malloc(sizeof(Aluguel));
+          memcpy(alu, aluguelAtual, sizeof(Aluguel));
+          comecoAbertos = adicionarItem(comecoAbertos, alu);
         }
       }
     }
