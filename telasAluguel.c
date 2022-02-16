@@ -12,6 +12,8 @@
 void telaGerenciarAlugueis(void)
 {
   int opcao = 0;
+  int codigo = 0;
+  int inputValido = 0;
 
   do
   {
@@ -20,9 +22,10 @@ void telaGerenciarAlugueis(void)
     printf("--------------------------------------------------\n");
     printf("\n[1] Novo aluguél\n");
     printf("[2] Buscar aluguél\n");
-    printf("[3] Relatório de atividades\n");
-    printf("[4] Alterar preço da hora\n");
-    printf("\n[5] Voltar\n");
+    printf("[3] Ver aluguél\n");
+    printf("[4] Relatório de atividades\n");
+    printf("[5] Alterar preço da hora\n");
+    printf("\n[6] Voltar\n");
     printf(">> ");
     scanf("%1d", &opcao);
     limparBuffer();
@@ -37,17 +40,38 @@ void telaGerenciarAlugueis(void)
       telaBuscarAluguel();
       break;
     case 3:
+      do
+      {
+        printf("\n[0] - Cancelar");
+        printf("\nDigite o código do aluguél: ");
+        scanf("%d", &codigo);
+        limparBuffer();
+        if (codigo == 0)
+        {
+          break;
+        }
+        else if (aluguelExiste(codigo) == -1)
+        {
+          inputValido = 0;
+          printf("/!/ Código inválido: o aluguél não existe\n");
+        }
+        else
+        {
+          inputValido = 1;
+        }
+      } while (!inputValido);
+    case 4:
       telaRelatorioAtividades();
       break;
-    case 4:
+    case 5:
       telaAlterarPreco();
       break;
-    case 5:
+    case 6:
       break;
     default:
       msgInvalido();
     }
-  } while (opcao != 5);
+  } while (opcao != 6);
 }
 
 void telaNovoAluguel(void)
@@ -361,11 +385,16 @@ void telaBuscarAluguel(void)
       case 1:
         do
         {
+          printf("\n[0] - Cancelar");
           printf("\nDigite o código do aluguél: ");
           scanf("%d", &codigo);
           limparBuffer();
 
-          if (aluguelExiste(codigo) == -1)
+          if (codigo == 0)
+          {
+            break;
+          }
+          else if (aluguelExiste(codigo) == -1)
           {
             inputValido = 0;
             printf("/!/ Código inválido: o aluguél não existe\n");
@@ -374,7 +403,6 @@ void telaBuscarAluguel(void)
           {
             inputValido = 1;
           }
-
         } while (!inputValido);
 
         telaVerAluguel(codigo);
