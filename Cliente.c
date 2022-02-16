@@ -253,6 +253,50 @@ Cliente **buscaCliente(char termo[])
   return resultado;
 }
 
+struct itemCli
+{
+  Cliente *cliente;
+  struct itemCli *prox;
+};
+
+typedef struct itemCli *ItemCli;
+
+ItemCli novoItemCli()
+{
+  ItemCli temp;
+  temp = (ItemCli)malloc(sizeof(struct itemCli));
+  temp->prox = NULL;
+  return temp;
+}
+
+ItemCli adicionarItemCli(ItemCli inicio, Cliente *cliente)
+{
+  ItemCli temp, aux;
+  temp = novoItemCli();
+  temp->cliente = cliente;
+  if (inicio == NULL)
+  {
+    inicio = temp;
+  }
+  else
+  {
+    aux = inicio;
+    while (aux->prox != NULL)
+    {
+      if ((strcmp(temp->cliente->nome, aux->cliente->nome) >= 1) &&
+          (strcmp(temp->cliente->nome, aux->prox->cliente->nome) < 1))
+      {
+        temp->prox = aux->prox;
+        aux->prox = temp;
+        return inicio;
+      }
+      aux = aux->prox;
+    }
+    aux->prox = temp;
+  }
+  return inicio;
+}
+
 void listarClientes(int pendencia)
 {
   FILE *arquivo;
@@ -260,35 +304,52 @@ void listarClientes(int pendencia)
 
   Cliente *cliAtual = (Cliente *)malloc(sizeof(Cliente));
 
+  ItemCli inicioLista = malloc(sizeof(struct itemCli));
+  inicioLista = NULL;
+
   while (fread(cliAtual, sizeof(Cliente), 1, arquivo))
   {
     if (pendencia)
     {
       if (cliAtual->ativo && strstr(cliAtual->temPendencia, "SIM"))
       {
-        char *nomeF = formatarPalavra(cliAtual->nome, 20);
-        char *sobrenomeF = formatarPalavra(cliAtual->sobrenome, 20);
-        char *telefoneF = formatarTelefone(cliAtual->telefone);
-        printf("%s | %s | %s | %s\n",
-               nomeF, sobrenomeF, telefoneF, cliAtual->email);
-        free(nomeF);
-        free(sobrenomeF);
-        free(telefoneF);
+        Cliente *cli = malloc(sizeof(Cliente));
+        memcpy(cli, cliAtual, sizeof(Cliente));
+        inicioLista = adicionarItemCli(inicioLista, cli);
       }
     }
     else
     {
       if (cliAtual->ativo && strstr(cliAtual->temPendencia, "NÃO"))
       {
-        char *nomeF = formatarPalavra(cliAtual->nome, 20);
-        char *sobrenomeF = formatarPalavra(cliAtual->sobrenome, 20);
-        char *telefoneF = formatarTelefone(cliAtual->telefone);
-        printf("%s | %s | %s | %s\n",
-               nomeF, sobrenomeF, telefoneF, cliAtual->email);
-        free(nomeF);
-        free(sobrenomeF);
-        free(telefoneF);
+        Cliente *cli = malloc(sizeof(Cliente));
+        memcpy(cli, cliAtual, sizeof(Cliente));
+        inicioLista = adicionarItemCli(inicioLista, cli);
       }
     }
+  }
+
+  ItemCli atual;
+  atual = inicioLista;
+  while (atual != NULL)
+  {
+    char *nomeF = formatarPalavra(atual->cliente->nome, 20);
+    char *sobrenomeF = formatarPalavra(atual->cliente->sobrenome, 20);
+    char *telefoneF = formatarTelefone(atual->cliente->telefone);
+    if (pendencia)
+    {
+      printf("%s | %s | %s | %s\n",
+             nomeF, sobrenomeF, telefoneF, atual->cliente->email);
+    }
+    else
+    {
+
+      printf("%s | %s | %s | %s\n",
+             nomeF, sobrenomeF, telefoneF, atual->cliente->email);
+    }
+    free(nomeF);
+    free(sobrenomeF);
+    free(telefoneF);
+    atual = atual->prox;
   }
 }
