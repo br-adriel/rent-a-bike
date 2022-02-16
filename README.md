@@ -30,7 +30,7 @@ e dois módulos de funcionalidades genéricas (Validadores e Utils).
 - Funcionalidades:
   - CRUD
   - Pesquisa de aluguéis
-  - Relatório de lucros
+  - Relatório de atividade
 
 #### Clientes
 
