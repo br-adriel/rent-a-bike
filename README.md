@@ -2,7 +2,7 @@
 
 Sistema para gerenciamento de aluguéis de bicicletas.
 
-<img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="Embolema C" title="Desenvolvido com C">
+<img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="Selo da linguagem C" title="Desenvolvido em C">
 
 ## Cenário de aplicabilidade
 
